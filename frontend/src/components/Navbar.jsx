@@ -10,10 +10,7 @@ const navLinks = [
     label: "Resources",
     dropdown: ["Blog", "Interview Questions", "Free Tutorials", "E-Books", "Webinars"],
   },
-  {
-    label: "Our Entities",
-    dropdown: ["Quality Thought Academy", "Quality Thought Corporate", "Quality Thought Online"],
-  },
+
   {
     label: "Placements",
     dropdown: ["Placement Stories", "Hiring Partners", "Placement Stats"],
