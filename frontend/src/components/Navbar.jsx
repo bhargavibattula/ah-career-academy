@@ -34,14 +34,9 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 flex-shrink-0">
-            <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-black text-xl">A</span>
-            </div>
-            <div className="leading-tight">
-              <div className="font-bold text-gray-800 text-base leading-none">AH</div>
-              <div className="font-bold text-gray-800 text-base leading-none">Career</div>
-            </div>
+          <Link to="/" className="flex items-center gap-3 flex-shrink-0 group">
+            <img src="/logo.jpg" alt="AH Career Logo" className="h-16 w-auto object-contain" />
+            <span className="text-[#0d1b3e] font-black text-3xl tracking-tight">AH CAREER</span>
           </Link>
 
           {/* Desktop Nav */}

@@ -42,13 +42,13 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex flex-col items-center gap-3">
             {/* Logo */}
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-black text-base">A</span>
+            <div className="flex flex-col items-center flex-shrink-0 mb-4 bg-white px-6 py-3 rounded-xl shadow-sm">
+              <div className="flex items-baseline gap-1">
+                <span className="text-[#0d1b3e] font-black text-3xl tracking-tight">AH CAREER</span>
               </div>
-              <div>
-                <div className="font-bold text-white text-sm leading-none">AH</div>
-                <div className="font-bold text-white text-sm leading-none">Career</div>
+              <div className="flex flex-col w-full">
+                <span className="text-red-700 font-bold text-[11px] tracking-[0.15em] uppercase border-t-2 border-b-2 border-[#0d1b3e] py-0.5 my-0.5 text-center">Academy of Skills</span>
+                <span className="text-[#0d1b3e] font-bold text-[9px] tracking-[0.2em] uppercase text-center border-b-2 border-[#0d1b3e] pb-0.5">ISO 9001 : 2015 Certified</span>
               </div>
             </div>
 
