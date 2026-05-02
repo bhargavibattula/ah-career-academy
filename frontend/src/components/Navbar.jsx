@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   {
@@ -23,7 +24,7 @@ const navLinks = [
   },
   {
     label: "More",
-    dropdown: ["About Us", "Contact Us", "Reviews", "Our Blog"],
+    dropdown: ["About Us", "Kids Training", "Careers", "Contact Us", "Reviews", "Our Blog"],
   },
 ];
 
@@ -36,15 +37,15 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <Link to="/" className="flex items-center gap-2 flex-shrink-0">
             <div className="w-10 h-10 bg-orange-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-black text-xl">Q</span>
+              <span className="text-white font-black text-xl">A</span>
             </div>
             <div className="leading-tight">
-              <div className="font-bold text-gray-800 text-base leading-none">Quality</div>
-              <div className="font-bold text-gray-800 text-base leading-none">Thought</div>
+              <div className="font-bold text-gray-800 text-base leading-none">AH</div>
+              <div className="font-bold text-gray-800 text-base leading-none">Career</div>
             </div>
-          </div>
+          </Link>
 
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-1">
@@ -64,13 +65,13 @@ export default function Navbar() {
                 {openMenu === link.label && (
                   <div className="absolute top-full left-0 bg-white rounded-xl shadow-xl border border-gray-100 min-w-[200px] py-2 z-50">
                     {link.dropdown.map((item) => (
-                      <a
+                      <Link
                         key={item}
-                        href="#"
+                        to={item === "Contact Us" ? "/contact" : item === "Careers" ? "/careers" : item === "Reviews" ? "/reviews" : item === "About Us" ? "/about" : item === "Kids Training" ? "/kids-training" : item === "Our Blog" ? "/blog" : "#"}
                         className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
                       >
                         {item}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 )}
@@ -112,9 +113,24 @@ export default function Navbar() {
         {mobileOpen && (
           <div className="lg:hidden border-t border-gray-100 py-2">
             {navLinks.map((link) => (
-              <a key={link.label} href="#" className="block px-4 py-2.5 text-sm text-gray-700 hover:text-orange-500 font-medium">
-                {link.label}
-              </a>
+              <div key={link.label}>
+                {link.dropdown ? (
+                  link.dropdown.map((item) => (
+                    <Link
+                      key={item}
+                      to={item === "Contact Us" ? "/contact" : item === "Careers" ? "/careers" : item === "Reviews" ? "/reviews" : item === "About Us" ? "/about" : item === "Kids Training" ? "/kids-training" : item === "Our Blog" ? "/blog" : "#"}
+                      className="block px-4 py-2.5 text-sm text-gray-700 hover:text-orange-500 font-medium ml-4"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {item}
+                    </Link>
+                  ))
+                ) : (
+                  <Link to="#" className="block px-4 py-2.5 text-sm text-gray-700 hover:text-orange-500 font-medium">
+                    {link.label}
+                  </Link>
+                )}
+              </div>
             ))}
           </div>
         )}

@@ -1,7 +1,7 @@
 const footerLinks = {
-  "QUALITY THOUGHT": ["About Us", "Our Blog", "Pay Now", "Contact Us", "Reviews"],
-  "TOP CATEGORIES": ["DevOps Engineer", "GCP Cloud Data Engineer", "Digital Marketing", "Python with Gen AI", "Gen AI Development"],
-  "TRENDING COURSES": ["Data Science", "Medical Coding", "DevOps", "Multi-Cloud", "Cybersecurity"],
+  "AH CAREER": ["About Us", "Our Blog", "Pay Now", "Contact Us", "Reviews"],
+  "TOP CATEGORIES": ["Full Stack Development", "AI & Machine Learning", "Data Science", "Digital Marketing", "Cybersecurity"],
+  "TRENDING COURSES": ["Python", "Java", "Web Designing", "Advanced Excel", "Spoken English"],
 };
 
 export default function Footer() {
@@ -44,16 +44,16 @@ export default function Footer() {
             {/* Logo */}
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-black text-base">Q</span>
+                <span className="text-white font-black text-base">A</span>
               </div>
               <div>
-                <div className="font-bold text-white text-sm leading-none">Quality</div>
-                <div className="font-bold text-white text-sm leading-none">Thought</div>
+                <div className="font-bold text-white text-sm leading-none">AH</div>
+                <div className="font-bold text-white text-sm leading-none">Career</div>
               </div>
             </div>
 
             <p className="text-gray-400 text-xs text-center">
-              All Rights Reserved Quality Thought Infosystems India Pvt. Ltd.
+              All Rights Reserved AH Career Academy of Skills.
             </p>
             <div className="flex flex-wrap justify-center gap-2 text-xs">
               {["Sitemap", "FAQs", "Cancellation & Refunds", "Privacy Policy", "Terms & Conditions", "Feedback"].map((item, i, arr) => (

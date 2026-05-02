@@ -1,8 +1,8 @@
 const achievements = [
-  "Top 6 EdTech Institute in India",
-  "Featured in Telangana Today",
-  "Industry Partner with 500+ Companies",
-  "Trusted by 100+ Corporate Clients",
+  "25 Years Trusted Service",
+  "ISO 9001:2015 Certified",
+  "Tally Certified Partner",
+  "MSME Registered & AICTE Recognized",
 ];
 
 const media = ["Economic Times", "Times of India", "The Hindu", "Tech News", "India Today"];
@@ -52,13 +52,13 @@ export default function Recognition() {
           <div className="text-center">
             <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
               <p className="text-gray-600 text-sm mb-1">We Are Honored as</p>
-              <h3 className="text-[#1e1b4b] font-extrabold text-xl mb-0.5">Best EdTech Company 2025</h3>
-              <p className="text-gray-500 text-sm mb-4">by Zee Telugu</p>
+              <h3 className="text-[#1e1b4b] font-extrabold text-xl mb-0.5">Premier Training Institute</h3>
+              <p className="text-gray-500 text-sm mb-4">in Rajahmundry</p>
               <div className="w-full h-48 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center mb-4 overflow-hidden">
                 <div className="text-center px-4">
                   <div className="text-6xl mb-3">🏆</div>
-                  <div className="text-orange-700 font-bold text-base">Award Ceremony</div>
-                  <div className="text-orange-600 text-sm">Best EdTech Company 2025</div>
+                  <div className="text-orange-700 font-bold text-base">AH Career Academy</div>
+                  <div className="text-orange-600 text-sm">Empowering Students since 2013</div>
                 </div>
               </div>
               <div className="flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-3 text-left">

@@ -3,7 +3,7 @@ const services = [
     icon: "🏫",
     iconBg: "bg-[#1e1b4b]",
     title: "Classroom Training",
-    desc: "In-person immersive learning in our Hyderabad centers with hands-on labs and direct mentor interaction.",
+    desc: "In-person immersive learning in our Rajahmundry center with hands-on labs and direct mentor interaction.",
   },
   {
     icon: "🖥️",

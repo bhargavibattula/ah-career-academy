@@ -5,7 +5,7 @@ export default function Hero() {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 border border-orange-400/40 bg-orange-500/10 text-orange-400 rounded-full px-4 py-1.5 text-sm font-medium mb-8">
           <span className="text-orange-400">🏅</span>
-          Trusted by 150k+ Students Since 2010
+          Trusted by Students Since 2013
         </div>
 
         {/* Heading */}
@@ -17,7 +17,7 @@ export default function Hero() {
 
         {/* Subtitle */}
         <p className="text-gray-300 text-base sm:text-lg mb-10 font-normal">
-          100+ Industry-Focused Programs • 50000+ Success Stories • 16+ Years of Excellence
+          ISO 9001:2015 Certified • Tally Certified Partner • MSME Registered
         </p>
 
         {/* CTA Buttons */}
@@ -25,7 +25,7 @@ export default function Hero() {
           <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-7 py-3.5 rounded-lg flex items-center justify-center gap-2 transition-colors text-base">
             Talk To Expert
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
             </svg>
           </button>
           <button className="border border-white/40 hover:border-white/70 text-white font-semibold px-7 py-3.5 rounded-lg flex items-center justify-center gap-2 transition-colors text-base">
@@ -58,10 +58,10 @@ export default function Hero() {
         {/* Stat Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { value: "16+", label: "Years of Excellence" },
-            { value: "100+", label: "Courses Offered" },
-            { value: "1000+", label: "Annual Placements" },
-            { value: "150K+", label: "Trained Students" },
+            { value: "10+", label: "Years of Excellence" },
+            { value: "25+", label: "Courses Offered" },
+            { value: "100%", label: "Practical Training" },
+            { value: "24/7", label: "Learning Support" },
           ].map((stat) => (
             <div
               key={stat.label}
