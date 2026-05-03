@@ -18,6 +18,8 @@ import KidsTraining from "./components/KidsTraining";
 import Blog from "./components/Blog";
 import BlogPost from "./components/BlogPost";
 
+import JobDetailsPage from "./pages/JobDetailsPage";
+
 // Pages
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -50,6 +52,7 @@ export default function App() {
         <Route path="/kids-training" element={<KidsTraining />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogPost />} />
+        <Route path="/jobs/:idOrSlug" element={<JobDetailsPage />} />
 
         {/* Auth Routes */}
         <Route path="/login" element={

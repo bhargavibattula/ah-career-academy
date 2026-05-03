@@ -1,64 +1,43 @@
-import { useState } from "react";
-
-const jobsData = [
-  {
-    id: 1,
-    title: "Marketing Representative Internship",
-    company: "Idovent Private Limited",
-    location: "Bengaluru",
-    workType: "On-site",
-    experience: "Fresher",
-    salary: "1k to 10k per Month",
-    type: "Full-Time",
-    logo: "M",
-    logoColor: "bg-blue-100 text-blue-600"
-  },
-  {
-    id: 2,
-    title: "Software Development Internship",
-    company: "Tax-O-Smart",
-    location: "Mumbai",
-    workType: "On-site",
-    experience: "Fresher",
-    salary: "8k per Month",
-    type: "Internship",
-    logo: "S",
-    logoColor: "bg-green-100 text-green-600"
-  },
-  {
-    id: 3,
-    title: "Full Stack Java Developer",
-    company: "AH Career",
-    location: "Hyderabad",
-    workType: "Hybrid",
-    experience: "1 - 3 yr.",
-    salary: "40k to 60k per Month",
-    type: "Full-Time",
-    logo: "Q",
-    logoColor: "bg-orange-100 text-orange-600"
-  },
-  {
-    id: 4,
-    title: "Data Science Lead",
-    company: "AH Career",
-    location: "Remote",
-    workType: "Remote",
-    experience: "3 - 6 yr.",
-    salary: "Not Disclosed",
-    type: "Full-Time",
-    logo: "Q",
-    logoColor: "bg-orange-100 text-orange-600"
-  }
-];
+import { useState, useEffect } from "react";
+import { getJobs } from "../services/jobService";
+import JobCard from "./jobs/JobCard";
 
 export default function Careers() {
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [copySuccess, setCopySuccess] = useState(null);
+
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
+  const fetchJobs = async () => {
+    try {
+      const data = await getJobs();
+      setJobs(data);
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const sharePage = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopySuccess("Link copied!");
+    setTimeout(() => setCopySuccess(null), 3000);
+  };
+
+  const filteredJobs = jobs.filter(job => 
+    job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    job.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    job.location.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans pb-20">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
         .hero-bg {
           background-color: #0d1b3e;
           background-image:
@@ -66,134 +45,116 @@ export default function Careers() {
             radial-gradient(circle at 90% 50%, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.04) 30%, transparent 30%),
             radial-gradient(circle at 50% 50%, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.025) 40%, transparent 40%);
         }
-        .search-input:focus { outline: none; border-color: #f5a623; box-shadow: 0 0 0 2px rgba(245,166,35,0.3); }
-        .filter-checkbox { accent-color: #f5a623; width: 16px; height: 16px; cursor: pointer; }
       `}</style>
 
       {/* Hero Section */}
-      <div className="hero-bg w-full flex flex-col items-center justify-center py-16 px-4">
-        <h1 className="text-white text-3xl md:text-5xl font-bold mb-8 text-center tracking-tight">
-          Find Your Next <span className="text-[#f5a623]">Job</span> Here!
-        </h1>
+      <div className="hero-bg w-full flex flex-col items-center justify-center py-20 px-4">
+        <div className="text-center mb-8">
+          <span className="bg-orange-500 text-white text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-4 inline-block shadow-lg">
+            Hiring Now
+          </span>
+          <h1 className="text-white text-4xl md:text-6xl font-black mb-4 tracking-tighter">
+            SHAPE YOUR <span className="text-orange-500">CAREER</span>
+          </h1>
+          <p className="text-blue-100 text-lg max-w-2xl mx-auto font-medium">
+            Join AH Career Academy of Skills. Explore open positions for trainers, creators, and professionals.
+          </p>
+        </div>
         
-        {/* Search Bar */}
-        <div className="relative w-full max-w-2xl">
-          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-            <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        {/* Search & Share */}
+        <div className="w-full max-w-3xl flex flex-col md:flex-row gap-4 px-4">
+          <div className="relative flex-1 group">
+            <input
+              type="text"
+              className="w-full pl-12 pr-4 py-5 rounded-2xl border-0 shadow-2xl text-gray-900 text-base outline-none focus:ring-4 focus:ring-orange-400/30 transition-all"
+              placeholder="Search by role, category, or location..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <svg className="absolute left-4 top-1/2 -translate-y-1/2 h-6 w-6 text-gray-400 group-focus-within:text-orange-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <input
-            type="text"
-            className="search-input w-full pl-12 pr-32 py-4 rounded-full border-0 shadow-lg text-gray-900 text-base"
-            placeholder="Search for jobs, skills, or companies..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <button className="absolute inset-y-2 right-2 px-6 bg-gradient-to-r from-[#f5a623] to-[#f0a000] hover:from-[#e09510] hover:to-[#d89000] text-white font-semibold rounded-full transition-colors">
-            Search
+          <button 
+            onClick={sharePage}
+            className="bg-white hover:bg-gray-50 text-[#0d1b3e] font-black px-10 py-5 rounded-2xl shadow-2xl transition-all flex items-center justify-center gap-2 active:scale-95 border-2 border-transparent"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6a3 3 0 100-2.684m0 2.684l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+            {copySuccess || "Share Careers"}
           </button>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8 items-start">
-          
-          {/* Left Column: Filters */}
-          <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm sticky top-24">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-bold text-gray-900">Filter</h2>
-              <button className="text-sm text-blue-600 font-medium hover:text-blue-800">Clear All</button>
-            </div>
-
-            {/* Location Filter */}
-            <div className="mb-8">
-              <div className="flex items-center justify-between mb-3 cursor-pointer">
-                <h3 className="font-semibold text-gray-800">Location</h3>
-                <svg className="w-4 h-4 text-gray-500 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" /></svg>
-              </div>
-              <div className="relative">
-                <input 
-                  type="text" 
-                  placeholder="Enter location" 
-                  className="w-full pl-3 pr-8 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-blue-400 focus:bg-white transition-colors"
-                />
-                <svg className="w-4 h-4 text-gray-400 absolute right-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-              </div>
-            </div>
-
-            {/* Experience Filter */}
-            <div>
-              <div className="flex items-center justify-between mb-4 cursor-pointer">
-                <h3 className="font-semibold text-gray-800">Experience</h3>
-                <svg className="w-4 h-4 text-gray-500 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" /></svg>
-              </div>
-              <div className="space-y-3">
-                {["Fresher", "1 - 3 yr.", "3 - 6 yr.", "6+ yr."].map((exp) => (
-                  <label key={exp} className="flex items-center gap-3 cursor-pointer group">
-                    <input type="checkbox" className="filter-checkbox border-gray-300 rounded" />
-                    <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">{exp}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Job Listings */}
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-4 border-b border-gray-200 pb-8">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">
-              All <span className="text-blue-600">Jobs</span>
+            <h2 className="text-4xl font-black text-[#0b1257] tracking-tight">
+              Open <span className="text-orange-500">Positions</span>
             </h2>
+            <p className="text-gray-500 font-bold mt-1 uppercase tracking-widest text-xs">
+              Direct Apply via WhatsApp • No Login Required
+            </p>
+          </div>
+          <div className="text-sm font-bold bg-[#0b1257] text-white px-4 py-2 rounded-xl">
+            {filteredJobs.length} ROULES FOUND
+          </div>
+        </div>
 
-            <div className="space-y-4">
-              {jobsData.map((job) => (
-                <div key={job.id} className="bg-white border border-gray-200 rounded-xl p-5 sm:p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col sm:flex-row gap-5 items-start sm:items-center">
-                  
-                  {/* Logo */}
-                  <div className={`w-14 h-14 ${job.logoColor} rounded-xl flex items-center justify-center text-xl font-bold flex-shrink-0`}>
-                    {job.logo}
-                  </div>
+        {loading ? (
+          <div className="py-20 text-center">
+            <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-6 shadow-xl"></div>
+            <p className="text-[#0b1257] font-black uppercase tracking-widest text-sm">Discovering Opportunities...</p>
+          </div>
+        ) : filteredJobs.length === 0 ? (
+          <div className="bg-white rounded-3xl p-20 text-center shadow-sm border border-gray-100">
+            <div className="text-7xl mb-6">🔎</div>
+            <h3 className="text-2xl font-black text-[#0b1257] mb-2">Nothing found</h3>
+            <p className="text-gray-500 font-medium">Try broadening your search criteria.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredJobs.map((job) => (
+              <JobCard key={job._id} job={job} />
+            ))}
+          </div>
+        )}
+      </div>
 
-                  {/* Details */}
-                  <div className="flex-1 min-w-0 w-full">
-                    <h3 className="text-lg font-bold text-gray-900 hover:text-blue-600 cursor-pointer transition-colors truncate mb-1">
-                      {job.title}
-                    </h3>
-                    <p className="text-sm text-gray-500 mb-4">{job.company}</p>
-                    
-                    {/* Meta info row */}
-                    <div className="flex flex-wrap items-center gap-4 gap-y-2 text-xs sm:text-sm text-gray-500">
-                      <div className="flex items-center gap-1.5 whitespace-nowrap">
-                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
-                        {job.location}
-                      </div>
-                      <div className="flex items-center gap-1.5 whitespace-nowrap">
-                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                        {job.workType}
-                      </div>
-                      <div className="flex items-center gap-1.5 whitespace-nowrap">
-                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        {job.experience}
-                      </div>
-                      <div className="flex items-center gap-1.5 whitespace-nowrap">
-                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        {job.salary}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right side badge */}
-                  <div className="flex-shrink-0 w-full sm:w-auto text-left sm:text-right mt-2 sm:mt-0">
-                    <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium border border-blue-200 text-blue-700 bg-blue-50">
-                      {job.type}
-                    </span>
-                  </div>
-                  
-                </div>
-              ))}
+      {/* Quick Links Poster Section */}
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="bg-[#0b1257] rounded-[2.5rem] p-10 md:p-16 text-white shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500 opacity-10 rounded-full -mr-32 -mt-32"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500 opacity-10 rounded-full -ml-20 -mb-20"></div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div>
+              <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight">
+                Can't find a <span className="text-orange-500">Perfect Match?</span>
+              </h2>
+              <p className="text-xl text-blue-100 mb-10 leading-relaxed font-medium">
+                Send us your resume directly. We are always looking for trainers in Python, Java, AWS, Digital Marketing, Tally, and more!
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <a href="mailto:Info@ahcareer.in" className="bg-white text-[#0b1257] font-black px-8 py-4 rounded-2xl hover:scale-105 transition-transform">
+                  Email Resume
+                </a>
+                <a href="tel:9989241515" className="bg-orange-500 text-white font-black px-8 py-4 rounded-2xl hover:scale-105 transition-transform">
+                  Call Support
+                </a>
+              </div>
             </div>
-
+            <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/10">
+              <h3 className="text-xl font-black mb-6 text-orange-400 uppercase tracking-widest">Permanent Benefits</h3>
+              <ul className="space-y-4 font-bold text-lg">
+                <li className="flex items-center gap-3">✅ Salary: 1.8 LPA – 3 LPA</li>
+                <li className="flex items-center gap-3">✅ Working Hours: 9 Hours</li>
+                <li className="flex items-center gap-3">✅ Open for Freshers & Experienced</li>
+                <li className="flex items-center gap-3">✅ Location: Rajahmundry (On-site)</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
