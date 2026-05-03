@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { courses } from "../data/courses";
 import { useAuth } from "../context/AuthContext";
+import { createRegistration, checkRegistration } from "../services/registrationService";
 
 export default function CourseRegistrationPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
-  
+
   const [course, setCourse] = useState(null);
   const [formData, setFormData] = useState({
     name: user?.name || "",
@@ -19,6 +20,8 @@ export default function CourseRegistrationPage() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [alreadyRegistered, setAlreadyRegistered] = useState(false);
+  const [checkingStatus, setCheckingStatus] = useState(true);
 
   useEffect(() => {
     const foundCourse = courses.find((c) => c.id === id);
@@ -28,6 +31,27 @@ export default function CourseRegistrationPage() {
       navigate("/");
     }
   }, [id, navigate]);
+
+  // Check if user already registered for this course
+  useEffect(() => {
+    const checkExisting = async () => {
+      if (!user?.email || !id) {
+        setCheckingStatus(false);
+        return;
+      }
+      try {
+        const res = await checkRegistration(user.email, id);
+        if (res.registered) {
+          setAlreadyRegistered(true);
+        }
+      } catch (err) {
+        // Ignore — just allow registration
+      } finally {
+        setCheckingStatus(false);
+      }
+    };
+    checkExisting();
+  }, [user, id]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -39,30 +63,54 @@ export default function CourseRegistrationPage() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/registrations", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          courseId: course.id,
-          courseTitle: course.title
-        }),
+      const data = await createRegistration({
+        ...formData,
+        courseId: course.id,
+        courseTitle: course.title
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (data.success) {
         setSuccess(true);
-        setTimeout(() => navigate("/"), 5000);
+        setTimeout(() => navigate("/dashboard"), 4000);
       } else {
         setError(data.message || "Registration failed. Please try again.");
       }
     } catch (err) {
-      setError("Server connection failed. Please check your connection.");
+      setError(err.message || "Server connection failed. Please check your connection.");
     } finally {
       setSubmitting(false);
     }
   };
+
+  if (checkingStatus) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (alreadyRegistered) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-white rounded-3xl p-10 text-center shadow-xl border border-blue-100">
+          <div className="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
+            ✓
+          </div>
+          <h2 className="text-2xl font-black text-[#0b1257] mb-4">Already Registered!</h2>
+          <p className="text-gray-500 mb-8">
+            You have already registered for <span className="font-bold text-gray-900">{course?.title}</span>. Our team will contact you soon.
+          </p>
+          <button
+            onClick={() => navigate("/dashboard")}
+            className="w-full bg-[#0b1257] text-white font-bold py-4 rounded-xl transition-all hover:bg-[#0d1b3e]"
+          >
+            Go to Dashboard
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (success) {
     return (
@@ -75,13 +123,13 @@ export default function CourseRegistrationPage() {
           <p className="text-gray-500 mb-8">
             Thank you for registering for <span className="font-bold text-gray-900">{course?.title}</span>. Our counselor will contact you within 24 hours.
           </p>
-          <button 
-            onClick={() => navigate("/")}
+          <button
+            onClick={() => navigate("/dashboard")}
             className="w-full bg-[#0b1257] text-white font-bold py-4 rounded-xl transition-all hover:bg-[#0d1b3e]"
           >
-            Back to Home
+            Go to Dashboard
           </button>
-          <p className="text-xs text-gray-400 mt-6 italic">Redirecting in 5 seconds...</p>
+          <p className="text-xs text-gray-400 mt-6 italic">Redirecting to dashboard...</p>
         </div>
       </div>
     );
@@ -91,7 +139,7 @@ export default function CourseRegistrationPage() {
     <div className="min-h-screen bg-gray-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 bg-white rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-100">
-          
+
           {/* Left Side: Info */}
           <div className="bg-[#0b1257] p-10 text-white flex flex-col justify-between">
             <div>
@@ -104,7 +152,7 @@ export default function CourseRegistrationPage() {
               <p className="text-white/70 text-sm leading-relaxed mb-10">
                 Please fill out the form to express your interest. This is a non-binding registration to help our counselors understand your background.
               </p>
-              
+
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <span className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-xl">🎓</span>
@@ -132,7 +180,7 @@ export default function CourseRegistrationPage() {
           {/* Right Side: Form */}
           <div className="p-10">
             <h2 className="text-2xl font-black text-[#0b1257] mb-8">Personal Details</h2>
-            
+
             {error && (
               <div className="bg-red-50 text-red-600 text-sm p-4 rounded-xl border border-red-100 mb-6 font-medium">
                 ⚠️ {error}
@@ -142,12 +190,9 @@ export default function CourseRegistrationPage() {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 px-1">Full Name</label>
-                <input 
-                  required
-                  type="text" 
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
+                <input
+                  required type="text" name="name"
+                  value={formData.name} onChange={handleChange}
                   placeholder="John Doe"
                   className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all"
                 />
@@ -156,24 +201,18 @@ export default function CourseRegistrationPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 px-1">Email Address</label>
-                  <input 
-                    required
-                    type="email" 
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
+                  <input
+                    required type="email" name="email"
+                    value={formData.email} onChange={handleChange}
                     placeholder="john@example.com"
                     className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all"
                   />
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 px-1">Phone Number</label>
-                  <input 
-                    required
-                    type="tel" 
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
+                  <input
+                    required type="tel" name="phone"
+                    value={formData.phone} onChange={handleChange}
                     placeholder="9989241515"
                     className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all"
                   />
@@ -182,12 +221,9 @@ export default function CourseRegistrationPage() {
 
               <div>
                 <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 px-1">Current City</label>
-                <input 
-                  required
-                  type="text" 
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
+                <input
+                  required type="text" name="city"
+                  value={formData.city} onChange={handleChange}
                   placeholder="Rajahmundry"
                   className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all"
                 />
@@ -195,19 +231,15 @@ export default function CourseRegistrationPage() {
 
               <div>
                 <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 px-1">Any Questions? (Optional)</label>
-                <textarea 
-                  name="notes"
-                  value={formData.notes}
-                  onChange={handleChange}
-                  rows="3"
-                  placeholder="Tell us about your background or requirements..."
+                <textarea
+                  name="notes" value={formData.notes} onChange={handleChange}
+                  rows="3" placeholder="Tell us about your background or requirements..."
                   className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all resize-none"
                 />
               </div>
 
-              <button 
-                type="submit"
-                disabled={submitting}
+              <button
+                type="submit" disabled={submitting}
                 className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 text-white font-black py-4 rounded-xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2"
               >
                 {submitting ? (

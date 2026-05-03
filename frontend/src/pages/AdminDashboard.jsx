@@ -91,8 +91,8 @@ export default function AdminDashboard() {
       {toast && (
         <div
           className={`fixed top-4 right-4 z-[100] px-4 py-3 rounded-xl shadow-lg text-sm font-medium flex items-center gap-2 transition-all ${toast.type === "error"
-              ? "bg-red-500 text-white"
-              : "bg-green-500 text-white"
+            ? "bg-red-500 text-white"
+            : "bg-green-500 text-white"
             }`}
         >
           <span>{toast.type === "error" ? "❌" : "✅"}</span>
@@ -141,21 +141,21 @@ export default function AdminDashboard() {
             <h1 className="text-2xl font-bold text-[#0b1257]">Admin Dashboard</h1>
             <p className="text-gray-500 text-sm mt-1">Manage users and monitor platform activity</p>
           </div>
-          
+
           <div className="flex bg-gray-200 p-1 rounded-xl w-fit overflow-x-auto max-w-full">
-            <button 
+            <button
               onClick={() => setActiveTab("users")}
               className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "users" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
             >
               Users
             </button>
-            <button 
+            <button
               onClick={() => setActiveTab("careers")}
               className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "careers" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
             >
               Careers
             </button>
-            <button 
+            <button
               onClick={() => setActiveTab("registrations")}
               className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "registrations" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
             >
@@ -239,8 +239,8 @@ export default function AdminDashboard() {
                           </td>
                           <td className="px-5 py-4 hidden sm:table-cell">
                             <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${u.role === "admin"
-                                ? "bg-orange-100 text-orange-600"
-                                : "bg-blue-100 text-blue-700"
+                              ? "bg-orange-100 text-orange-600"
+                              : "bg-blue-100 text-blue-700"
                               }`}>
                               {u.role.toUpperCase()}
                             </span>
@@ -252,8 +252,8 @@ export default function AdminDashboard() {
                           </td>
                           <td className="px-5 py-4">
                             <span className={`inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full ${u.isActive
-                                ? "bg-green-100 text-green-700"
-                                : "bg-red-100 text-red-600"
+                              ? "bg-green-100 text-green-700"
+                              : "bg-red-100 text-red-600"
                               }`}>
                               <span className={`w-1.5 h-1.5 rounded-full ${u.isActive ? "bg-green-500" : "bg-red-400"}`}></span>
                               {u.isActive ? "Active" : "Inactive"}

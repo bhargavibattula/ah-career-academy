@@ -9,6 +9,7 @@ import authRoutes from "./routes/authRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
 import registrationRoutes from "./routes/registrationRoutes.js";
+import applicationRoutes from "./routes/applicationRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -49,11 +50,11 @@ if (process.env.NODE_ENV !== "production") {
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
     const hasCookie = !!req.cookies.token;
     const hasAuthHeader = !!req.headers.authorization;
-    
+
     if (hasCookie) console.log("🔑 Auth: Cookie detected");
     if (hasAuthHeader) console.log("📨 Auth: Authorization Header detected");
     if (!hasCookie && !hasAuthHeader) console.log("❌ Auth: No credentials found in request");
-    
+
     next();
   });
 }
@@ -71,6 +72,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api/registrations", registrationRoutes);
+app.use("/api/applications", applicationRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {
@@ -92,7 +94,7 @@ const startServer = async () => {
     }
 
     await connectDB();
-    
+
     // Ensure JWT_SECRET is stable
     if (!process.env.JWT_SECRET) {
       console.warn("⚠️  JWT_SECRET is missing. Using temporary dev secret.");
@@ -100,7 +102,7 @@ const startServer = async () => {
     }
 
     await seedAdmin();
-    
+
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
       console.log(`📍 Origin: ${allowedOrigins.join(", ")}`);
