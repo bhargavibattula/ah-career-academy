@@ -44,7 +44,7 @@ export default function LoginPage() {
 
     try {
       const data = await loginUser(formData);
-      login(data.user);
+      login(data.user, data.token); // Pass token to store it for auth headers
 
       // Redirect based on role
       if (data.user.role === "admin") {

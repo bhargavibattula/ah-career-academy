@@ -11,27 +11,32 @@ const seedAdmin = async () => {
       return;
     }
 
-    // Check if admin already exists
-    const existingAdmin = await User.findOne({ email: adminEmail.toLowerCase() });
-
-    if (existingAdmin) {
-      console.log(`ℹ️  Admin already exists: ${adminEmail}`);
-      return;
-    }
-
-    // Hash password with high salt rounds for admin
+    const trimmedEmail = adminEmail.toLowerCase();
+    
+    // Hash the password from .env
     const saltRounds = 12;
     const hashedPassword = await bcrypt.hash(adminPassword, saltRounds);
 
-    // Create admin — role is hardcoded here, NOT from any request
-    await User.create({
-      name: "Quality Thought Admin",
-      email: adminEmail.toLowerCase(),
-      password: hashedPassword,
-      role: "admin", // Only place role: "admin" is ever set
-    });
+    // Check if admin already exists
+    const existingAdmin = await User.findOne({ email: trimmedEmail });
 
-    console.log(`✅ Admin seeded successfully: ${adminEmail}`);
+    if (existingAdmin) {
+      // ALWAYS update password and role to match .env
+      existingAdmin.password = hashedPassword;
+      existingAdmin.role = "admin";
+      existingAdmin.name = "AH Career Admin";
+      await existingAdmin.save({ validateBeforeSave: false });
+      console.log(`ℹ️  Admin credentials SYNCED with .env for: ${trimmedEmail}`);
+    } else {
+      // Create new admin
+      await User.create({
+        name: "AH Career Admin",
+        email: trimmedEmail,
+        password: hashedPassword,
+        role: "admin",
+      });
+      console.log(`✅ Admin seeded successfully: ${trimmedEmail}`);
+    }
   } catch (error) {
     console.error(`❌ Admin seeding failed: ${error.message}`);
   }

@@ -56,13 +56,26 @@ const JobSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-// Pre-save hook to generate slug
-JobSchema.pre("save", function(next) {
+// Pre-save hook to generate slug and ensure uniqueness
+JobSchema.pre("save", async function(next) {
   if (!this.isModified("title")) return next();
-  this.slug = this.title
+  
+  let baseSlug = this.title
     .toLowerCase()
     .replace(/[^\w ]+/g, "")
     .replace(/ +/g, "-");
+    
+  let slug = baseSlug;
+  let counter = 1;
+  
+  // Check if slug already exists (excluding current doc)
+  while (true) {
+    const existing = await mongoose.models.Job.findOne({ slug, _id: { $ne: this._id } });
+    if (!existing) break;
+    slug = `${baseSlug}-${counter++}`;
+  }
+  
+  this.slug = slug;
   next();
 });
 

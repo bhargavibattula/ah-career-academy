@@ -2,15 +2,28 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
 /**
- * authMiddleware - Verifies JWT from HTTP-only cookie
- * Attaches user object to req.user on success
+ * authMiddleware - Verifies JWT from:
+ * 1. HTTP-only cookie (preferred, works same-origin)
+ * 2. Authorization: Bearer <token> header (fallback for cross-origin dev)
  */
 export const authMiddleware = async (req, res, next) => {
   try {
-    // Read token ONLY from HTTP-only cookie (never Authorization header for web)
-    const token = req.cookies?.token;
+    // Try cookie first
+    let token = req.cookies?.token;
+
+    // Fallback: Authorization header
+    if (!token) {
+      const authHeader = req.headers["authorization"] || req.headers["Authorization"];
+      if (authHeader && authHeader.startsWith("Bearer ")) {
+        token = authHeader.substring(7);
+        console.log("📨 Auth: Found Bearer token in header");
+      }
+    } else {
+      console.log("📨 Auth: Found token in cookie");
+    }
 
     if (!token) {
+      console.log("❌ Auth: No token found in cookie or header");
       return res.status(401).json({
         success: false,
         message: "Access denied. Please log in.",
@@ -20,9 +33,13 @@ export const authMiddleware = async (req, res, next) => {
     // Verify token
     let decoded;
     try {
+      if (!process.env.JWT_SECRET) {
+        console.error("❌ Auth: JWT_SECRET is missing from environment variables!");
+      }
       decoded = jwt.verify(token, process.env.JWT_SECRET);
+      console.log("✅ Auth: Token verified for user:", decoded.userId);
     } catch (err) {
-      // Clear invalid cookie
+      console.log("❌ Auth: Token verification failed:", err.message);
       res.clearCookie("token");
       if (err.name === "TokenExpiredError") {
         return res.status(401).json({
@@ -36,10 +53,11 @@ export const authMiddleware = async (req, res, next) => {
       });
     }
 
-    // Fetch user from DB (ensures user still exists + is active)
+    // Fetch user from DB
     const user = await User.findById(decoded.userId).select("-password");
 
     if (!user) {
+      console.log("❌ Auth: User from token not found in DB");
       res.clearCookie("token");
       return res.status(401).json({
         success: false,
@@ -48,6 +66,7 @@ export const authMiddleware = async (req, res, next) => {
     }
 
     if (!user.isActive) {
+      console.log("❌ Auth: User account is inactive");
       res.clearCookie("token");
       return res.status(403).json({
         success: false,
@@ -58,7 +77,7 @@ export const authMiddleware = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    console.error("Auth middleware error:", error);
+    console.error("🔥 Auth middleware error:", error);
     return res.status(500).json({
       success: false,
       message: "Authentication error.",
@@ -68,8 +87,6 @@ export const authMiddleware = async (req, res, next) => {
 
 /**
  * roleMiddleware - Restricts route to specific roles
- * Must be used AFTER authMiddleware
- * Usage: roleMiddleware("admin")  or  roleMiddleware("admin", "moderator")
  */
 export const roleMiddleware = (...allowedRoles) => {
   return (req, res, next) => {
@@ -81,6 +98,7 @@ export const roleMiddleware = (...allowedRoles) => {
     }
 
     if (!allowedRoles.includes(req.user.role)) {
+      console.log(`❌ Auth: Role ${req.user.role} not in allowed:`, allowedRoles);
       return res.status(403).json({
         success: false,
         message: "Access denied. Insufficient permissions.",

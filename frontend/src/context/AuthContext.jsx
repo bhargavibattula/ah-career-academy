@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { getMe, logoutUser, setStoredToken } from "../services/authService";
 
 const AuthContext = createContext();
 
@@ -7,20 +8,47 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is in localStorage on mount
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    setLoading(false);
+    // On mount, verify session with backend using stored token
+    const verifySession = async () => {
+      const storedUser = localStorage.getItem("user");
+      if (!storedUser) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        // Validate token is still valid by calling /auth/me
+        const data = await getMe();
+        if (data.success && data.user) {
+          setUser(data.user);
+          localStorage.setItem("user", JSON.stringify(data.user));
+        } else {
+          // Token expired or invalid — clear everything
+          localStorage.removeItem("user");
+          setStoredToken(null);
+          setUser(null);
+        }
+      } catch {
+        // Backend rejected the token — clear stale data
+        localStorage.removeItem("user");
+        setStoredToken(null);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    verifySession();
   }, []);
 
-  const login = (userData) => {
+  const login = (userData, token) => {
     setUser(userData);
     localStorage.setItem("user", JSON.stringify(userData));
+    if (token) setStoredToken(token);
   };
 
-  const logout = () => {
+  const logout = async () => {
+    await logoutUser(); // Clears token from localStorage + calls /auth/logout
     setUser(null);
     localStorage.removeItem("user");
   };

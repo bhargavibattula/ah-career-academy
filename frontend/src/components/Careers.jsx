@@ -15,7 +15,7 @@ export default function Careers() {
   const fetchJobs = async () => {
     try {
       const data = await getJobs();
-      setJobs(data);
+      setJobs(Array.isArray(data) ? data : data.data || []);
     } catch (error) {
       console.error("Error fetching jobs:", error);
     } finally {

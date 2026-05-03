@@ -1,15 +1,28 @@
-// All API calls use credentials: "include" to send HTTP-only cookies automatically
+// Token helpers — stored in localStorage for cross-origin dev environments
+const TOKEN_KEY = "ah_career_token";
+
+export const getStoredToken = () => localStorage.getItem(TOKEN_KEY);
+export const setStoredToken = (token) => {
+  if (token) localStorage.setItem(TOKEN_KEY, token);
+  else localStorage.removeItem(TOKEN_KEY);
+};
 
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 /**
- * Generic fetch wrapper with consistent error handling
+ * Generic fetch wrapper:
+ * - Sends cookies for same-origin (production)
+ * - Sends Authorization: Bearer for cross-origin (local dev)
  */
 const apiFetch = async (endpoint, options = {}) => {
+  const token = getStoredToken();
+
   const config = {
-    credentials: "include", // Send cookies with every request
+    credentials: "include", // Still send cookies (works in production)
     headers: {
       "Content-Type": "application/json",
+      // Also send token as Bearer header (works in cross-origin dev)
+      ...(token && { Authorization: `Bearer ${token}` }),
       ...options.headers,
     },
     ...options,
@@ -19,8 +32,9 @@ const apiFetch = async (endpoint, options = {}) => {
   const data = await response.json();
 
   if (!response.ok) {
-    // Throw error with server message
-    throw new Error(data.message || "Something went wrong. Please try again.");
+    const error = new Error(data.message || "Something went wrong. Please try again.");
+    error.response = { data, status: response.status };
+    throw error;
   }
 
   return data;
@@ -29,22 +43,33 @@ const apiFetch = async (endpoint, options = {}) => {
 // ─── Auth APIs ────────────────────────────────────────────────────────────────
 
 export const registerUser = async ({ name, email, password }) => {
-  return apiFetch("/auth/register", {
+  const data = await apiFetch("/auth/register", {
     method: "POST",
     body: JSON.stringify({ name, email, password }),
-    // NEVER send role — backend ignores it and hardcodes "user"
   });
+  // Store token from response
+  if (data.token) setStoredToken(data.token);
+  return data;
 };
 
 export const loginUser = async ({ email, password }) => {
-  return apiFetch("/auth/login", {
+  const data = await apiFetch("/auth/login", {
     method: "POST",
     body: JSON.stringify({ email, password }),
   });
+  // Store token from response
+  if (data.token) setStoredToken(data.token);
+  return data;
 };
 
 export const logoutUser = async () => {
-  return apiFetch("/auth/logout", { method: "POST" });
+  setStoredToken(null); // Clear token immediately
+  try {
+    return await apiFetch("/auth/logout", { method: "POST" });
+  } catch {
+    // Ignore server errors on logout
+    return { success: true };
+  }
 };
 
 export const getMe = async () => {

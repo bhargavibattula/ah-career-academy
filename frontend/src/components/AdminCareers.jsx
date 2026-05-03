@@ -6,6 +6,7 @@ export default function AdminCareers() {
   const [loading, setLoading] = useState(true);
   const [editingJob, setEditingJob] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [toast, setToast] = useState(null);
   const [formData, setFormData] = useState({
     title: "",
     category: "Software & Programming",
@@ -19,6 +20,11 @@ export default function AdminCareers() {
     location: "Rajahmundry",
   });
 
+  const showNotification = (message, type = "success") => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 4000);
+  };
+
   useEffect(() => {
     fetchJobs();
   }, []);
@@ -27,9 +33,11 @@ export default function AdminCareers() {
     setLoading(true);
     try {
       const data = await getJobs();
-      setJobs(data);
+      // Handle standardized response format if applicable
+      setJobs(Array.isArray(data) ? data : data.data || []);
     } catch (error) {
       console.error("Error fetching jobs:", error);
+      showNotification("Failed to load jobs", "error");
     } finally {
       setLoading(false);
     }
@@ -72,20 +80,48 @@ export default function AdminCareers() {
     };
 
     try {
+      let response;
       if (editingJob) {
-        await updateJob(editingJob._id, payload);
+        response = await updateJob(editingJob._id, payload);
+        showNotification("Job updated successfully!");
       } else {
-        await createJob(payload);
+        response = await createJob(payload);
+        showNotification("Job published successfully!");
       }
       setShowModal(false);
       fetchJobs();
     } catch (error) {
       console.error("Error saving job:", error);
+      // Log full response for debugging
+      if (error.response) {
+        console.error("Server Error Data:", JSON.stringify(error.response.data, null, 2));
+      }
+      const errorMsg = error.response?.data?.message || error.message || "Error saving job. Please check permissions.";
+      showNotification(errorMsg, "error");
+    }
+  };
+
+  const handleDeleteJob = async (id) => {
+    if (window.confirm("Are you sure you want to delete this job?")) {
+      try {
+        await deleteJob(id);
+        showNotification("Job deleted successfully");
+        fetchJobs();
+      } catch (error) {
+        showNotification("Failed to delete job", "error");
+      }
     }
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
+      {/* Toast Notification */}
+      {toast && (
+        <div className={`fixed top-10 right-10 z-[1000] px-6 py-4 rounded-2xl shadow-2xl text-white font-bold transition-all transform animate-bounce ${toast.type === "error" ? "bg-red-500" : "bg-green-500"}`}>
+          {toast.type === "error" ? "❌" : "✅"} {toast.message}
+        </div>
+      )}
+
       <div className="flex justify-between items-center bg-[#0b1257] p-6 rounded-3xl text-white shadow-xl">
         <div>
           <h2 className="text-2xl font-black">Careers Management</h2>
@@ -133,7 +169,7 @@ export default function AdminCareers() {
                       <button onClick={() => handleOpenModal(job)} className="p-3 hover:bg-blue-100 rounded-xl text-blue-600 transition-all active:scale-90 shadow-sm border border-gray-100 bg-white">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
                       </button>
-                      <button onClick={() => { if(window.confirm("Delete this?")) deleteJob(job._id).then(fetchJobs) }} className="p-3 hover:bg-red-100 rounded-xl text-red-600 transition-all active:scale-90 shadow-sm border border-gray-100 bg-white">
+                      <button onClick={() => handleDeleteJob(job._id)} className="p-3 hover:bg-red-100 rounded-xl text-red-600 transition-all active:scale-90 shadow-sm border border-gray-100 bg-white">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                       </button>
                     </div>

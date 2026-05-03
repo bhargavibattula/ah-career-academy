@@ -6,7 +6,8 @@ export const getJobs = async (req, res) => {
     const jobs = await Job.find({ isActive: true }).sort({ createdAt: -1 });
     res.status(200).json(jobs);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error fetching jobs:", error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -22,20 +23,32 @@ export const getJobDetails = async (req, res) => {
       job = await Job.findOne({ slug: idOrSlug });
     }
 
-    if (!job) return res.status(404).json({ message: "Job not found" });
+    if (!job) return res.status(404).json({ success: false, message: "Job not found" });
     res.status(200).json(job);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error fetching job details:", error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
 // @desc    Create a job
 export const createJob = async (req, res) => {
   try {
+    console.log("Creating job with payload:", req.body);
+    
+    // Check for duplicate title (to avoid slug conflicts)
+    const existingJob = await Job.findOne({ title: req.body.title });
+    if (existingJob) {
+      // Append a random string to the title if duplicate for slug uniqueness
+      // Or just handle it in the pre-save hook
+    }
+
     const job = await Job.create(req.body);
-    res.status(201).json(job);
+    console.log("Job created successfully:", job._id);
+    res.status(201).json({ success: true, data: job });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error("Error creating job:", error);
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
@@ -43,10 +56,11 @@ export const createJob = async (req, res) => {
 export const updateJob = async (req, res) => {
   try {
     const job = await Job.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!job) return res.status(404).json({ message: "Job not found" });
-    res.status(200).json(job);
+    if (!job) return res.status(404).json({ success: false, message: "Job not found" });
+    res.status(200).json({ success: true, data: job });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error("Error updating job:", error);
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
@@ -54,9 +68,10 @@ export const updateJob = async (req, res) => {
 export const deleteJob = async (req, res) => {
   try {
     const job = await Job.findByIdAndDelete(req.params.id);
-    if (!job) return res.status(404).json({ message: "Job not found" });
-    res.status(200).json({ message: "Job deleted" });
+    if (!job) return res.status(404).json({ success: false, message: "Job not found" });
+    res.status(200).json({ success: true, message: "Job deleted" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error deleting job:", error);
+    res.status(500).json({ success: false, message: error.message });
   }
 };

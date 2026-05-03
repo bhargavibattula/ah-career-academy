@@ -2,6 +2,7 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import mongoose from "mongoose";
 import connectDB from "./config/db.js";
 import seedAdmin from "./config/seedAdmin.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -12,67 +13,55 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ─── CORS Configuration ───────────────────────────────────────────────────────
-// Must allow credentials for HTTP-only cookies to be sent
 const allowedOrigins = [
   "http://localhost:3000",
   "http://127.0.0.1:3000",
   "http://localhost:5173",
+  "http://127.0.0.1:5173",
   process.env.FRONTEND_URL,
 ].filter(Boolean);
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (like mobile apps or curl requests)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg = "The CORS policy for this site does not allow access from the specified Origin.";
-        return callback(new Error(msg), false);
+      const isLocal = origin.includes("localhost") || origin.includes("127.0.0.1");
+      if (isLocal || allowedOrigins.indexOf(origin) !== -1) {
+        return callback(null, true);
       }
-      return callback(null, true);
+      return callback(new Error("CORS policy blocked access."), false);
     },
-    credentials: true, // Required for cookies
+    credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
-app.use(express.json({ limit: "10kb" })); // Limit payload size
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser()); // Parse HTTP-only cookies
+app.use(express.json({ limit: "1mb" }));
+app.use(express.urlencoded({ extended: true, limit: "1mb" }));
+app.use(cookieParser());
+
+// ─── Debugging Middleware (Dev Only) ──────────────────────────────────────────
+if (process.env.NODE_ENV !== "production") {
+  app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    const hasCookie = !!req.cookies.token;
+    const hasAuthHeader = !!req.headers.authorization;
+    
+    if (hasCookie) console.log("🔑 Auth: Cookie detected");
+    if (hasAuthHeader) console.log("📨 Auth: Authorization Header detected");
+    if (!hasCookie && !hasAuthHeader) console.log("❌ Auth: No credentials found in request");
+    
+    next();
+  });
+}
 
 // ─── Security Headers ─────────────────────────────────────────────────────────
 app.use((req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-Frame-Options", "DENY");
   res.setHeader("X-XSS-Protection", "1; mode=block");
-  if (process.env.NODE_ENV === "production") {
-    res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
-  }
-  next();
-});
-
-// ─── Rate Limiting (simple in-memory — use express-rate-limit in production) ──
-const loginAttempts = new Map();
-app.use("/api/auth/login", (req, res, next) => {
-  const ip = req.ip;
-  const now = Date.now();
-  const windowMs = 15 * 60 * 1000; // 15 minutes
-  const maxAttempts = 10;
-
-  const attempts = loginAttempts.get(ip) || [];
-  const recentAttempts = attempts.filter((t) => now - t < windowMs);
-
-  if (recentAttempts.length >= maxAttempts) {
-    return res.status(429).json({
-      success: false,
-      message: "Too many login attempts. Please try again in 15 minutes.",
-    });
-  }
-
-  recentAttempts.push(now);
-  loginAttempts.set(ip, recentAttempts);
   next();
 });
 
@@ -85,42 +74,39 @@ app.use("/api/jobs", jobRoutes);
 app.get("/api/health", (req, res) => {
   res.json({
     success: true,
-    message: "Quality Thought API is running",
+    message: "AH Career Academy API is running",
     timestamp: new Date().toISOString(),
-    env: process.env.NODE_ENV,
+    db: mongoose.connection.readyState === 1 ? "connected" : "disconnected"
   });
 });
 
-// 404 handler
-app.use("*", (req, res) => {
-  res.status(404).json({
-    success: false,
-    message: `Route ${req.originalUrl} not found.`,
-  });
-});
-
-// Global error handler
-app.use((err, req, res, next) => {
-  console.error("Unhandled error:", err);
-  res.status(err.status || 500).json({
-    success: false,
-    message:
-      process.env.NODE_ENV === "production"
-        ? "An internal server error occurred."
-        : err.message,
-  });
-});
-
-// ─── Start Server ─────────────────────────────────────────────────────────────
+// ─── Startup ──────────────────────────────────────────────────────────────────
 const startServer = async () => {
-  await connectDB();
-  await seedAdmin(); // Seed admin if not exists
+  try {
+    // Check for MONGO_URI early
+    if (!process.env.MONGO_URI) {
+      console.error("❌ MONGO_URI is not defined in .env!");
+      // Don't exit here, let connectDB handle it or provide a fallback for local if needed
+    }
 
-  app.listen(PORT, () => {
-    console.log(`\n🚀 Server running on http://localhost:${PORT}`);
-    console.log(`📍 Environment: ${process.env.NODE_ENV}`);
-    console.log(`🔒 Admin email: ${process.env.ADMIN_EMAIL}\n`);
-  });
+    await connectDB();
+    
+    // Ensure JWT_SECRET is stable
+    if (!process.env.JWT_SECRET) {
+      console.warn("⚠️  JWT_SECRET is missing. Using temporary dev secret.");
+      process.env.JWT_SECRET = "ah-career-dev-stable-secret-key-2024";
+    }
+
+    await seedAdmin();
+    
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`📍 Origin: ${allowedOrigins.join(", ")}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
 };
 
 startServer();
