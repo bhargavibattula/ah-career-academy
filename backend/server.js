@@ -8,6 +8,7 @@ import seedAdmin from "./config/seedAdmin.js";
 import authRoutes from "./routes/authRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
+import registrationRoutes from "./routes/registrationRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -69,6 +70,7 @@ app.use((req, res, next) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/jobs", jobRoutes);
+app.use("/api/registrations", registrationRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {

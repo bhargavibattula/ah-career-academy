@@ -1,53 +1,6 @@
-const courses = [
-  {
-    title: "Full Stack Development",
-    subtitle: "Java & Python Specializations",
-    badge: "Most Popular",
-    badgeColor: "bg-orange-400 text-white",
-    gradient: "from-[#2d1b8a] to-[#8b2232]",
-    features: [
-      "Online & Offline Classes",
-      "Project-Based Learning",
-      "Experienced Faculty",
-      "Personalized Mentoring",
-    ],
-    trainingFee: "Inquire Now",
-    jobPlacement: "100% Assistance",
-    internship: "Available",
-  },
-  {
-    title: "AI & Machine Learning",
-    subtitle: "Unlock Intelligent Insights",
-    badge: "High Demand",
-    badgeColor: "bg-orange-400 text-white",
-    gradient: "from-[#2d1b8a] to-[#8b2232]",
-    features: [
-      "Online & Offline Classes",
-      "Industry-Oriented Curriculum",
-      "Corporate Workshops",
-      "Certification Programs",
-    ],
-    trainingFee: "Inquire Now",
-    jobPlacement: "100% Assistance",
-    internship: "Available",
-  },
-  {
-    title: "Cybersecurity",
-    subtitle: "Mile2 Certification Prep",
-    badge: "Fast Growing",
-    badgeColor: "bg-orange-400 text-white",
-    gradient: "from-[#3b1fa3] to-[#922240]",
-    features: [
-      "Online & Offline Classes",
-      "Practical Hands-on Labs",
-      "Experienced Faculty",
-      "Certification Programs",
-    ],
-    trainingFee: "Inquire Now",
-    jobPlacement: "100% Assistance",
-    internship: "Available",
-  },
-];
+import React from "react";
+import { Link } from "react-router-dom";
+import { courses } from "../data/courses";
 
 function CheckIcon() {
   return (
@@ -76,20 +29,20 @@ export default function TrendingCourses() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {courses.map((course) => (
-            <div key={course.title} className="border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <div key={course.id} className="border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
               {/* Card Header */}
-              <div className={`bg-gradient-to-br ${course.gradient} p-5`}>
+              <div className="bg-gradient-to-br from-[#2d1b8a] to-[#8b2232] p-5">
                 <h3 className="text-white text-2xl font-bold mb-0.5">{course.title}</h3>
-                <p className="text-white/80 text-sm mb-3">{course.subtitle}</p>
-                <span className={`${course.badgeColor} text-xs font-bold px-3 py-1 rounded-full`}>
-                  {course.badge}
+                <p className="text-white/80 text-sm mb-3 line-clamp-1">{course.description}</p>
+                <span className="bg-orange-400 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  High Demand
                 </span>
               </div>
 
               {/* Card Body */}
-              <div className="p-5">
+              <div className="p-5 flex-1 flex flex-col">
                 <div className="space-y-3 mb-6">
-                  {course.features.map((f) => (
+                  {course.curriculum.slice(0, 4).map((f) => (
                     <div key={f} className="flex items-center gap-2 text-sm text-gray-700 border-b border-gray-100 pb-3 last:border-0 last:pb-0">
                       <CheckIcon />
                       {f}
@@ -97,26 +50,24 @@ export default function TrendingCourses() {
                   ))}
                 </div>
 
-                {/* Pricing */}
-                <div className="mb-4">
-                  <div className="text-orange-500 font-semibold text-sm mb-2">Best Price</div>
+                {/* Info */}
+                <div className="mb-6 mt-auto">
                   <div className="flex justify-between text-sm mb-2">
-                    <span className="text-gray-700 font-medium">Training</span>
-                    <span className="font-bold text-gray-900">{course.trainingFee}</span>
-                  </div>
-                  <div className="flex justify-between text-sm mb-2">
-                    <span className="text-gray-700 font-medium">Job Placement</span>
-                    <span className="font-bold text-orange-500">{course.jobPlacement}</span>
+                    <span className="text-gray-700 font-medium">Duration</span>
+                    <span className="font-bold text-gray-900">{course.duration}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-700 font-medium">Internship</span>
-                    <span className="font-bold text-orange-500">{course.internship}</span>
+                    <span className="text-gray-700 font-medium">Placement</span>
+                    <span className="font-bold text-orange-500">100% Assistance</span>
                   </div>
                 </div>
 
-                <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-lg transition-colors text-sm">
-                  Start Learning
-                </button>
+                <Link 
+                  to={`/course/${course.id}`}
+                  className="w-full bg-[#0b1257] hover:bg-[#0d1b3e] text-white text-center font-semibold py-3 rounded-xl transition-all text-sm active:scale-95"
+                >
+                  View Details
+                </Link>
               </div>
             </div>
           ))}

@@ -9,6 +9,7 @@ import {
 } from "../services/authService";
 
 import AdminCareers from "../components/AdminCareers";
+import AdminRegistrations from "../components/AdminRegistrations";
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
@@ -141,18 +142,24 @@ export default function AdminDashboard() {
             <p className="text-gray-500 text-sm mt-1">Manage users and monitor platform activity</p>
           </div>
           
-          <div className="flex bg-gray-200 p-1 rounded-xl w-fit">
+          <div className="flex bg-gray-200 p-1 rounded-xl w-fit overflow-x-auto max-w-full">
             <button 
               onClick={() => setActiveTab("users")}
-              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === "users" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "users" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
             >
               Users
             </button>
             <button 
               onClick={() => setActiveTab("careers")}
-              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === "careers" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "careers" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
             >
               Careers
+            </button>
+            <button 
+              onClick={() => setActiveTab("registrations")}
+              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "registrations" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+            >
+              Registrations
             </button>
           </div>
         </div>
@@ -317,8 +324,10 @@ export default function AdminDashboard() {
               )}
             </div>
           </>
-        ) : (
+        ) : activeTab === "careers" ? (
           <AdminCareers />
+        ) : (
+          <AdminRegistrations />
         )}
       </div>
     </div>

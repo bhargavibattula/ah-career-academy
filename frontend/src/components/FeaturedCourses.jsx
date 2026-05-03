@@ -1,60 +1,6 @@
-const featured = [
-  {
-    icon: "☕",
-    title: "Java Full Stack",
-    duration: "4 Months",
-    students: "1,500+",
-    desc: "Master Core Java, Spring Boot, React, and MySQL. Build real-world web applications from scratch.",
-    tags: ["Java", "Spring Boot", "React", "SQL"],
-    rating: 4.8,
-    reviews: "500+ students",
-    fee: "Inquire Now",
-  },
-  {
-    icon: "🐍",
-    title: "Python Full Stack",
-    duration: "4 Months",
-    students: "2,000+",
-    desc: "End-to-end web development using Python, Django, HTML/CSS, and databases.",
-    tags: ["Python", "Django", "SQL", "Frontend"],
-    rating: 4.9,
-    reviews: "600+ students",
-    fee: "Inquire Now",
-  },
-  {
-    icon: "📈",
-    title: "Digital Marketing",
-    duration: "3 Months",
-    students: "1,000+",
-    desc: "Learn SEO, SEM, Social Media Marketing, and Google Analytics to drive business growth.",
-    tags: ["SEO", "Google Ads", "Social Media"],
-    rating: 4.8,
-    reviews: "400+ students",
-    fee: "Inquire Now",
-  },
-  {
-    icon: "📊",
-    title: "Advanced Excel & Tally",
-    duration: "2 Months",
-    students: "1,200+",
-    desc: "Master accounting principles, GST, Tally ERP 9/Prime, and Advanced Excel functions.",
-    tags: ["Tally", "Excel", "Accounting", "GST"],
-    rating: 4.9,
-    reviews: "800+ students",
-    fee: "Inquire Now",
-  },
-  {
-    icon: "🎨",
-    title: "Web Designing",
-    duration: "3 Months",
-    students: "800+",
-    desc: "Create stunning, responsive websites using HTML, CSS, JavaScript, and modern design tools.",
-    tags: ["HTML", "CSS", "JavaScript", "UI/UX"],
-    rating: 4.8,
-    reviews: "300+ students",
-    fee: "Inquire Now",
-  },
-];
+import React from "react";
+import { Link } from "react-router-dom";
+import { courses } from "../data/courses";
 
 function Stars({ rating }) {
   return (
@@ -62,7 +8,7 @@ function Stars({ rating }) {
       {[1, 2, 3, 4, 5].map((i) => (
         <svg
           key={i}
-          className={`w-4 h-4 ${i <= Math.floor(rating) ? "text-yellow-400" : i - 0.5 <= rating ? "text-yellow-300" : "text-gray-200"}`}
+          className={`w-4 h-4 ${i <= 4 ? "text-yellow-400" : "text-gray-200"}`}
           fill="currentColor"
           viewBox="0 0 24 24"
         >
@@ -90,12 +36,12 @@ export default function FeaturedCourses() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {featured.map((course) => (
-            <div key={course.title} className="bg-white border border-gray-200 rounded-2xl p-5 hover:shadow-md transition-shadow flex flex-col">
+          {courses.map((course) => (
+            <div key={course.id} className="bg-white border border-gray-200 rounded-2xl p-5 hover:shadow-md transition-shadow flex flex-col">
               {/* Icon + Title */}
               <div className="flex items-start gap-3 mb-3">
-                <div className="w-10 h-10 flex items-center justify-center text-2xl flex-shrink-0">
-                  {course.icon}
+                <div className="w-10 h-10 flex items-center justify-center text-2xl flex-shrink-0 bg-blue-50 rounded-xl">
+                  🎓
                 </div>
                 <div>
                   <h3 className="font-bold text-[#1e1b4b] text-lg leading-tight">{course.title}</h3>
@@ -110,42 +56,45 @@ export default function FeaturedCourses() {
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
-                      {course.students}
+                      1,500+ Students
                     </span>
                   </div>
                 </div>
               </div>
 
-              <p className="text-gray-600 text-sm mb-3 flex-grow">{course.desc}</p>
+              <p className="text-gray-600 text-sm mb-3 flex-grow line-clamp-2">{course.description}</p>
 
               {/* Tags */}
               <div className="flex flex-wrap gap-1.5 mb-3">
-                {course.tags.map((tag) => (
-                  <span key={tag} className="bg-gray-100 text-gray-600 text-xs px-2.5 py-1 rounded-full">
-                    {tag}
+                {course.skills.map((skill) => (
+                  <span key={skill} className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+                    {skill}
                   </span>
                 ))}
               </div>
 
               {/* Rating */}
               <div className="flex items-center gap-2 mb-3">
-                <Stars rating={course.rating} />
-                <span className="text-sm font-semibold text-gray-800">{course.rating}</span>
-                <span className="text-gray-400 text-xs">({course.reviews})</span>
+                <Stars rating={4.8} />
+                <span className="text-sm font-semibold text-gray-800">4.8</span>
+                <span className="text-gray-400 text-xs">(500+ reviews)</span>
               </div>
 
               {/* Fee */}
               <div className="bg-gray-50 rounded-lg px-3 py-2 flex justify-between items-center mb-3">
                 <span className="text-gray-600 text-sm">Training Fee</span>
-                <span className="font-bold text-gray-900 text-sm">{course.fee}</span>
+                <span className="font-bold text-gray-900 text-sm">{course.fees}</span>
               </div>
 
-              <button className="w-full bg-[#1e1b4b] hover:bg-[#2d2a6e] text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
+              <Link 
+                to={`/course/${course.id}`}
+                className="w-full bg-[#1e1b4b] hover:bg-[#2d2a6e] text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
+              >
                 View Course Details
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </button>
+              </Link>
             </div>
           ))}
         </div>
