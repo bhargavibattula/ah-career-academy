@@ -9,6 +9,7 @@ import Recognition from "./components/Recognition";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Chatbot from "./components/Chatbot";
+import FloatingContact from "./components/FloatingContact";
 import ContactUs from "./components/ContactUs";
 import Careers from "./components/Careers";
 import Reviews from "./components/Reviews";
@@ -76,6 +77,7 @@ export default function App() {
       </Routes>
       <Footer />
       <Chatbot />
+      <FloatingContact />
     </div>
   );
 }
