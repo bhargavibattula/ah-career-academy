@@ -28,7 +28,7 @@ const jobsData = [
   {
     id: 3,
     title: "Full Stack Java Developer",
-    company: "Quality Thought",
+    company: "AH Career",
     location: "Hyderabad",
     workType: "Hybrid",
     experience: "1 - 3 yr.",
@@ -40,7 +40,7 @@ const jobsData = [
   {
     id: 4,
     title: "Data Science Lead",
-    company: "Quality Thought",
+    company: "AH Career",
     location: "Remote",
     workType: "Remote",
     experience: "3 - 6 yr.",

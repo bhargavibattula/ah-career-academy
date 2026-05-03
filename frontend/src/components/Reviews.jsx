@@ -6,7 +6,7 @@ const reviewsData = [
     name: "Rahul Sharma",
     course: "Full Stack Java",
     rating: 5,
-    text: "The training at Quality Thought completely transformed my career. The instructors are industry experts who provided real-world scenarios. I got placed in a top MNC right after completing the course!",
+    text: "The training at AH Career completely transformed my career. The instructors are industry experts who provided real-world scenarios. I got placed in a top MNC right after completing the course!",
     avatar: "https://ui-avatars.com/api/?name=Rahul+Sharma&background=f5a623&color=fff",
   },
   {
@@ -72,7 +72,7 @@ export default function Reviews() {
           Student <span className="text-[#f5a623]">Success</span> Stories
         </h1>
         <p className="text-blue-100 text-lg max-w-2xl text-center">
-          Hear from our alumni who have transformed their careers with Quality Thought.
+          Hear from our alumni who have transformed their careers with AH Career.
         </p>
       </div>
 

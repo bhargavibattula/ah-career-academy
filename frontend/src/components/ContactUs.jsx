@@ -194,7 +194,7 @@ export default function ContactUs() {
                 style={{ marginTop: "2px", width: "16px", height: "16px", accentColor: "#2563eb", flexShrink: 0, cursor: "pointer" }}
               />
               <span style={{ fontSize: "13px", lineHeight: "1.55", color: "#2563eb" }}>
-                I agree to receive WhatsApp and SMS updates from Quality Thought regarding courses and services, as per terms &amp; conditions and privacy policy.
+                I agree to receive WhatsApp and SMS updates from AH Career regarding courses and services, as per terms &amp; conditions and privacy policy.
               </span>
             </div>
 

@@ -107,21 +107,6 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Minimal Navbar */}
-      <nav className="bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 bg-orange-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-black text-lg">Q</span>
-            </div>
-            <div className="leading-tight">
-              <div className="font-bold text-gray-800 text-sm leading-none">Quality</div>
-              <div className="font-bold text-gray-800 text-sm leading-none">Thought</div>
-            </div>
-          </Link>
-        </div>
-      </nav>
-
       {/* Main */}
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
@@ -135,7 +120,7 @@ export default function RegisterPage() {
                 </svg>
               </div>
               <h1 className="text-2xl font-bold text-[#0b1257]">Create Account</h1>
-              <p className="text-gray-500 text-sm mt-1">Join 150k+ students on Quality Thought</p>
+              <p className="text-gray-500 text-sm mt-1">Join 150k+ students on AH Career</p>
             </div>
 
             {/* Server Error */}

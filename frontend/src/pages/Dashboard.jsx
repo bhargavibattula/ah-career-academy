@@ -12,31 +12,7 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Navbar */}
-      <nav className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 bg-orange-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-black text-lg">Q</span>
-            </div>
-            <div className="leading-tight">
-              <div className="font-bold text-gray-800 text-sm leading-none">Quality</div>
-              <div className="font-bold text-gray-800 text-sm leading-none">Thought</div>
-            </div>
-          </Link>
-          <div className="flex items-center gap-3">
-            <span className="text-sm text-gray-600 font-medium hidden sm:block">
-              Hello, {user?.name}
-            </span>
-            <button
-              onClick={handleLogout}
-              className="bg-[#0b1257] hover:bg-[#1a2580] text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-      </nav>
+
 
       {/* Content */}
       <div className="flex-1 max-w-5xl mx-auto w-full px-4 py-10">

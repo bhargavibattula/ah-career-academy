@@ -101,10 +101,10 @@ export default function Chatbot() {
           {/* Header */}
           <div className="bg-[#0b1257] px-4 py-3 flex items-center gap-3">
             <div className="w-9 h-9 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
-              QT
+              AH
             </div>
             <div>
-              <div className="text-white font-semibold text-sm">Quality Thought</div>
+              <div className="text-white font-semibold text-sm">AH Career</div>
               <div className="text-green-400 text-xs flex items-center gap-1">
                 <span className="w-1.5 h-1.5 bg-green-400 rounded-full inline-block"></span>
                 Online
