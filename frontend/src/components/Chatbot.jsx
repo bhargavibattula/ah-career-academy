@@ -72,7 +72,7 @@ export default function Chatbot() {
         const msg = encodeURIComponent(
           `Hi! I'm ${name}, interested in ${interest}. Please share course details.`
         );
-        window.open(`https://wa.me/919963486280?text=${msg}`, "_blank");
+        window.open(`https://wa.me/919989241515?text=${msg}`, "_blank");
       }, 1200);
     }, 400);
   };
@@ -217,7 +217,7 @@ export default function Chatbot() {
 
       {/* WhatsApp floating button */}
       <a
-        href="https://wa.me/919963486280"
+        href="https://wa.me/919989241515"
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-24 left-6 z-50 w-12 h-12 bg-green-500 rounded-full shadow-xl flex items-center justify-center hover:bg-green-600 transition-colors"

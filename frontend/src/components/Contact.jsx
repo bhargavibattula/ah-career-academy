@@ -34,12 +34,10 @@ const contactMethods = [
 ];
 
 const socials = [
-  { icon: "📘", name: "Facebook", followers: "4.4k+", color: "bg-blue-600" },
-  { icon: "📸", name: "Instagram", followers: "17.7k+", color: "bg-pink-500" },
-  { icon: "💬", name: "Whatsapp", followers: "4.6k+", color: "bg-green-500" },
-  { icon: "💼", name: "LinkedIn", followers: "4k+", color: "bg-blue-700" },
-  { icon: "▶️", name: "YouTube", followers: "229k+", color: "bg-red-600" },
-  { icon: "✈️", name: "Telegram", followers: "1.7k+", color: "bg-sky-500" },
+  { icon: "📘", name: "Facebook", followers: "4.4k+", color: "bg-blue-600", url: "https://www.facebook.com/share/18nvUvNp8m/" },
+  { icon: "📸", name: "Instagram", followers: "17.7k+", color: "bg-pink-500", url: "https://www.instagram.com/ah_career_rajahmundry" },
+  { icon: "💼", name: "LinkedIn", followers: "4k+", color: "bg-blue-700", url: "https://www.linkedin.com/company/ahcareer/" },
+  { icon: "🌐", name: "Website", followers: "Official", color: "bg-gray-800", url: "http://ahcareer.in" },
 ];
 
 export default function Contact() {
@@ -62,7 +60,10 @@ export default function Contact() {
               </div>
               <h3 className="font-bold text-gray-900 text-base mb-1">{m.title}</h3>
               <p className="text-gray-500 text-sm mb-2">{m.sub}</p>
-              <a href="#" className={`${m.linkColor} text-sm font-semibold hover:underline`}>
+              <a 
+                href={m.title === "WhatsApp Chat" ? "https://wa.me/919989241515" : m.title === "Call Us" ? "tel:0883-2474088" : m.title === "Email Us" ? "mailto:ahcareerpvtltd@gmail.com" : "/contact"} 
+                className={`${m.linkColor} text-sm font-semibold hover:underline`}
+              >
                 {m.link}
               </a>
             </div>
@@ -77,11 +78,13 @@ export default function Contact() {
           Follow us for updates, tips, and success stories
         </p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {socials.map((s) => (
             <a
               key={s.name}
-              href="#"
+              href={s.url}
+              target="_blank"
+              rel="noreferrer"
               className="bg-white border border-gray-200 rounded-2xl p-4 text-center hover:shadow-md transition-shadow flex flex-col items-center gap-2"
             >
               <div className={`w-12 h-12 ${s.color} rounded-full flex items-center justify-center text-2xl`}>
