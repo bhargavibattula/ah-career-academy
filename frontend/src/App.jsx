@@ -17,6 +17,15 @@ import KidsTraining from "./components/KidsTraining";
 import Blog from "./components/Blog";
 import BlogPost from "./components/BlogPost";
 
+// Pages
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import Dashboard from "./pages/Dashboard";
+import AdminDashboard from "./pages/AdminDashboard";
+
+// Routes
+import { GuestRoute, ProtectedRoute, AdminRoute } from "./routes/ProtectedRoutes";
+
 export default function App() {
   return (
     <div className="min-h-screen">
@@ -40,6 +49,30 @@ export default function App() {
         <Route path="/kids-training" element={<KidsTraining />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogPost />} />
+
+        {/* Auth Routes */}
+        <Route path="/login" element={
+          <GuestRoute>
+            <LoginPage />
+          </GuestRoute>
+        } />
+        <Route path="/register" element={
+          <GuestRoute>
+            <RegisterPage />
+          </GuestRoute>
+        } />
+
+        {/* Protected Dashboard Routes */}
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin-dashboard" element={
+          <AdminRoute>
+            <AdminDashboard />
+          </AdminRoute>
+        } />
       </Routes>
       <Footer />
       <Chatbot />
