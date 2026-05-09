@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { 
   PuzzlePieceIcon, 
   PaintBrushIcon, 
@@ -28,48 +29,15 @@ import {
   ArrowRightIcon
 } from "@heroicons/react/24/outline";
 
-const courses = [
-  {
-    title: "Scratch Programming",
-    desc: "Build games, stories & animations with drag-and-drop coding blocks",
-    duration: "30 Days",
-    icon: <PuzzlePieceIcon className="w-8 h-8" />,
-    accent: "#7C3AED",
-    bg: "from-violet-50 to-purple-100",
-    badge: "bg-violet-100 text-violet-700",
-    border: "border-violet-200",
-  },
-  {
-    title: "Canva Designing",
-    desc: "Create stunning posters, greetings, and social media content",
-    duration: "25 Days",
-    icon: <PaintBrushIcon className="w-8 h-8" />,
-    accent: "#DB2777",
-    bg: "from-pink-50 to-rose-100",
-    badge: "bg-pink-100 text-pink-700",
-    border: "border-pink-200",
-  },
-  {
-    title: "Spoken English",
-    desc: "Master speaking, listening & communication for real-world confidence",
-    duration: "30 Days",
-    icon: <ChatBubbleBottomCenterTextIcon className="w-8 h-8" />,
-    accent: "#0284C7",
-    bg: "from-sky-50 to-blue-100",
-    badge: "bg-sky-100 text-sky-700",
-    border: "border-sky-200",
-  },
-  {
-    title: "Future with AI",
-    desc: "Explore Artificial Intelligence in a fun, hands-on learning journey",
-    duration: "35 Days",
-    icon: <CpuChipIcon className="w-8 h-8" />,
-    accent: "#059669",
-    bg: "from-emerald-50 to-green-100",
-    badge: "bg-emerald-100 text-emerald-700",
-    border: "border-emerald-200",
-  },
-];
+import { kidsCourses } from "../data/kidsCourses";
+
+// Helper to map icon names to components
+const IconMap = {
+  PuzzlePieceIcon: <PuzzlePieceIcon className="w-8 h-8" />,
+  PaintBrushIcon: <PaintBrushIcon className="w-8 h-8" />,
+  ChatBubbleBottomCenterTextIcon: <ChatBubbleBottomCenterTextIcon className="w-8 h-8" />,
+  CpuChipIcon: <CpuChipIcon className="w-8 h-8" />,
+};
 
 const reasons = [
   {
@@ -450,16 +418,17 @@ export default function SummerCampPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
-            {courses.map((course, i) => (
-              <div
-                key={course.title}
-                className={`sc-course-card rounded-2xl p-6 border ${course.border} cursor-pointer`}
+            {kidsCourses.map((course, i) => (
+              <Link
+                key={course.id}
+                to={`/kids-course/${course.id}`}
+                className={`sc-course-card rounded-2xl p-6 border ${course.border} cursor-pointer block group`}
                 onMouseEnter={() => setHoveredCard(i)}
                 onMouseLeave={() => setHoveredCard(null)}
                 style={{ boxShadow: hoveredCard === i ? `0 20px 60px ${course.accent}28` : undefined }}
               >
                 <div className={`sc-course-icon w-16 h-16 rounded-2xl bg-gradient-to-br ${course.bg} flex items-center justify-center mb-5 border ${course.border}`} style={{ color: course.accent }}>
-                  {course.icon}
+                  {IconMap[course.icon]}
                 </div>
                 <h3 className="sc-display text-lg font-black text-gray-900 mb-2">{course.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4 font-medium">{course.desc}</p>
@@ -467,24 +436,23 @@ export default function SummerCampPage() {
                   <ClockIcon className="w-3.5 h-3.5" /> {course.duration}
                 </div>
                 <div
-                  className={`mt-4 flex items-center gap-1 text-sm font-semibold transition-all duration-300 ${hoveredCard === i ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}
-                  style={{ color: course.accent }}
+                  className="mt-6 flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-white transition-all duration-300 transform group-hover:scale-105 shadow-md"
+                  style={{ background: course.accent }}
                 >
-                  Learn more →
+                  Register Now
+                  <ArrowRightIcon className="w-4 h-4" />
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
 
         {/* ─────────── WHY CHOOSE US ─────────── */}
         <section className="px-6 md:px-12 pb-24 relative">
-          {/* Subtle background blobs for this section */}
           <div className="absolute top-0 right-0 w-80 h-80 rounded-full opacity-15 pointer-events-none" style={{ background: "radial-gradient(circle,#FCA5A5,transparent 70%)", transform: "translate(30%,-30%)" }} />
           <div className="absolute bottom-0 left-0 w-64 h-64 rounded-full opacity-10 pointer-events-none" style={{ background: "radial-gradient(circle,#A5B4FC,transparent 70%)", transform: "translate(-30%,30%)" }} />
 
           <div className="max-w-6xl mx-auto relative z-10">
-            {/* Header */}
             <div className="text-center mb-14">
               <span className="inline-block bg-orange-100 text-orange-700 font-bold text-xs uppercase tracking-widest px-4 py-1.5 rounded-full mb-4 flex items-center gap-2 mx-auto w-fit">
                 <HomeIcon className="w-3.5 h-3.5" /> Why AH Career Academy
@@ -502,7 +470,6 @@ export default function SummerCampPage() {
               </div>
             </div>
 
-            {/* Reasons grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
               {reasons.map((r, i) => (
                 <div
@@ -529,7 +496,6 @@ export default function SummerCampPage() {
               ))}
             </div>
 
-            {/* Testimonials */}
             <div className="mb-16">
               <div className="text-center mb-8">
                 <p className="text-gray-400 font-bold text-sm uppercase tracking-widest">💬 What Parents Say</p>
@@ -555,7 +521,6 @@ export default function SummerCampPage() {
               </div>
             </div>
 
-            {/* Stats banner */}
             <div className="rounded-3xl p-8 md:p-12 mb-14 relative overflow-hidden" style={{ background: "linear-gradient(135deg,#1E1B4B 0%,#312E81 60%,#1a3a6b 100%)" }}>
               <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-10 pointer-events-none" style={{ background: "radial-gradient(circle,#F97316,transparent)", transform: "translate(40%,-40%)" }} />
               <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full opacity-10 pointer-events-none" style={{ background: "radial-gradient(circle,#A5B4FC,transparent)", transform: "translate(-40%,40%)" }} />
@@ -579,7 +544,6 @@ export default function SummerCampPage() {
               </div>
             </div>
 
-            {/* Trust badges */}
             <div className="sc-badge-strip rounded-2xl px-6 py-5 mb-14 flex flex-wrap items-center justify-center gap-4">
               {trustBadges.map((b) => (
                 <div key={b.label} className="flex items-center gap-2 text-white" style={{ background: "rgba(255,255,255,0.1)", borderRadius: 24, padding: "6px 14px", border: "1px solid rgba(255,255,255,0.15)" }}>
@@ -589,7 +553,6 @@ export default function SummerCampPage() {
               ))}
             </div>
 
-            {/* Address + contact */}
             <div className="sc-glass rounded-2xl p-6 mb-12 flex flex-col md:flex-row items-center justify-between gap-5 border border-orange-100">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center text-white font-black text-lg" style={{ background: "linear-gradient(135deg,#F97316,#F59E0B)" }}>AH</div>
@@ -608,7 +571,6 @@ export default function SummerCampPage() {
               </div>
             </div>
 
-            {/* Final CTA */}
             <div className="text-center pb-6">
               <p className="text-gray-400 font-semibold text-sm mb-5 flex items-center justify-center gap-2">
                 <ExclamationTriangleIcon className="w-4 h-4 text-orange-400" /> Seats filling fast — Summer 2025 batch nearly full!
@@ -624,7 +586,6 @@ export default function SummerCampPage() {
             </div>
           </div>
         </section>
-
       </div>
     </div>
   );

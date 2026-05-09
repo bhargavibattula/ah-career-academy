@@ -21,6 +21,7 @@ import JobReadyProgram from "./pages/JobReadyProgram";
 
 import JobDetailsPage from "./pages/JobDetailsPage";
 import CourseDetails from "./pages/CourseDetails";
+import KidsCourseDetails from "./pages/KidsCourseDetails";
 import CourseRegistrationPage from "./pages/CourseRegistrationPage";
 
 // Pages
@@ -59,6 +60,7 @@ export default function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/programs/job-ready" element={<JobReadyProgram />} />
+        <Route path="/kids-course/:id" element={<KidsCourseDetails />} />
         <Route path="/jobs/:idOrSlug" element={<JobDetailsPage />} />
         <Route path="/courses/:id" element={<CourseDetails />} />
         <Route path="/courses/:id/register" element={
