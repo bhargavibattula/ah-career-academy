@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { 
   ChatBubbleLeftRightIcon, 
   XMarkIcon, 
@@ -29,6 +29,15 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([
     { from: "bot", text: "Hello! May I have a moment to chat with you?" },
   ]);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, open]);
 
   // Auto-show greeting bubble after 3 seconds
   useEffect(() => {
@@ -90,7 +99,7 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end gap-3">
       {/* Greeting Bubble Trigger */}
       {showGreeting && !open && (
         <div className="flex flex-col items-end animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -143,43 +152,44 @@ export default function Chatbot() {
 
       {/* Chat Window */}
       {open && (
-        <div className="w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+        <div className="w-80 sm:w-96 h-[500px] bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-gray-100 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-300">
           {/* Header */}
-          <div className="bg-[#0b1257] px-4 py-3 flex items-center gap-3">
-            <div className="w-9 h-9 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+          <div className="bg-[#0b1257] px-5 py-4 flex items-center gap-3 shrink-0">
+            <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center text-white font-black text-sm flex-shrink-0 shadow-lg shadow-orange-500/20">
               AH
             </div>
-            <div>
-              <div className="text-white font-semibold text-sm">AH Career</div>
-              <div className="text-green-400 text-xs flex items-center gap-1">
-                <span className="w-1.5 h-1.5 bg-green-400 rounded-full inline-block"></span>
-                Online
+            <div className="flex-1">
+              <div className="text-white font-bold text-sm">AH Career Support</div>
+              <div className="text-green-400 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1">
+                <span className="w-1.5 h-1.5 bg-green-400 rounded-full inline-block animate-pulse"></span>
+                Active Now
               </div>
             </div>
-            <button onClick={() => setOpen(false)} className="ml-auto text-white/60 hover:text-white">
+            <button onClick={() => setOpen(false)} className="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
               <XMarkIcon className="w-5 h-5" />
             </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 max-h-72 bg-gray-50">
+          <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-gray-50/50 scroll-smooth">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.from === "user" ? "justify-end" : "justify-start"}`}>
                 <div
-                  className={`max-w-[80%] px-3 py-2 rounded-xl text-sm ${
+                  className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-sm ${
                     msg.from === "user"
-                      ? "bg-[#0b1257] text-white rounded-br-sm"
-                      : "bg-white border border-gray-200 text-gray-800 rounded-bl-sm shadow-sm"
+                      ? "bg-[#0b1257] text-white rounded-br-none"
+                      : "bg-white border border-gray-100 text-gray-700 rounded-bl-none"
                   }`}
                 >
                   {msg.text}
                 </div>
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Input Area */}
-          <div className="border-t border-gray-100 p-3 bg-white">
+          <div className="border-t border-gray-100 p-4 bg-white shrink-0">
             {step === STEPS.NAME && (
               <div className="flex gap-2">
                 <input
