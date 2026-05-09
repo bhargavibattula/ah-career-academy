@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
@@ -6,41 +6,42 @@ import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outli
 
 import { courses } from "../data/courses";
 
-const navLinks = [
-  {
-    label: "Courses",
-    links: courses.map(course => ({
-      label: course.title,
-      path: `/courses/${course.id}`
-    })),
-  },
-  {
-    label: "Company",
-    links: [
-      { label: "About Us", path: "/about" },
-      { label: "Careers", path: "/careers" },
-      { label: "Reviews", path: "/reviews" },
-    ],
-  },
-  {
-    label: "Support",
-    links: [
-      { label: "Contact Us", path: "/contact" },
-    ],
-  },
-  {
-    label: "Programs",
-    links: [
-      { label: "Kids Training", path: "/kids-training" },
-    ],
-  },
-];
-
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+
+  // Dynamically generate nav links to ensure all courses appear
+  const navLinks = useMemo(() => [
+    {
+      label: "Courses",
+      links: courses.map((course) => ({
+        label: course.title,
+        path: `/courses/${course.id}`,
+      })),
+    },
+    {
+      label: "Company",
+      links: [
+        { label: "About Us", path: "/about" },
+        { label: "Careers", path: "/careers" },
+        { label: "Reviews", path: "/reviews" },
+      ],
+    },
+    {
+      label: "Support",
+      links: [
+        { label: "Contact Us", path: "/contact" },
+      ],
+    },
+    {
+      label: "Programs",
+      links: [
+        { label: "Kids Training", path: "/kids-training" },
+      ],
+    },
+  ], []);
 
   const handleLogout = async () => {
     await logout();
@@ -75,7 +76,7 @@ export default function Navbar() {
                   <div className="absolute top-full left-0 bg-white rounded-xl shadow-xl border border-gray-100 min-w-[200px] py-2 z-50">
                     {link.links.map((item) => (
                       <Link
-                        key={item.label}
+                        key={item.path}
                         to={item.path}
                         className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
                       >
@@ -145,7 +146,7 @@ export default function Navbar() {
                   <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 mt-4">{link.label}</div>
                   {link.links.map((item) => (
                     <Link
-                      key={item.label}
+                      key={item.path}
                       to={item.path}
                       className="block py-2 text-sm text-gray-700 hover:text-orange-500 font-medium"
                       onClick={() => setMobileOpen(false)}
