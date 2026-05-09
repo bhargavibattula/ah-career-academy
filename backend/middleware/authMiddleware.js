@@ -97,7 +97,10 @@ export const roleMiddleware = (...allowedRoles) => {
       });
     }
 
-    if (!allowedRoles.includes(req.user.role)) {
+    const normalizedUserRole = req.user.role.toLowerCase();
+    const normalizedAllowedRoles = allowedRoles.map(r => r.toLowerCase());
+
+    if (!normalizedAllowedRoles.includes(normalizedUserRole)) {
       console.log(`❌ Auth: Role ${req.user.role} not in allowed:`, allowedRoles);
       return res.status(403).json({
         success: false,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import axios from "axios";
+import { getAllKidsRegistrations, updateKidsRegistrationStatus } from "../services/kidsRegistrationService";
 import { toast } from "react-toastify";
 import { 
   ArrowPathIcon, 
@@ -16,14 +16,12 @@ export default function AdminKidsRegistrations() {
   const fetchRegistrations = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/kids-registrations", {
-        withCredentials: true
-      });
-      if (response.data.success) {
-        setRegistrations(response.data.data);
+      const data = await getAllKidsRegistrations();
+      if (data.success) {
+        setRegistrations(data.data);
       }
     } catch (err) {
-      toast.error(err.response?.data?.message || "Failed to fetch kids registrations");
+      toast.error(err.message || "Failed to fetch kids registrations");
     } finally {
       setLoading(false);
     }
@@ -35,16 +33,13 @@ export default function AdminKidsRegistrations() {
 
   const onStatusUpdate = async (id, newStatus) => {
     try {
-      const response = await axios.patch(`http://localhost:5000/api/kids-registrations/${id}`, 
-        { status: newStatus },
-        { withCredentials: true }
-      );
-      if (response.data.success) {
+      const data = await updateKidsRegistrationStatus(id, { status: newStatus });
+      if (data.success) {
         toast.success("Status updated successfully");
         fetchRegistrations();
       }
     } catch (err) {
-      toast.error("Update failed: " + (err.response?.data?.message || err.message));
+      toast.error("Update failed: " + err.message);
     }
   };
 

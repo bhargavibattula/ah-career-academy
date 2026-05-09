@@ -19,7 +19,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { kidsCourses } from "../data/kidsCourses";
 import { toast } from "react-toastify";
-import axios from "axios";
+import { createKidsRegistration } from "../services/kidsRegistrationService";
 
 const IconMap = {
   PuzzlePieceIcon: <PuzzlePieceIcon className="w-12 h-12" />,
@@ -59,12 +59,12 @@ export default function KidsCourseDetails() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/kids-registrations", {
+      const data = await createKidsRegistration({
         ...formData,
         course: course.title
       });
-      if (response.data.success) {
-        toast.success(response.data.message);
+      if (data.success) {
+        toast.success(data.message);
         setFormData({
           studentName: "",
           parentName: "",
@@ -75,7 +75,7 @@ export default function KidsCourseDetails() {
         });
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Registration failed. Please try again.");
+      toast.error(error.message || "Registration failed. Please try again.");
     } finally {
       setSubmitting(false);
     }
