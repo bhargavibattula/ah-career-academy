@@ -56,7 +56,7 @@ export default function TrendingCourses() {
                 </div>
 
                 <Link 
-                  to={`/course/${course.id}`}
+                  to={`/courses/${course.id}`}
                   className="w-full bg-[#0b1257] hover:bg-[#0d1b3e] text-white text-center font-semibold py-3 rounded-xl transition-all text-sm active:scale-95"
                 >
                   View Details

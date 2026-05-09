@@ -19,7 +19,7 @@ import Blog from "./components/Blog";
 import BlogPost from "./components/BlogPost";
 
 import JobDetailsPage from "./pages/JobDetailsPage";
-import CourseDetailPage from "./pages/CourseDetailPage";
+import CourseDetails from "./pages/CourseDetails";
 import CourseRegistrationPage from "./pages/CourseRegistrationPage";
 
 // Pages
@@ -58,8 +58,8 @@ export default function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/jobs/:idOrSlug" element={<JobDetailsPage />} />
-        <Route path="/course/:id" element={<CourseDetailPage />} />
-        <Route path="/course/:id/register" element={
+        <Route path="/courses/:id" element={<CourseDetails />} />
+        <Route path="/courses/:id/register" element={
           <ProtectedRoute>
             <CourseRegistrationPage />
           </ProtectedRoute>

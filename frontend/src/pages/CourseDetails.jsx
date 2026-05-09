@@ -4,7 +4,7 @@ import { courses } from "../data/courses";
 import { useAuth } from "../context/AuthContext";
 import { checkRegistration } from "../services/registrationService";
 
-export default function CourseDetailPage() {
+export default function CourseDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -43,9 +43,9 @@ export default function CourseDetailPage() {
 
   const handleRegisterClick = () => {
     if (!user) {
-      navigate("/login", { state: { from: `/course/${id}/register` } });
+      navigate("/login", { state: { from: `/courses/${id}/register` } });
     } else {
-      navigate(`/course/${id}/register`);
+      navigate(`/courses/${id}/register`);
     }
   };
 

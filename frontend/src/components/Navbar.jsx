@@ -4,41 +4,34 @@ import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
+import { courses } from "../data/courses";
+
 const navLinks = [
   {
     label: "Courses",
-    dropdown: [
-      "Full Stack Python",
-      "Data Science",
-      "Cyber Security",
-      "Full Stack Java",
-      "DevOps & Cloud",
-      "AI Testing",
-      "Quantum Computing",
-      "Gen AI Development",
-    ],
+    links: courses.map(course => ({
+      label: course.title,
+      path: `/courses/${course.id}`
+    })),
   },
-
   {
     label: "Company",
-    dropdown: [
-      "About Us",
-      "Careers",
-      "Reviews",
+    links: [
+      { label: "About Us", path: "/about" },
+      { label: "Careers", path: "/careers" },
+      { label: "Reviews", path: "/reviews" },
     ],
   },
-
   {
     label: "Support",
-    dropdown: [
-      "Contact Us",
+    links: [
+      { label: "Contact Us", path: "/contact" },
     ],
   },
-
   {
     label: "Programs",
-    dropdown: [
-      "Kids Training",
+    links: [
+      { label: "Kids Training", path: "/kids-training" },
     ],
   },
 ];
@@ -80,13 +73,13 @@ export default function Navbar() {
                 </button>
                 {openMenu === link.label && (
                   <div className="absolute top-full left-0 bg-white rounded-xl shadow-xl border border-gray-100 min-w-[200px] py-2 z-50">
-                    {link.dropdown.map((item) => (
+                    {link.links.map((item) => (
                       <Link
-                        key={item}
-                        to={item === "Contact Us" ? "/contact" : item === "Careers" ? "/careers" : item === "Reviews" ? "/reviews" : item === "About Us" ? "/about" : item === "Kids Training" ? "/kids-training" : item === "Our Blog" ? "/blog" : "#"}
+                        key={item.label}
+                        to={item.path}
                         className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
                       >
-                        {item}
+                        {item.label}
                       </Link>
                     ))}
                   </div>
@@ -150,14 +143,14 @@ export default function Navbar() {
               {navLinks.map((link) => (
                 <div key={link.label} className="px-4">
                   <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 mt-4">{link.label}</div>
-                  {link.dropdown.map((item) => (
+                  {link.links.map((item) => (
                     <Link
-                      key={item}
-                      to={item === "Contact Us" ? "/contact" : item === "Careers" ? "/careers" : item === "Reviews" ? "/reviews" : item === "About Us" ? "/about" : item === "Kids Training" ? "/kids-training" : item === "Our Blog" ? "/blog" : "#"}
+                      key={item.label}
+                      to={item.path}
                       className="block py-2 text-sm text-gray-700 hover:text-orange-500 font-medium"
                       onClick={() => setMobileOpen(false)}
                     >
-                      {item}
+                      {item.label}
                     </Link>
                   ))}
                 </div>

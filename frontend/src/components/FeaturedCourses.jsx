@@ -88,7 +88,7 @@ export default function FeaturedCourses() {
               </div>
 
               <Link 
-                to={`/course/${course.id}`}
+                to={`/courses/${course.id}`}
                 className="w-full bg-[#1e1b4b] hover:bg-[#2d2a6e] text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
               >
                 View Course Details
