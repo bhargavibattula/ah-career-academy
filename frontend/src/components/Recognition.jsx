@@ -1,3 +1,9 @@
+import { 
+  TrophyIcon, 
+  AcademicCapIcon, 
+  StarIcon 
+} from "@heroicons/react/24/outline";
+
 const achievements = [
   "25 Years Trusted Service",
   "ISO 9001:2015 Certified",
@@ -29,7 +35,7 @@ export default function Recognition() {
             {achievements.map((a) => (
               <div key={a} className="flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-4 hover:border-orange-200 transition-colors">
                 <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <span className="text-orange-500 text-xl">🏆</span>
+                  <TrophyIcon className="w-5 h-5 text-orange-500" />
                 </div>
                 <span className="text-gray-800 font-semibold text-sm">{a}</span>
               </div>
@@ -56,14 +62,14 @@ export default function Recognition() {
               <p className="text-gray-500 text-sm mb-4">in Rajahmundry</p>
               <div className="w-full h-48 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center mb-4 overflow-hidden">
                 <div className="text-center px-4">
-                  <div className="text-6xl mb-3">🏆</div>
+                  <AcademicCapIcon className="w-16 h-16 text-orange-500 mx-auto mb-3" />
                   <div className="text-orange-700 font-bold text-base">AH Career Academy</div>
                   <div className="text-orange-600 text-sm">Empowering Students since 2013</div>
                 </div>
               </div>
               <div className="flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-3 text-left">
                 <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  🥇
+                  <StarIcon className="w-6 h-6 text-yellow-600" />
                 </div>
                 <div>
                   <div className="font-bold text-gray-800 text-sm">Awarded for</div>

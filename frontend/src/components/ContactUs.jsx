@@ -1,4 +1,10 @@
 import { useState } from "react";
+import { 
+  PhoneIcon, 
+  EnvelopeIcon, 
+  MapPinIcon, 
+  ArrowTopRightOnSquareIcon 
+} from "@heroicons/react/24/outline";
 
 const courses = [
   "DevOps Engineer",
@@ -73,9 +79,7 @@ export default function ContactUs() {
             {/* Phone */}
             <div className="card-item" style={{ marginBottom: "14px" }}>
               <div className="info-icon-phone" style={{ width: "48px", height: "48px", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M6.62 10.79C8.06 13.62 10.38 15.94 13.21 17.38L15.41 15.18C15.69 14.9 16.08 14.82 16.43 14.93C17.55 15.3 18.75 15.5 20 15.5C20.55 15.5 21 15.95 21 16.5V20C21 20.55 20.55 21 20 21C10.61 21 3 13.39 3 4C3 3.45 3.45 3 4 3H7.5C8.05 3 8.5 3.45 8.5 4C8.5 5.25 8.7 6.45 9.07 7.57C9.18 7.92 9.1 8.31 8.82 8.59L6.62 10.79Z" fill="#f5a623"/>
-                </svg>
+                <PhoneIcon className="w-5 h-5 text-[#f5a623]" />
               </div>
               <div>
                 <div style={{ fontWeight: 600, fontSize: "15px", color: "#111827", marginBottom: "2px" }}>Phone</div>
@@ -87,9 +91,7 @@ export default function ContactUs() {
             {/* Email */}
             <div className="card-item" style={{ marginBottom: "14px" }}>
               <div className="info-icon-address" style={{ width: "48px", height: "48px", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, background: "#e0f2f1" }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#00897b"/>
-                </svg>
+                <EnvelopeIcon className="w-5 h-5 text-[#00897b]" />
               </div>
               <div>
                 <div style={{ fontWeight: 600, fontSize: "15px", color: "#111827", marginBottom: "2px" }}>Email</div>
@@ -100,9 +102,7 @@ export default function ContactUs() {
             {/* Address */}
             <div className="card-item">
               <div className="info-icon-address" style={{ width: "48px", height: "48px", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, alignSelf: "flex-start", marginTop: "2px" }}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#2196f3"/>
-                </svg>
+                <MapPinIcon className="w-5 h-5 text-[#2196f3]" />
               </div>
               <div>
                 <div style={{ fontWeight: 600, fontSize: "15px", color: "#111827", marginBottom: "2px" }}>Address</div>
@@ -141,12 +141,11 @@ export default function ContactUs() {
                 onChange={handleChange}
                 style={{ border: "1px solid #d1d5db", borderRadius: "6px", padding: "12px 14px", fontSize: "14px", color: "#111827", width: "100%" }}
               />
-              {/* Phone with flag */}
+              {/* Phone with label */}
               <div style={{ display: "flex", border: "1px solid #d1d5db", borderRadius: "6px", overflow: "hidden" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "4px", padding: "0 10px", borderRight: "1px solid #d1d5db", background: "#fff", flexShrink: 0 }}>
-                  {/* India flag emoji */}
-                  <span style={{ fontSize: "18px" }}>🇮🇳</span>
-                  <span style={{ color: "#6b7280", fontSize: "12px" }}>▾</span>
+                <div style={{ display: "flex", alignItems: "center", gap: "4px", padding: "0 10px", borderRight: "1px solid #d1d5db", background: "#f9fafb", flexShrink: 0 }}>
+                  <span style={{ color: "#6b7280", fontSize: "11px", fontWeight: 700 }}>IND</span>
+                  <span style={{ color: "#6b7280", fontSize: "10px" }}>▾</span>
                 </div>
                 <input
                   type="tel"
@@ -233,9 +232,7 @@ export default function ContactUs() {
               style={{ position: "absolute", top: "10px", left: "10px", zIndex: 10, background: "#fff", border: "1px solid #d1d5db", borderRadius: "6px", padding: "6px 12px", fontSize: "13px", fontWeight: 500, color: "#111827", textDecoration: "none", display: "flex", alignItems: "center", gap: "6px", boxShadow: "0 1px 4px rgba(0,0,0,0.1)" }}
             >
               Open in Maps
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M10 2L2 10M10 2H5M10 2V7" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <ArrowTopRightOnSquareIcon className="w-4 h-4 text-gray-500" />
             </a>
             <iframe
               title="AH Career Pvt Ltd Location"

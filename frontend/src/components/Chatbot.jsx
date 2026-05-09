@@ -1,4 +1,9 @@
 import { useState, useEffect } from "react";
+import { 
+  ChatBubbleLeftRightIcon, 
+  XMarkIcon, 
+  PaperAirplaneIcon 
+} from "@heroicons/react/24/outline";
 
 const STEPS = {
   GREETING: "greeting",
@@ -132,9 +137,7 @@ export default function Chatbot() {
           onClick={() => setOpen(true)}
           className="w-14 h-14 bg-[#a78bfa] text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-[#8b5cf6] transition-all transform hover:scale-105 active:scale-95"
         >
-          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
-          </svg>
+          <ChatBubbleLeftRightIcon className="w-8 h-8" />
         </button>
       )}
 
@@ -154,9 +157,7 @@ export default function Chatbot() {
               </div>
             </div>
             <button onClick={() => setOpen(false)} className="ml-auto text-white/60 hover:text-white">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
+              <XMarkIcon className="w-5 h-5" />
             </button>
           </div>
 
@@ -193,7 +194,7 @@ export default function Chatbot() {
                   onClick={handleName}
                   className="bg-orange-500 text-white px-3 py-2 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors"
                 >
-                  →
+                  <PaperAirplaneIcon className="w-4 h-4" />
                 </button>
               </div>
             )}
@@ -227,7 +228,7 @@ export default function Chatbot() {
                   onClick={handlePhone}
                   className="bg-green-500 text-white px-3 py-2 rounded-lg text-sm font-semibold hover:bg-green-600 transition-colors"
                 >
-                  →
+                  <PaperAirplaneIcon className="w-4 h-4" />
                 </button>
               </div>
             )}

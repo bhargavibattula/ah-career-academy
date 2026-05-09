@@ -1,3 +1,10 @@
+import { 
+  PhoneIcon, 
+  DevicePhoneMobileIcon, 
+  EnvelopeIcon, 
+  ArrowDownTrayIcon 
+} from "@heroicons/react/24/outline";
+
 const footerLinks = {
   "AH CAREER": ["About Us", "Our Blog", "Pay Now", "Contact Us", "Reviews"],
   "TOP CATEGORIES": ["Full Stack Development", "AI & Machine Learning", "Data Science", "Digital Marketing", "Cybersecurity"],
@@ -29,9 +36,7 @@ export default function Footer() {
             <div>
               <h4 className="font-bold text-white text-sm mb-4 tracking-wide">DOWNLOAD PROFILE</h4>
               <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold text-sm px-4 py-3 rounded-lg flex items-center gap-2 transition-colors">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
+                <ArrowDownTrayIcon className="w-4 h-4" />
                 DOWNLOAD COMPANY PROFILE
               </button>
             </div>
@@ -40,13 +45,13 @@ export default function Footer() {
               <h4 className="font-bold text-white text-sm mb-3 tracking-wide uppercase">Contact Info</h4>
               <ul className="space-y-2 text-sm text-gray-400">
                 <li className="flex items-center gap-2">
-                  <span className="text-orange-500">📞</span> 9989241515
+                  <PhoneIcon className="w-4 h-4 text-orange-500" /> 9989241515
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-orange-500">☎️</span> 0883-2474088
+                  <DevicePhoneMobileIcon className="w-4 h-4 text-orange-500" /> 0883-2474088
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-orange-500">📧</span> ahcareerpvtltd@gmail.com
+                  <EnvelopeIcon className="w-4 h-4 text-orange-500" /> ahcareerpvtltd@gmail.com
                 </li>
               </ul>
             </div>

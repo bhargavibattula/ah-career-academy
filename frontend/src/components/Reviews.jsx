@@ -1,4 +1,6 @@
 import React from 'react';
+import { StarIcon as StarSolid } from "@heroicons/react/24/solid";
+import { StarIcon as StarOutline } from "@heroicons/react/24/outline";
 
 const reviewsData = [
   {
@@ -84,7 +86,9 @@ export default function Reviews() {
           <div className="text-center">
             <div className="text-5xl font-black text-gray-900 mb-2">4.8</div>
             <div className="flex text-[#f5a623] text-xl justify-center mb-1">
-              ★★★★★
+              {[1, 2, 3, 4, 5].map((s) => (
+                <StarSolid key={s} className="w-6 h-6" />
+              ))}
             </div>
             <div className="text-gray-500 text-sm font-medium">Out of 2,500+ Reviews</div>
           </div>
@@ -109,9 +113,11 @@ export default function Reviews() {
           {reviewsData.map((review) => (
             <div key={review.id} className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
               {/* Stars */}
-              <div className="flex text-[#f5a623] text-lg mb-4">
+              <div className="flex text-[#f5a623] mb-4">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <span key={i}>{i < review.rating ? '★' : '☆'}</span>
+                  <span key={i}>
+                    {i < review.rating ? <StarSolid className="w-5 h-5" /> : <StarOutline className="w-5 h-5" />}
+                  </span>
                 ))}
               </div>
               

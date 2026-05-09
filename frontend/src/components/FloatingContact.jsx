@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PhoneIcon, XMarkIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/outline";
 
 export default function FloatingContact() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,9 +22,7 @@ export default function FloatingContact() {
             className="w-14 h-14 bg-[#00e676] text-white rounded-full shadow-xl flex items-center justify-center hover:scale-110 transition-transform"
             title="Call Us"
           >
-            <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-            </svg>
+            <PhoneIcon className="w-7 h-7" />
           </button>
 
           {/* WhatsApp Button */}
@@ -42,9 +41,7 @@ export default function FloatingContact() {
             onClick={() => setIsOpen(false)}
             className="w-14 h-14 bg-[#a78bfa] text-white rounded-full shadow-xl flex items-center justify-center hover:bg-[#8b5cf6] transition-colors"
           >
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <XMarkIcon className="w-8 h-8" />
           </button>
         </div>
       ) : (
@@ -52,9 +49,7 @@ export default function FloatingContact() {
           onClick={() => setIsOpen(true)}
           className="w-14 h-14 bg-[#a78bfa] text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-[#8b5cf6] transition-all transform hover:scale-105 active:scale-95"
         >
-          <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-          </svg>
+          <ChatBubbleLeftRightIcon className="w-8 h-8" />
         </button>
       )}
     </div>

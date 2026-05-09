@@ -1,36 +1,45 @@
+import { 
+  BuildingLibraryIcon, 
+  ComputerDesktopIcon, 
+  BuildingOfficeIcon, 
+  BriefcaseIcon, 
+  RocketLaunchIcon, 
+  UserGroupIcon 
+} from "@heroicons/react/24/outline";
+
 const services = [
   {
-    icon: "🏫",
+    icon: <BuildingLibraryIcon className="w-6 h-6 text-white" />,
     iconBg: "bg-[#1e1b4b]",
     title: "Classroom Training",
     desc: "In-person immersive learning in our Rajahmundry center with hands-on labs and direct mentor interaction.",
   },
   {
-    icon: "🖥️",
+    icon: <ComputerDesktopIcon className="w-6 h-6 text-white" />,
     iconBg: "bg-orange-500",
     title: "Online Training",
     desc: "Learn from anywhere, anytime with live interactive sessions, recorded content, and 24/7 support.",
   },
   {
-    icon: "🏢",
+    icon: <BuildingOfficeIcon className="w-6 h-6 text-white" />,
     iconBg: "bg-green-600",
     title: "Corporate Training",
     desc: "Customized enterprise solutions for teams. Upskill your workforce with tailored programs.",
   },
   {
-    icon: "💼",
+    icon: <BriefcaseIcon className="w-6 h-6 text-white" />,
     iconBg: "bg-purple-600",
     title: "Internship Programs",
     desc: "3, 6, 9, or 12-month hands-on project experience with real-world industry exposure.",
   },
   {
-    icon: "🎯",
+    icon: <RocketLaunchIcon className="w-6 h-6 text-white" />,
     iconBg: "bg-red-500",
     title: "Skill-to-Job",
     desc: "Already trained elsewhere? Upskill with us and get placed in top companies.",
   },
   {
-    icon: "🧭",
+    icon: <UserGroupIcon className="w-6 h-6 text-white" />,
     iconBg: "bg-cyan-500",
     title: "Career Guidance",
     desc: "1-on-1 mentorship, resume building, interview prep, and career path planning.",
@@ -56,7 +65,7 @@ export default function Services() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map((s) => (
             <div key={s.title} className="bg-white border border-gray-200 rounded-2xl p-6 hover:shadow-md transition-shadow">
-              <div className={`w-12 h-12 ${s.iconBg} rounded-xl flex items-center justify-center text-2xl mb-4`}>
+              <div className={`w-12 h-12 ${s.iconBg} rounded-xl flex items-center justify-center mb-4`}>
                 {s.icon}
               </div>
               <h3 className="font-bold text-[#1e1b4b] text-base mb-2">{s.title}</h3>

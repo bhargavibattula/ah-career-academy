@@ -1,11 +1,39 @@
 import { useState, useEffect } from "react";
+import { 
+  PuzzlePieceIcon, 
+  PaintBrushIcon, 
+  ChatBubbleBottomCenterTextIcon, 
+  CpuChipIcon, 
+  SparklesIcon, 
+  WrenchScrewdriverIcon, 
+  ShieldCheckIcon, 
+  AcademicCapIcon, 
+  BoltIcon, 
+  CheckBadgeIcon, 
+  BuildingLibraryIcon, 
+  ClipboardDocumentCheckIcon, 
+  StarIcon, 
+  TrophyIcon, 
+  RocketLaunchIcon, 
+  LightBulbIcon, 
+  UserIcon, 
+  BookOpenIcon, 
+  HeartIcon, 
+  ExclamationTriangleIcon,
+  FaceSmileIcon,
+  ClockIcon,
+  HomeIcon,
+  PhoneIcon,
+  DevicePhoneMobileIcon,
+  ArrowRightIcon
+} from "@heroicons/react/24/outline";
 
 const courses = [
   {
     title: "Scratch Programming",
     desc: "Build games, stories & animations with drag-and-drop coding blocks",
     duration: "30 Days",
-    icon: "🧩",
+    icon: <PuzzlePieceIcon className="w-8 h-8" />,
     accent: "#7C3AED",
     bg: "from-violet-50 to-purple-100",
     badge: "bg-violet-100 text-violet-700",
@@ -15,7 +43,7 @@ const courses = [
     title: "Canva Designing",
     desc: "Create stunning posters, greetings, and social media content",
     duration: "25 Days",
-    icon: "🎨",
+    icon: <PaintBrushIcon className="w-8 h-8" />,
     accent: "#DB2777",
     bg: "from-pink-50 to-rose-100",
     badge: "bg-pink-100 text-pink-700",
@@ -25,7 +53,7 @@ const courses = [
     title: "Spoken English",
     desc: "Master speaking, listening & communication for real-world confidence",
     duration: "30 Days",
-    icon: "🗣️",
+    icon: <ChatBubbleBottomCenterTextIcon className="w-8 h-8" />,
     accent: "#0284C7",
     bg: "from-sky-50 to-blue-100",
     badge: "bg-sky-100 text-sky-700",
@@ -35,7 +63,7 @@ const courses = [
     title: "Future with AI",
     desc: "Explore Artificial Intelligence in a fun, hands-on learning journey",
     duration: "35 Days",
-    icon: "🤖",
+    icon: <CpuChipIcon className="w-8 h-8" />,
     accent: "#059669",
     bg: "from-emerald-50 to-green-100",
     badge: "bg-emerald-100 text-emerald-700",
@@ -45,7 +73,7 @@ const courses = [
 
 const reasons = [
   {
-    icon: "🎈",
+    icon: <SparklesIcon className="w-7 h-7" />,
     title: "Fun-First Learning",
     desc: "Every class is designed around games, activities, and creative challenges — so kids actually look forward to coming back every day.",
     accent: "#F97316",
@@ -56,7 +84,7 @@ const reasons = [
     statLabel: "kids love it",
   },
   {
-    icon: "🛠️",
+    icon: <WrenchScrewdriverIcon className="w-7 h-7" />,
     title: "Hands-On Projects",
     desc: "Kids don't just watch — they build real games, design posters, record speaking videos, and explore AI tools themselves.",
     accent: "#7C3AED",
@@ -67,7 +95,7 @@ const reasons = [
     statLabel: "live projects",
   },
   {
-    icon: "🛡️",
+    icon: <ShieldCheckIcon className="w-7 h-7" />,
     title: "100% Safe Environment",
     desc: "Supervised sessions, vetted instructors, and a child-friendly digital space ensure complete peace of mind for parents.",
     accent: "#0284C7",
@@ -78,7 +106,7 @@ const reasons = [
     statLabel: "9001:2015 certified",
   },
   {
-    icon: "👨‍🏫",
+    icon: <AcademicCapIcon className="w-7 h-7" />,
     title: "Expert Live Trainers",
     desc: "Industry-experienced educators with a passion for teaching young minds — no recorded videos, only live interactive classes.",
     accent: "#059669",
@@ -89,7 +117,7 @@ const reasons = [
     statLabel: "yrs of service",
   },
   {
-    icon: "🎓",
+    icon: <CheckBadgeIcon className="w-7 h-7" />,
     title: "Certificate Provided",
     desc: "Every child receives an officially recognized certificate of completion — a real achievement they'll be proud to show.",
     accent: "#DB2777",
@@ -100,7 +128,7 @@ const reasons = [
     statLabel: "get certified",
   },
   {
-    icon: "⚡",
+    icon: <BoltIcon className="w-7 h-7" />,
     title: "Small Batch Classes",
     desc: "Limited seats per batch means every child gets personal attention, not just a seat in a crowded classroom.",
     accent: "#D97706",
@@ -137,27 +165,27 @@ const testimonials = [
 ];
 
 const trustBadges = [
-  { label: "ISO 9001:2015 Certified", icon: "✅" },
-  { label: "MSME Registered", icon: "🏛️" },
-  { label: "AICTE Approved", icon: "📋" },
-  { label: "Tally Certified Partner", icon: "🌟" },
-  { label: "25 Years of Service", icon: "🏆" },
+  { label: "ISO 9001:2015 Certified", icon: <CheckBadgeIcon className="w-4 h-4" /> },
+  { label: "MSME Registered", icon: <BuildingLibraryIcon className="w-4 h-4" /> },
+  { label: "AICTE Approved", icon: <ClipboardDocumentCheckIcon className="w-4 h-4" /> },
+  { label: "Tally Certified Partner", icon: <StarIcon className="w-4 h-4" /> },
+  { label: "25 Years of Service", icon: <TrophyIcon className="w-4 h-4" /> },
 ];
 
 const floatingIcons = [
-  { icon: "⭐", top: "10%", left: "4%", delay: "0s", size: "text-2xl" },
-  { icon: "🚀", top: "18%", right: "5%", delay: "0.5s", size: "text-3xl" },
-  { icon: "💡", top: "55%", left: "2%", delay: "1s", size: "text-2xl" },
-  { icon: "🌈", top: "70%", right: "3%", delay: "1.5s", size: "text-2xl" },
-  { icon: "✏️", top: "38%", left: "1.5%", delay: "0.8s", size: "text-xl" },
-  { icon: "🎯", top: "82%", left: "6%", delay: "0.3s", size: "text-xl" },
+  { icon: <StarIcon className="w-6 h-6" />, top: "10%", left: "4%", delay: "0s", size: "" },
+  { icon: <RocketLaunchIcon className="w-8 h-8" />, top: "18%", right: "5%", delay: "0.5s", size: "" },
+  { icon: <LightBulbIcon className="w-6 h-6" />, top: "55%", left: "2%", delay: "1s", size: "" },
+  { icon: <SparklesIcon className="w-6 h-6" />, top: "70%", right: "3%", delay: "1.5s", size: "" },
+  { icon: <PaintBrushIcon className="w-5 h-5" />, top: "38%", left: "1.5%", delay: "0.8s", size: "" },
+  { icon: <TrophyIcon className="w-5 h-5" />, top: "82%", left: "6%", delay: "0.3s", size: "" },
 ];
 
-const stats = [
-  { value: "12,000+", label: "Happy Students", icon: "👦" },
-  { value: "150+", label: "Expert Trainers", icon: "👨‍🏫" },
-  { value: "4", label: "Unique Courses", icon: "📚" },
-  { value: "98%", label: "Parent Satisfaction", icon: "❤️" },
+const statsData = [
+  { value: "12,000+", label: "Happy Students", icon: <UserIcon className="w-6 h-6" /> },
+  { value: "150+", label: "Expert Trainers", icon: <AcademicCapIcon className="w-6 h-6" /> },
+  { value: "4", label: "Unique Courses", icon: <BookOpenIcon className="w-6 h-6" /> },
+  { value: "98%", label: "Parent Satisfaction", icon: <HeartIcon className="w-6 h-6" /> },
 ];
 
 export default function SummerCampPage() {
@@ -344,8 +372,8 @@ export default function SummerCampPage() {
           {floatingIcons.map((f, i) => (
             <span
               key={i}
-              className={`absolute ${f.size} select-none pointer-events-none hidden md:block ${i % 2 === 0 ? "sc-float" : "sc-float-alt"}`}
-              style={{ top: f.top, left: f.left, right: f.right, animationDelay: f.delay, opacity: 0.65 }}
+              className={`absolute select-none pointer-events-none hidden md:block ${i % 2 === 0 ? "sc-float" : "sc-float-alt"}`}
+              style={{ top: f.top, left: f.left, right: f.right, animationDelay: f.delay, opacity: 0.65, color: "#F97316" }}
             >
               {f.icon}
             </span>
@@ -365,7 +393,7 @@ export default function SummerCampPage() {
           >
             Best Online Learning
             <br />
-            <span className="sc-shimmer-text">For Kids</span> 🌟
+            <span className="sc-shimmer-text">For Kids</span> <StarIcon className="w-8 h-8 md:w-12 md:h-12 inline text-yellow-400" />
           </h1>
 
           <p
@@ -375,43 +403,38 @@ export default function SummerCampPage() {
             Give your child a creative edge with fun, practical courses taught by expert trainers in a safe environment.
           </p>
 
-          {/* <div className="sc-fade-up flex flex-wrap justify-center gap-4 mb-10" style={{ animationDelay: "0.5s" }}>
-            <button className="sc-cta text-white font-bold px-8 py-3.5 rounded-full text-base flex items-center gap-2">
-              Get Started Free
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-            </button>
-            <button className="sc-glass text-gray-700 font-bold px-8 py-3.5 rounded-full text-base hover:bg-white transition-all flex items-center gap-2">
-              <span>▶</span> Watch Demo
-            </button> */}
-          {/* </div> */}
-
           <div className="sc-fade-up flex flex-wrap justify-center gap-3" style={{ animationDelay: "0.6s" }}>
-            {["👦 Ages 7–15", "🎓 Certificate Included", "⚠️ Limited Seats"].map((tag, i) => (
+            {[
+              { icon: <UserIcon className="w-4 h-4" />, text: "Ages 7–15" },
+              { icon: <AcademicCapIcon className="w-4 h-4" />, text: "Certificate Included" },
+              { icon: <ExclamationTriangleIcon className="w-4 h-4" />, text: "Limited Seats" }
+            ].map((tag, i) => (
               <span
                 key={i}
-                className="sc-glass text-gray-700 text-sm font-semibold px-4 py-2 rounded-full"
+                className="sc-glass text-gray-700 text-sm font-semibold px-4 py-2 rounded-full flex items-center gap-2"
                 style={{
                   border: i === 2 ? "1.5px solid rgba(239,68,68,0.4)" : undefined,
                   color: i === 2 ? "#DC2626" : undefined,
                 }}
               >
-                {tag}
+                {tag.icon}
+                {tag.text}
               </span>
             ))}
           </div>
 
           <div className="sc-scale-in mt-14 w-full max-w-4xl" style={{ animationDelay: "0.7s" }}>
             <div className="sc-glass rounded-3xl px-6 md:px-12 py-8 flex flex-col md:flex-row items-center justify-between gap-6 text-left shadow-xl">
-              <div className="text-6xl md:text-8xl">🧒</div>
+              <FaceSmileIcon className="w-16 h-16 md:w-24 md:h-24 text-orange-400" />
               <div className="flex-1 text-center md:text-left">
                 <p className="text-gray-400 text-sm font-semibold uppercase tracking-widest mb-1">Trusted by 12,000+ families</p>
                 <h2 className="sc-display text-2xl md:text-3xl font-black text-gray-900 mb-2">Join the most loved kids camp this summer!</h2>
                 <div className="flex items-center justify-center md:justify-start gap-1 mt-2">
-                  {[1, 2, 3, 4, 5].map(s => <span key={s} className="text-yellow-400 text-lg">★</span>)}
+                  {[1, 2, 3, 4, 5].map(s => <StarIcon key={s} className="w-5 h-5 text-yellow-400 fill-current" />)}
                   <span className="text-gray-500 text-sm ml-2 font-semibold">4.9/5 · 2,400+ reviews</span>
                 </div>
               </div>
-              <div className="text-6xl md:text-8xl">👧</div>
+              <FaceSmileIcon className="w-16 h-16 md:w-24 md:h-24 text-blue-400" />
             </div>
           </div>
         </section>
@@ -435,13 +458,13 @@ export default function SummerCampPage() {
                 onMouseLeave={() => setHoveredCard(null)}
                 style={{ boxShadow: hoveredCard === i ? `0 20px 60px ${course.accent}28` : undefined }}
               >
-                <div className={`sc-course-icon w-16 h-16 rounded-2xl bg-gradient-to-br ${course.bg} flex items-center justify-center text-3xl mb-5 border ${course.border}`}>
+                <div className={`sc-course-icon w-16 h-16 rounded-2xl bg-gradient-to-br ${course.bg} flex items-center justify-center mb-5 border ${course.border}`} style={{ color: course.accent }}>
                   {course.icon}
                 </div>
                 <h3 className="sc-display text-lg font-black text-gray-900 mb-2">{course.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4 font-medium">{course.desc}</p>
                 <div className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-full ${course.badge}`}>
-                  ⏱ {course.duration}
+                  <ClockIcon className="w-3.5 h-3.5" /> {course.duration}
                 </div>
                 <div
                   className={`mt-4 flex items-center gap-1 text-sm font-semibold transition-all duration-300 ${hoveredCard === i ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"}`}
@@ -463,8 +486,8 @@ export default function SummerCampPage() {
           <div className="max-w-6xl mx-auto relative z-10">
             {/* Header */}
             <div className="text-center mb-14">
-              <span className="inline-block bg-orange-100 text-orange-700 font-bold text-xs uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">
-                🏕️ Why AH Career Academy
+              <span className="inline-block bg-orange-100 text-orange-700 font-bold text-xs uppercase tracking-widest px-4 py-1.5 rounded-full mb-4 flex items-center gap-2 mx-auto w-fit">
+                <HomeIcon className="w-3.5 h-3.5" /> Why AH Career Academy
               </span>
               <h2 className="sc-display text-4xl md:text-5xl font-black text-gray-900 mb-4" style={{ letterSpacing: "-0.02em" }}>
                 Why Choose <span style={{ color: "#F97316" }}>Us?</span>
@@ -490,7 +513,7 @@ export default function SummerCampPage() {
                   style={{ boxShadow: hoveredReason === i ? `0 20px 60px ${r.accent}22` : undefined }}
                 >
                   <div className="flex items-start gap-4 mb-4">
-                    <div className={`sc-reason-icon w-14 h-14 rounded-xl bg-gradient-to-br ${r.bg} border ${r.border} flex items-center justify-center text-2xl flex-shrink-0`}>
+                    <div className={`sc-reason-icon w-14 h-14 rounded-xl bg-gradient-to-br ${r.bg} border ${r.border} flex items-center justify-center flex-shrink-0`} style={{ color: r.accent }}>
                       {r.icon}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -515,7 +538,7 @@ export default function SummerCampPage() {
                 {testimonials.map((t) => (
                   <div key={t.name} className="sc-testimonial-card rounded-2xl p-5">
                     <div className="flex items-center gap-1 mb-3">
-                      {[1, 2, 3, 4, 5].map(s => <span key={s} className="text-yellow-400" style={{ fontSize: 14 }}>★</span>)}
+                      {[1, 2, 3, 4, 5].map(s => <StarIcon key={s} className="w-3.5 h-3.5 text-yellow-400 fill-current" />)}
                     </div>
                     <p className="text-gray-600 text-sm leading-relaxed mb-4 font-medium italic">"{t.text}"</p>
                     <div className="flex items-center gap-3">
@@ -542,12 +565,13 @@ export default function SummerCampPage() {
               </div>
               <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-5">
                 {[
-                  { val: "12,000+", label: "Kids Trained", color: "#F97316" },
-                  { val: "25 Yrs", label: "Trusted Service", color: "#A78BFA" },
-                  { val: "98%", label: "Parent Satisfaction", color: "#34D399" },
-                  { val: "4 Courses", label: "This Summer", color: "#60A5FA" },
+                  { val: "12,000+", label: "Kids Trained", color: "#F97316", icon: <UserIcon className="w-5 h-5" /> },
+                  { val: "25 Yrs", label: "Trusted Service", color: "#A78BFA", icon: <TrophyIcon className="w-5 h-5" /> },
+                  { val: "98%", label: "Satisfaction", color: "#34D399", icon: <HeartIcon className="w-5 h-5" /> },
+                  { val: "4 Courses", label: "This Summer", color: "#60A5FA", icon: <BookOpenIcon className="w-5 h-5" /> },
                 ].map((s) => (
                   <div key={s.label} className="text-center" style={{ background: "rgba(255,255,255,0.07)", borderRadius: 16, padding: "1.5rem 1rem", border: "1px solid rgba(255,255,255,0.12)" }}>
+                    <div className="flex justify-center mb-2" style={{ color: s.color }}>{s.icon}</div>
                     <div className="sc-display font-black mb-1" style={{ fontSize: 28, color: s.color }}>{s.val}</div>
                     <div className="text-purple-200 font-semibold" style={{ fontSize: 13 }}>{s.label}</div>
                   </div>
@@ -559,7 +583,7 @@ export default function SummerCampPage() {
             <div className="sc-badge-strip rounded-2xl px-6 py-5 mb-14 flex flex-wrap items-center justify-center gap-4">
               {trustBadges.map((b) => (
                 <div key={b.label} className="flex items-center gap-2 text-white" style={{ background: "rgba(255,255,255,0.1)", borderRadius: 24, padding: "6px 14px", border: "1px solid rgba(255,255,255,0.15)" }}>
-                  <span style={{ fontSize: 14 }}>{b.icon}</span>
+                  {b.icon}
                   <span className="font-bold text-xs">{b.label}</span>
                 </div>
               ))}
@@ -574,21 +598,27 @@ export default function SummerCampPage() {
                   <p className="text-gray-500 text-xs font-semibold">Nandam Gani Raju Junct., Beside UCO Bank, T.T.D Road, Danavaipet, Rajahmundry</p>
                 </div>
               </div>
-              <div className="flex flex-col items-center md:items-end gap-1">
-                <p className="sc-display font-black text-xl" style={{ color: "#F97316" }}>📞 0883-2474088</p>
-                <p className="sc-display font-black text-xl" style={{ color: "#F97316" }}>📱 99892 41515</p>
+              <div className="flex flex-col items-center md:items-end gap-1 font-bold">
+                <p className="sc-display flex items-center gap-2 text-xl" style={{ color: "#F97316" }}>
+                  <PhoneIcon className="w-5 h-5" /> 0883-2474088
+                </p>
+                <p className="sc-display flex items-center gap-2 text-xl" style={{ color: "#F97316" }}>
+                  <DevicePhoneMobileIcon className="w-5 h-5" /> 99892 41515
+                </p>
               </div>
             </div>
 
             {/* Final CTA */}
             <div className="text-center pb-6">
-              <p className="text-gray-400 font-semibold text-sm mb-5">⚠️ Seats filling fast — Summer 2025 batch nearly full!</p>
+              <p className="text-gray-400 font-semibold text-sm mb-5 flex items-center justify-center gap-2">
+                <ExclamationTriangleIcon className="w-4 h-4 text-orange-400" /> Seats filling fast — Summer 2025 batch nearly full!
+              </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <button className="sc-cta text-white font-black px-10 py-4 rounded-full text-base inline-flex items-center gap-2">
-                  Enroll My Child Now 🚀
+                  Enroll My Child Now <RocketLaunchIcon className="w-5 h-5" />
                 </button>
-                <button className="sc-outline-btn px-8 py-4 rounded-full font-bold text-base">
-                  WhatsApp Us →
+                <button className="sc-outline-btn px-8 py-4 rounded-full font-bold text-base flex items-center gap-2">
+                  WhatsApp Us <ArrowRightIcon className="w-5 h-5" />
                 </button>
               </div>
             </div>

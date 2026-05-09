@@ -1,4 +1,12 @@
 import React from 'react';
+import { 
+  ComputerDesktopIcon, 
+  ChartBarIcon, 
+  MapPinIcon, 
+  PhoneIcon, 
+  EnvelopeIcon, 
+  GlobeAltIcon 
+} from "@heroicons/react/24/outline";
 
 export default function AboutUs() {
   return (
@@ -42,7 +50,9 @@ export default function AboutUs() {
             <h2 className="text-3xl font-bold text-gray-900 mb-6">What We Teach</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-2xl mb-4">💻</div>
+                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4">
+                  <ComputerDesktopIcon className="w-6 h-6" />
+                </div>
                 <h3 className="font-bold text-gray-900 text-lg mb-3">Programming & Tech</h3>
                 <ul className="space-y-2 text-gray-600">
                   <li>• C, C++, Java, Python</li>
@@ -55,7 +65,9 @@ export default function AboutUs() {
               </div>
               
               <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <div className="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center text-2xl mb-4">📊</div>
+                <div className="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mb-4">
+                  <ChartBarIcon className="w-6 h-6" />
+                </div>
                 <h3 className="font-bold text-gray-900 text-lg mb-3">Business & Other Skills</h3>
                 <ul className="space-y-2 text-gray-600">
                   <li>• MS Office / Microsoft 365</li>
@@ -98,28 +110,30 @@ export default function AboutUs() {
           </div>
 
           {/* Contact Details */}
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-[#0b1257]">
             <h3 className="font-bold text-gray-900 text-xl mb-4 border-b pb-2">Contact Us</h3>
             <div className="space-y-4 text-gray-600 text-sm">
               <div className="flex gap-3">
-                <span className="text-xl">📍</span>
+                <MapPinIcon className="w-5 h-5 text-gray-400 shrink-0" />
                 <p>Danavaipeta, Near UCO Bank, T.T.D Road, Vadrevu Buildings, Rajahmundry – 533103</p>
               </div>
               <div className="flex gap-3 items-center">
-                <span className="text-xl">📞</span>
+                <PhoneIcon className="w-5 h-5 text-gray-400 shrink-0" />
                 <p>9989241515<br/>0883-2474088 (Landline)</p>
               </div>
               <div className="flex gap-3 items-center">
-                <span className="text-xl">✉️</span>
+                <EnvelopeIcon className="w-5 h-5 text-gray-400 shrink-0" />
                 <p>ahcareerpvtltd@gmail.com</p>
               </div>
             </div>
             
             <div className="flex gap-4 mt-6">
-              <a href="https://www.facebook.com/share/18nvUvNp8m/" target="_blank" rel="noreferrer" className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center hover:bg-blue-200 transition">f</a>
-              <a href="https://www.instagram.com/ah_career_rajahmundry" target="_blank" rel="noreferrer" className="w-10 h-10 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center hover:bg-pink-200 transition">in</a>
-              <a href="https://www.linkedin.com/company/ahcareer/" target="_blank" rel="noreferrer" className="w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center hover:bg-blue-200 transition">Li</a>
-              <a href="http://ahcareer.in" target="_blank" rel="noreferrer" className="w-10 h-10 bg-gray-100 text-gray-700 rounded-full flex items-center justify-center hover:bg-gray-200 transition">🌐</a>
+              <a href="https://www.facebook.com/share/18nvUvNp8m/" target="_blank" rel="noreferrer" className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center hover:bg-blue-200 transition font-bold">f</a>
+              <a href="https://www.instagram.com/ah_career_rajahmundry" target="_blank" rel="noreferrer" className="w-10 h-10 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center hover:bg-pink-200 transition font-bold">in</a>
+              <a href="https://www.linkedin.com/company/ahcareer/" target="_blank" rel="noreferrer" className="w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center hover:bg-blue-200 transition font-bold">Li</a>
+              <a href="http://ahcareer.in" target="_blank" rel="noreferrer" className="w-10 h-10 bg-gray-100 text-gray-700 rounded-full flex items-center justify-center hover:bg-gray-200 transition">
+                <GlobeAltIcon className="w-5 h-5" />
+              </a>
             </div>
           </div>
         </div>
