@@ -7,24 +7,39 @@ import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outli
 const navLinks = [
   {
     label: "Courses",
-    dropdown: ["Full Stack Python", "Data Science", "Cyber Security", "Full Stack Java", "DevOps & Cloud", "AI Testing", "Quantum Computing", "Gen AI Development"],
-  },
-  {
-    label: "Resources",
-    dropdown: ["Blog", "Interview Questions", "Free Tutorials", "E-Books", "Webinars"],
+    dropdown: [
+      "Full Stack Python",
+      "Data Science",
+      "Cyber Security",
+      "Full Stack Java",
+      "DevOps & Cloud",
+      "AI Testing",
+      "Quantum Computing",
+      "Gen AI Development",
+    ],
   },
 
   {
-    label: "Placements",
-    dropdown: ["Placement Stories", "Hiring Partners", "Placement Stats"],
+    label: "Company",
+    dropdown: [
+      "About Us",
+      "Careers",
+      "Reviews",
+    ],
   },
+
   {
-    label: "Upcoming Batches",
-    dropdown: ["Online Batches", "Offline Batches", "Weekend Batches"],
+    label: "Support",
+    dropdown: [
+      "Contact Us",
+    ],
   },
+
   {
-    label: "More",
-    dropdown: ["About Us", "Kids Training", "Careers", "Contact Us", "Reviews", "Our Blog"],
+    label: "Programs",
+    dropdown: [
+      "Kids Training",
+    ],
   },
 ];
 
