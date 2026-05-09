@@ -17,6 +17,7 @@ import AboutUs from "./components/AboutUs";
 import KidsTraining from "./components/KidsTraining";
 import Blog from "./components/Blog";
 import BlogPost from "./components/BlogPost";
+import JobReadyProgram from "./pages/JobReadyProgram";
 
 import JobDetailsPage from "./pages/JobDetailsPage";
 import CourseDetails from "./pages/CourseDetails";
@@ -57,6 +58,7 @@ export default function App() {
         <Route path="/kids-training" element={<KidsTraining />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogPost />} />
+        <Route path="/programs/job-ready" element={<JobReadyProgram />} />
         <Route path="/jobs/:idOrSlug" element={<JobDetailsPage />} />
         <Route path="/courses/:id" element={<CourseDetails />} />
         <Route path="/courses/:id/register" element={

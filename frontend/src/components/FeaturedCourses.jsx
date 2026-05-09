@@ -6,6 +6,7 @@ import {
   ClockIcon, 
   UserGroupIcon, 
   ArrowRightIcon, 
+  BriefcaseIcon,
   StarIcon as StarSolid 
 } from "@heroicons/react/24/solid";
 import { StarIcon as StarOutline } from "@heroicons/react/24/outline";
@@ -41,6 +42,61 @@ export default function FeaturedCourses() {
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* Premium Flagship Program Card */}
+          <div className="bg-gradient-to-br from-white to-blue-50/50 border-2 border-orange-500/20 rounded-2xl p-5 shadow-xl shadow-blue-900/5 flex flex-col relative overflow-hidden group">
+            <div className="absolute top-0 right-0 bg-orange-500 text-white text-[10px] font-black px-4 py-1 rounded-bl-xl uppercase tracking-widest z-10">
+              Flagship
+            </div>
+            
+            {/* Icon + Title */}
+            <div className="flex items-start gap-3 mb-3">
+              <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 bg-orange-500 rounded-xl shadow-lg shadow-orange-500/20">
+                <AcademicCapIcon className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h3 className="font-black text-[#1e1b4b] text-lg leading-tight">Job Ready Training</h3>
+                <div className="flex items-center gap-4 text-gray-500 text-xs mt-1 font-bold">
+                  <span className="flex items-center gap-1">
+                    <ClockIcon className="w-3.5 h-3.5" />
+                    4 Months
+                  </span>
+                  <span className="flex items-center gap-1 text-orange-600">
+                    <BriefcaseIcon className="w-3.5 h-3.5" />
+                    100% Placement
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-gray-600 text-sm mb-4 flex-grow font-medium leading-relaxed">
+              Our most intensive program designed to take you from a student to a professional with industry-grade skills and guaranteed support.
+            </p>
+
+            {/* Tags */}
+            <div className="flex flex-wrap gap-1.5 mb-4">
+              {["Full Stack", "DSA", "Soft Skills"].map((skill) => (
+                <span key={skill} className="bg-white border border-gray-200 text-[#1e1b4b] text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                  {skill}
+                </span>
+              ))}
+            </div>
+
+            {/* Rating */}
+            <div className="flex items-center gap-2 mb-4">
+              <Stars rating={5} />
+              <span className="text-sm font-bold text-gray-800">5.0</span>
+              <span className="text-gray-400 text-xs font-medium">Top Rated</span>
+            </div>
+
+            <Link 
+              to="/programs/job-ready"
+              className="w-full bg-[#1e1b4b] hover:bg-[#0b1257] text-white font-black py-3.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-900/10 group-hover:scale-[1.02]"
+            >
+              View Details
+              <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
           {courses.map((course) => (
             <div key={course.id} className="bg-white border border-gray-200 rounded-2xl p-5 hover:shadow-md transition-shadow flex flex-col">
               {/* Icon + Title */}

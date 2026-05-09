@@ -38,6 +38,7 @@ export default function Navbar() {
     {
       label: "Programs",
       links: [
+        { label: "Job Ready Program", path: "/programs/job-ready" },
         { label: "Kids Training", path: "/kids-training" },
       ],
     },
