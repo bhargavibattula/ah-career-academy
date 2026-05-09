@@ -1,24 +1,23 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { getAllRegistrations, updateRegistrationStatus } from "../services/registrationService";
+import { toast } from "react-toastify";
 
 export default function AdminRegistrations() {
   const [registrations, setRegistrations] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [filterCourse, setFilterCourse] = useState("");
 
   const fetchRegistrations = useCallback(async () => {
     setLoading(true);
-    setError("");
     try {
       const data = await getAllRegistrations(filterCourse);
       if (data.success) {
         setRegistrations(data.data);
       } else {
-        setError(data.message);
+        toast.error(data.message);
       }
     } catch (err) {
-      setError(err.message || "Failed to fetch registrations");
+      toast.error(err.message || "Failed to fetch registrations");
     } finally {
       setLoading(false);
     }
@@ -70,10 +69,11 @@ export default function AdminRegistrations() {
     try {
       const data = await updateRegistrationStatus(id, { status: newStatus });
       if (data.success) {
+        toast.success("Status updated successfully");
         fetchRegistrations();
       }
     } catch (err) {
-      alert("Update failed: " + err.message);
+      toast.error("Update failed: " + err.message);
     }
   };
 
@@ -101,12 +101,6 @@ export default function AdminRegistrations() {
           </button>
         </div>
       </div>
-
-      {error && (
-        <div className="bg-red-50 text-red-600 p-4 rounded-2xl border border-red-100 text-sm font-medium">
-          ❌ {error}
-        </div>
-      )}
 
       <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden min-h-[400px]">
         <div className="overflow-x-auto">
@@ -182,7 +176,7 @@ export default function AdminRegistrations() {
                     <td className="px-6 py-4 text-right">
                       <button 
                         title={reg.notes ? "View Notes" : "No Notes"}
-                        onClick={() => reg.notes && alert(`Notes: ${reg.notes}`)}
+                        onClick={() => reg.notes && toast.info(`Notes: ${reg.notes}`, { autoClose: false })}
                         disabled={!reg.notes}
                         className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all shadow-sm ${
                           reg.notes ? 'bg-white border border-blue-100 text-blue-600 hover:shadow-md' : 'bg-gray-50 text-gray-300 border border-transparent cursor-not-allowed'

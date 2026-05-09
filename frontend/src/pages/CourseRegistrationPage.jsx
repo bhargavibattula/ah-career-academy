@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { courses } from "../data/courses";
 import { useAuth } from "../context/AuthContext";
 import { createRegistration, checkRegistration } from "../services/registrationService";
+import { toast } from "react-toastify";
 
 export default function CourseRegistrationPage() {
   const { id } = useParams();
@@ -19,7 +20,6 @@ export default function CourseRegistrationPage() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
   const [alreadyRegistered, setAlreadyRegistered] = useState(false);
   const [checkingStatus, setCheckingStatus] = useState(true);
 
@@ -60,7 +60,6 @@ export default function CourseRegistrationPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    setError("");
 
     try {
       const data = await createRegistration({
@@ -70,13 +69,14 @@ export default function CourseRegistrationPage() {
       });
 
       if (data.success) {
+        toast.success("Registration successful!");
         setSuccess(true);
         setTimeout(() => navigate("/dashboard"), 4000);
       } else {
-        setError(data.message || "Registration failed. Please try again.");
+        toast.error(data.message || "Registration failed. Please try again.");
       }
     } catch (err) {
-      setError(err.message || "Server connection failed. Please check your connection.");
+      toast.error(err.message || "Server connection failed. Please check your connection.");
     } finally {
       setSubmitting(false);
     }
@@ -180,12 +180,6 @@ export default function CourseRegistrationPage() {
           {/* Right Side: Form */}
           <div className="p-10">
             <h2 className="text-2xl font-black text-[#0b1257] mb-8">Personal Details</h2>
-
-            {error && (
-              <div className="bg-red-50 text-red-600 text-sm p-4 rounded-xl border border-red-100 mb-6 font-medium">
-                ⚠️ {error}
-              </div>
-            )}
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>

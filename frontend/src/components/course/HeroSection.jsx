@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function HeroSection({ data }) {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-  const handleSubmit = () => alert("Thank you! We will get back to you shortly.");
+  const handleSubmit = () => toast.success("Thank you! We will get back to you shortly.");
 
   return (
     <section className="hero-section">

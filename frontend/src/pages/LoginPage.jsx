@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { loginUser } from "../services/authService";
 import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -11,7 +12,6 @@ export default function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [serverError, setServerError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
   const from = location.state?.from?.pathname || null;
@@ -28,7 +28,6 @@ export default function LoginPage() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
-    if (serverError) setServerError("");
   };
 
   const handleSubmit = async (e) => {
@@ -40,7 +39,6 @@ export default function LoginPage() {
     }
 
     setLoading(true);
-    setServerError("");
 
     try {
       const data = await loginUser(formData);
@@ -48,12 +46,14 @@ export default function LoginPage() {
 
       // Redirect based on role
       if (data.user.role === "admin") {
+        toast.success("Welcome back, Admin!");
         navigate(from || "/admin-dashboard", { replace: true });
       } else {
+        toast.success("Login successful!");
         navigate(from || "/dashboard", { replace: true });
       }
     } catch (err) {
-      setServerError(err.message);
+      toast.error(err.message || "Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -78,16 +78,6 @@ export default function LoginPage() {
               <h1 className="text-2xl font-bold text-[#0b1257]">Welcome Back</h1>
               <p className="text-gray-500 text-sm mt-1">Sign in to your account</p>
             </div>
-
-            {/* Server Error */}
-            {serverError && (
-              <div className="bg-red-50 border border-red-200 rounded-lg px-4 py-3 mb-5 flex items-start gap-2.5">
-                <svg className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                </svg>
-                <p className="text-red-600 text-sm">{serverError}</p>
-              </div>
-            )}
 
             <form onSubmit={handleSubmit} noValidate>
               {/* Email */}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { submitApplication } from "../../services/applicationService";
+import { toast } from "react-toastify";
 
 export default function JobApplicationForm({ job, onClose, onSuccess }) {
   const [formData, setFormData] = useState({
@@ -9,7 +10,6 @@ export default function JobApplicationForm({ job, onClose, onSuccess }) {
     resume: "",
   });
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,7 +18,6 @@ export default function JobApplicationForm({ job, onClose, onSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    setError("");
 
     try {
       const data = await submitApplication({
@@ -27,12 +26,13 @@ export default function JobApplicationForm({ job, onClose, onSuccess }) {
       });
 
       if (data.success) {
+        toast.success("Application submitted successfully!");
         onSuccess();
       } else {
-        setError(data.message || "Failed to submit application.");
+        toast.error(data.message || "Failed to submit application.");
       }
     } catch (err) {
-      setError(err.message || "Server error. Please try again later.");
+      toast.error(err.message || "Server error. Please try again later.");
     } finally {
       setSubmitting(false);
     }
@@ -56,11 +56,6 @@ export default function JobApplicationForm({ job, onClose, onSuccess }) {
         </div>
 
         <form onSubmit={handleSubmit} className="p-8 space-y-5">
-          {error && (
-            <div className="bg-red-50 text-red-600 text-sm p-4 rounded-xl border border-red-100 font-medium">
-              ⚠️ {error}
-            </div>
-          )}
 
           <div>
             <label className="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2 px-1">Full Name</label>

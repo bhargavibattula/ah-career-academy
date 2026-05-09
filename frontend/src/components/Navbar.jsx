@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const navLinks = [
   {
@@ -34,6 +35,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     await logout();
+    toast.info("Logged out successfully");
     navigate("/login");
   };
 

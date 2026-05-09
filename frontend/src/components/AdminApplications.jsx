@@ -1,23 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { getAllApplications, updateApplicationStatus } from "../services/applicationService";
+import { toast } from "react-toastify";
 
 export default function AdminApplications() {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
   const fetchApplications = async () => {
     setLoading(true);
-    setError("");
     try {
       const data = await getAllApplications();
       if (data.success) {
         setApplications(data.data);
       } else {
-        setError(data.message);
+        toast.error(data.message);
       }
     } catch (err) {
-      setError(err.message || "Failed to fetch applications.");
+      toast.error(err.message || "Failed to fetch applications.");
     } finally {
       setLoading(false);
     }
@@ -27,12 +26,12 @@ export default function AdminApplications() {
     fetchApplications();
   }, []);
 
-  const onStatusChange = async (id, status) => {
     try {
       await updateApplicationStatus(id, { status });
+      toast.success("Status updated successfully");
       fetchApplications();
     } catch (err) {
-      alert("Status update failed: " + err.message);
+      toast.error("Status update failed: " + err.message);
     }
   };
 
@@ -51,12 +50,6 @@ export default function AdminApplications() {
           🔄
         </button>
       </div>
-
-      {error && (
-        <div className="bg-red-50 text-red-600 p-4 rounded-2xl border border-red-100 text-sm font-medium">
-          ❌ {error}
-        </div>
-      )}
 
       <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden min-h-[400px]">
         <div className="overflow-x-auto">

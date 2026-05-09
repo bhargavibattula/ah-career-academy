@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import { getMyRegistrations } from "../services/registrationService";
+import { toast } from "react-toastify";
 
 export default function Dashboard() {
   const { user, logout } = useAuth();
@@ -26,6 +27,7 @@ export default function Dashboard() {
 
   const handleLogout = async () => {
     await logout();
+    toast.info("Logged out successfully");
     navigate("/login", { replace: true });
   };
 

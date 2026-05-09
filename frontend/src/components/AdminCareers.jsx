@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { getJobs, createJob, updateJob, deleteJob } from "../services/jobService";
+import { toast } from "react-toastify";
 
 export default function AdminCareers() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingJob, setEditingJob] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [toast, setToast] = useState(null);
   const [formData, setFormData] = useState({
     title: "",
     category: "Software & Programming",
@@ -20,10 +20,6 @@ export default function AdminCareers() {
     location: "Rajahmundry",
   });
 
-  const showNotification = (message, type = "success") => {
-    setToast({ message, type });
-    setTimeout(() => setToast(null), 4000);
-  };
 
   useEffect(() => {
     fetchJobs();
@@ -37,7 +33,7 @@ export default function AdminCareers() {
       setJobs(Array.isArray(data) ? data : data.data || []);
     } catch (error) {
       console.error("Error fetching jobs:", error);
-      showNotification("Failed to load jobs", "error");
+      toast.error("Failed to load jobs");
     } finally {
       setLoading(false);
     }
@@ -83,10 +79,10 @@ export default function AdminCareers() {
       let response;
       if (editingJob) {
         response = await updateJob(editingJob._id, payload);
-        showNotification("Job updated successfully!");
+        toast.success("Job updated successfully!");
       } else {
         response = await createJob(payload);
-        showNotification("Job published successfully!");
+        toast.success("Job published successfully!");
       }
       setShowModal(false);
       fetchJobs();
@@ -97,31 +93,51 @@ export default function AdminCareers() {
         console.error("Server Error Data:", JSON.stringify(error.response.data, null, 2));
       }
       const errorMsg = error.response?.data?.message || error.message || "Error saving job. Please check permissions.";
-      showNotification(errorMsg, "error");
+      toast.error(errorMsg);
     }
   };
 
   const handleDeleteJob = async (id) => {
-    if (window.confirm("Are you sure you want to delete this job?")) {
-      try {
-        await deleteJob(id);
-        showNotification("Job deleted successfully");
-        fetchJobs();
-      } catch (error) {
-        showNotification("Failed to delete job", "error");
-      }
-    }
+    const confirmDelete = () => {
+      toast.dismiss();
+      const deleteProcess = async () => {
+        try {
+          await deleteJob(id);
+          toast.success("Job deleted successfully");
+          fetchJobs();
+        } catch (error) {
+          toast.error("Failed to delete job");
+        }
+      };
+      deleteProcess();
+    };
+
+    toast(
+      ({ closeToast }) => (
+        <div className="p-2">
+          <p className="font-bold mb-3 text-sm">Are you sure you want to delete this job?</p>
+          <div className="flex gap-2 justify-end">
+            <button 
+              onClick={closeToast}
+              className="px-3 py-1 bg-gray-600 text-white rounded-md text-xs"
+            >
+              Cancel
+            </button>
+            <button 
+              onClick={() => { confirmDelete(); closeToast(); }}
+              className="px-3 py-1 bg-red-600 text-white rounded-md text-xs font-bold"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ),
+      { autoClose: false, closeOnClick: false }
+    );
   };
 
   return (
     <div className="space-y-6 relative">
-      {/* Toast Notification */}
-      {toast && (
-        <div className={`fixed top-10 right-10 z-[1000] px-6 py-4 rounded-2xl shadow-2xl text-white font-bold transition-all transform animate-bounce ${toast.type === "error" ? "bg-red-500" : "bg-green-500"}`}>
-          {toast.type === "error" ? "❌" : "✅"} {toast.message}
-        </div>
-      )}
-
       <div className="flex justify-between items-center bg-[#0b1257] p-6 rounded-3xl text-white shadow-xl">
         <div>
           <h2 className="text-2xl font-black">Careers Management</h2>
