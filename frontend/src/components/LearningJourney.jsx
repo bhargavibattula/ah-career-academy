@@ -1,4 +1,9 @@
 import { useState } from "react";
+import { 
+  CheckCircleIcon, 
+  BuildingOfficeIcon, 
+  ArrowRightIcon 
+} from "@heroicons/react/24/solid";
 
 const tabs = ["Professional Upskilling", "Placement Bootcamps", "Skill To Job", "Corporate Training"];
 
@@ -41,14 +46,6 @@ const tabContent = {
   },
 };
 
-function CheckCircle() {
-  return (
-    <svg className="w-5 h-5 text-orange-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  );
-}
-
 export default function LearningJourney() {
   const [active, setActive] = useState("Corporate Training");
   const content = tabContent[active];
@@ -90,7 +87,9 @@ export default function LearningJourney() {
           {/* Left */}
           <div>
             <div className="inline-flex items-center gap-2 bg-blue-900/50 rounded-lg px-3 py-2 mb-4">
-              <div className="w-7 h-7 bg-blue-600 rounded flex items-center justify-center text-xs">🏢</div>
+              <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
+                <BuildingOfficeIcon className="w-5 h-5 text-white" />
+              </div>
               <div>
                 <div className="text-xs text-gray-400">{content.badge}</div>
                 <div className="text-white font-bold text-sm">{content.subtitle}</div>
@@ -111,9 +110,7 @@ export default function LearningJourney() {
 
             <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-3 rounded-lg text-sm flex items-center gap-2 transition-colors">
               {content.btnLabel}
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
+              <ArrowRightIcon className="w-4 h-4" />
             </button>
           </div>
 
@@ -123,7 +120,7 @@ export default function LearningJourney() {
             <div className="space-y-3 mb-6">
               {content.included.map((item) => (
                 <div key={item} className="flex items-center gap-3 text-gray-200 text-sm">
-                  <CheckCircle />
+                  <CheckCircleIcon className="w-5 h-5 text-orange-400 flex-shrink-0" />
                   {item}
                 </div>
               ))}

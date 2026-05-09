@@ -1,14 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { courses } from "../data/courses";
-
-function CheckIcon() {
-  return (
-    <svg className="w-4 h-4 text-orange-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-    </svg>
-  );
-}
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
 export default function TrendingCourses() {
   return (
@@ -44,7 +37,7 @@ export default function TrendingCourses() {
                 <div className="space-y-3 mb-6">
                   {course.curriculum.slice(0, 4).map((f) => (
                     <div key={f} className="flex items-center gap-2 text-sm text-gray-700 border-b border-gray-100 pb-3 last:border-0 last:pb-0">
-                      <CheckIcon />
+                      <CheckCircleIcon className="w-4 h-4 text-orange-400 flex-shrink-0" />
                       {f}
                     </div>
                   ))}

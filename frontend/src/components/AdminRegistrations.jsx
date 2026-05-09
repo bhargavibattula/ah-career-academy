@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { getAllRegistrations, updateRegistrationStatus } from "../services/registrationService";
 import { toast } from "react-toastify";
+import { 
+  ArrowPathIcon, 
+  ChartBarIcon, 
+  InboxIcon, 
+  PencilSquareIcon 
+} from "@heroicons/react/24/outline";
 
 export default function AdminRegistrations() {
   const [registrations, setRegistrations] = useState([]);
@@ -90,14 +96,15 @@ export default function AdminRegistrations() {
             disabled={registrations.length === 0}
             className="flex-1 sm:flex-none bg-green-600 hover:bg-green-700 disabled:bg-gray-300 text-white font-bold py-2.5 px-6 rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-green-200"
           >
-            📊 Export to Excel
+            <ChartBarIcon className="w-5 h-5" />
+            Export to Excel
           </button>
           <button 
             onClick={fetchRegistrations}
-            className="w-10 h-10 bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-all text-lg"
+            className="w-10 h-10 bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-all text-gray-600"
             title="Refresh Data"
           >
-            🔄
+            <ArrowPathIcon className={`w-5 h-5 ${loading ? "animate-spin" : ""}`} />
           </button>
         </div>
       </div>
@@ -126,7 +133,7 @@ export default function AdminRegistrations() {
               ) : registrations.length === 0 ? (
                 <tr>
                   <td colSpan="6" className="px-6 py-20 text-center">
-                    <div className="text-5xl mb-4 opacity-20">📥</div>
+                    <InboxIcon className="w-16 h-16 text-gray-200 mx-auto mb-4" />
                     <p className="text-gray-500 font-medium text-lg">No registrations found in the database.</p>
                     <p className="text-gray-400 text-sm mt-1">New registrations will appear here automatically.</p>
                   </td>
@@ -182,7 +189,7 @@ export default function AdminRegistrations() {
                           reg.notes ? 'bg-white border border-blue-100 text-blue-600 hover:shadow-md' : 'bg-gray-50 text-gray-300 border border-transparent cursor-not-allowed'
                         }`}
                       >
-                        📝
+                        <PencilSquareIcon className="w-5 h-5" />
                       </button>
                     </td>
                   </tr>

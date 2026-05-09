@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getAllApplications, updateApplicationStatus } from "../services/applicationService";
 import { toast } from "react-toastify";
+import { ArrowPathIcon, DocumentTextIcon } from "@heroicons/react/24/outline";
 
 export default function AdminApplications() {
   const [applications, setApplications] = useState([]);
@@ -26,6 +27,7 @@ export default function AdminApplications() {
     fetchApplications();
   }, []);
 
+  const onStatusChange = async (id, status) => {
     try {
       await updateApplicationStatus(id, { status });
       toast.success("Status updated successfully");
@@ -44,10 +46,10 @@ export default function AdminApplications() {
         </div>
         <button 
           onClick={fetchApplications}
-          className="w-10 h-10 bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-all text-lg"
+          className="w-10 h-10 bg-gray-50 border border-gray-100 rounded-xl flex items-center justify-center hover:bg-gray-100 transition-all text-gray-600"
           title="Refresh Data"
         >
-          🔄
+          <ArrowPathIcon className={`w-5 h-5 ${loading ? "animate-spin" : ""}`} />
         </button>
       </div>
 
@@ -74,7 +76,7 @@ export default function AdminApplications() {
               ) : applications.length === 0 ? (
                 <tr>
                   <td colSpan="5" className="px-6 py-20 text-center">
-                    <div className="text-5xl mb-4 opacity-20">📄</div>
+                    <DocumentTextIcon className="w-16 h-16 text-gray-200 mx-auto mb-4" />
                     <p className="text-gray-500 font-medium text-lg">No job applications found yet.</p>
                   </td>
                 </tr>

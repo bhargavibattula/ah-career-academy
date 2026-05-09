@@ -4,6 +4,12 @@ import { courses } from "../data/courses";
 import { useAuth } from "../context/AuthContext";
 import { createRegistration, checkRegistration } from "../services/registrationService";
 import { toast } from "react-toastify";
+import { 
+  CheckCircleIcon, 
+  AcademicCapIcon, 
+  ClockIcon,
+  CheckIcon
+} from "@heroicons/react/24/outline";
 
 export default function CourseRegistrationPage() {
   const { id } = useParams();
@@ -94,8 +100,8 @@ export default function CourseRegistrationPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="max-w-md w-full bg-white rounded-3xl p-10 text-center shadow-xl border border-blue-100">
-          <div className="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
-            ✓
+          <div className="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckIcon className="w-10 h-10" />
           </div>
           <h2 className="text-2xl font-black text-[#0b1257] mb-4">Already Registered!</h2>
           <p className="text-gray-500 mb-8">
@@ -116,8 +122,8 @@ export default function CourseRegistrationPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
         <div className="max-w-md w-full bg-white rounded-3xl p-10 text-center shadow-xl border border-green-100">
-          <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 text-4xl">
-            ✓
+          <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircleIcon className="w-10 h-10" />
           </div>
           <h2 className="text-3xl font-black text-[#0b1257] mb-4">Registration Successful!</h2>
           <p className="text-gray-500 mb-8">
@@ -155,14 +161,18 @@ export default function CourseRegistrationPage() {
 
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                  <span className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-xl">🎓</span>
+                  <span className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
+                    <AcademicCapIcon className="w-6 h-6" />
+                  </span>
                   <div>
                     <p className="text-xs text-white/50 uppercase font-bold tracking-wider">Course</p>
                     <p className="font-bold">{course?.title}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center text-xl">🕒</span>
+                  <span className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
+                    <ClockIcon className="w-6 h-6" />
+                  </span>
                   <div>
                     <p className="text-xs text-white/50 uppercase font-bold tracking-wider">Duration</p>
                     <p className="font-bold">{course?.duration}</p>

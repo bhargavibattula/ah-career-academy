@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import { getJobs, createJob, updateJob, deleteJob } from "../services/jobService";
 import { toast } from "react-toastify";
+import { 
+  PlusIcon, 
+  PencilSquareIcon, 
+  TrashIcon, 
+  BanknotesIcon, 
+  MapPinIcon 
+} from "@heroicons/react/24/outline";
 
 export default function AdminCareers() {
   const [jobs, setJobs] = useState([]);
@@ -145,9 +152,10 @@ export default function AdminCareers() {
         </div>
         <button 
           onClick={() => handleOpenModal()}
-          className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-2xl text-sm font-black transition-all active:scale-95 shadow-lg"
+          className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-2xl text-sm font-black transition-all active:scale-95 shadow-lg flex items-center gap-2"
         >
-          + ADD NEW POSTING
+          <PlusIcon className="w-5 h-5" />
+          ADD NEW POSTING
         </button>
       </div>
 
@@ -171,8 +179,8 @@ export default function AdminCareers() {
                   <td className="px-6 py-5">
                     <div className="text-lg font-black text-[#0b1257] group-hover:text-blue-600 transition-colors">{job.title}</div>
                     <div className="flex gap-4 text-xs font-bold text-gray-400 mt-1 uppercase tracking-tighter">
-                      <span>💰 {job.salary}</span>
-                      <span>📍 {job.location}</span>
+                      <span className="flex items-center gap-1"><BanknotesIcon className="w-4 h-4" /> {job.salary}</span>
+                      <span className="flex items-center gap-1"><MapPinIcon className="w-4 h-4" /> {job.location}</span>
                     </div>
                   </td>
                   <td className="px-6 py-5">
@@ -183,10 +191,10 @@ export default function AdminCareers() {
                   <td className="px-6 py-5">
                     <div className="flex justify-end gap-2">
                       <button onClick={() => handleOpenModal(job)} className="p-3 hover:bg-blue-100 rounded-xl text-blue-600 transition-all active:scale-90 shadow-sm border border-gray-100 bg-white">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                        <PencilSquareIcon className="w-5 h-5" />
                       </button>
                       <button onClick={() => handleDeleteJob(job._id)} className="p-3 hover:bg-red-100 rounded-xl text-red-600 transition-all active:scale-90 shadow-sm border border-gray-100 bg-white">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                        <TrashIcon className="w-5 h-5" />
                       </button>
                     </div>
                   </td>

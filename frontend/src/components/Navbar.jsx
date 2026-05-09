@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navLinks = [
   {
@@ -60,9 +61,7 @@ export default function Navbar() {
               >
                 <button className="flex items-center gap-1 px-3 py-2 text-gray-700 hover:text-orange-500 font-medium text-sm transition-colors rounded-md hover:bg-orange-50">
                   {link.label}
-                  <svg className="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <ChevronDownIcon className="w-3.5 h-3.5 text-gray-400" />
                 </button>
                 {openMenu === link.label && (
                   <div className="absolute top-full left-0 bg-white rounded-xl shadow-xl border border-gray-100 min-w-[200px] py-2 z-50">
@@ -121,12 +120,11 @@ export default function Navbar() {
             className="lg:hidden p-2 text-gray-700"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {mobileOpen
-                ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              }
-            </svg>
+            {mobileOpen ? (
+              <XMarkIcon className="w-6 h-6" />
+            ) : (
+              <Bars3Icon className="w-6 h-6" />
+            )}
           </button>
         </div>
 

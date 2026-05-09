@@ -7,9 +7,20 @@ import {
   deleteAdminUser,
   toggleAdminUserStatus,
 } from "../services/authService";
+import { toast } from "react-toastify";
+import { 
+  UsersIcon, 
+  CheckCircleIcon, 
+  SparklesIcon, 
+  TrashIcon, 
+  MagnifyingGlassIcon,
+  SunIcon,
+  MoonIcon
+} from "@heroicons/react/24/outline";
 
 import AdminCareers from "../components/AdminCareers";
 import AdminRegistrations from "../components/AdminRegistrations";
+import AdminApplications from "../components/AdminApplications";
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
@@ -23,13 +34,7 @@ export default function AdminDashboard() {
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState({ total: 0, pages: 1 });
   const [actionLoading, setActionLoading] = useState(null);
-  const [toast, setToast] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
-
-  const showToast = (message, type = "success") => {
-    setToast({ message, type });
-    setTimeout(() => setToast(null), 3500);
-  };
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -42,7 +47,7 @@ export default function AdminDashboard() {
       setPagination(usersRes.data.pagination);
       setStats(statsRes.data);
     } catch (err) {
-      showToast(err.message, "error");
+      toast.error(err.message);
     } finally {
       setLoading(false);
     }
@@ -55,6 +60,7 @@ export default function AdminDashboard() {
 
   const handleLogout = async () => {
     await logout();
+    toast.info("Logged out successfully");
     navigate("/login", { replace: true });
   };
 
@@ -62,11 +68,11 @@ export default function AdminDashboard() {
     setActionLoading(userId);
     try {
       await deleteAdminUser(userId);
-      showToast("User deleted successfully.");
+      toast.success("User deleted successfully.");
       setDeleteConfirm(null);
       fetchData();
     } catch (err) {
-      showToast(err.message, "error");
+      toast.error(err.message);
     } finally {
       setActionLoading(null);
     }
@@ -76,10 +82,10 @@ export default function AdminDashboard() {
     setActionLoading(userId);
     try {
       const res = await toggleAdminUserStatus(userId);
-      showToast(res.message);
+      toast.success(res.message);
       fetchData();
     } catch (err) {
-      showToast(err.message, "error");
+      toast.error(err.message);
     } finally {
       setActionLoading(null);
     }
@@ -87,24 +93,13 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
-      {/* Toast */}
-      {toast && (
-        <div
-          className={`fixed top-4 right-4 z-[100] px-4 py-3 rounded-xl shadow-lg text-sm font-medium flex items-center gap-2 transition-all ${toast.type === "error"
-            ? "bg-red-500 text-white"
-            : "bg-green-500 text-white"
-            }`}
-        >
-          <span>{toast.type === "error" ? "❌" : "✅"}</span>
-          {toast.message}
-        </div>
-      )}
-
       {/* Delete Confirm Modal */}
       {deleteConfirm && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-2xl">
-            <div className="text-4xl text-center mb-3">🗑️</div>
+            <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <TrashIcon className="w-8 h-8" />
+            </div>
             <h3 className="font-bold text-[#0b1257] text-center text-lg mb-1">Delete User</h3>
             <p className="text-gray-500 text-sm text-center mb-5">
               Are you sure you want to delete{" "}
@@ -161,6 +156,12 @@ export default function AdminDashboard() {
             >
               Registrations
             </button>
+            <button
+              onClick={() => setActiveTab("applications")}
+              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "applications" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+            >
+              Applications
+            </button>
           </div>
         </div>
 
@@ -169,12 +170,12 @@ export default function AdminDashboard() {
             {/* Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               {[
-                { label: "Total Users", value: stats.totalUsers, icon: "👥", bg: "bg-blue-50 border-blue-100", val: "text-[#0b1257]" },
-                { label: "Active Users", value: stats.activeUsers, icon: "✅", bg: "bg-green-50 border-green-100", val: "text-green-700" },
-                { label: "New This Month", value: stats.newThisMonth, icon: "🆕", bg: "bg-orange-50 border-orange-100", val: "text-orange-600" },
+                { label: "Total Users", value: stats.totalUsers, icon: <UsersIcon className="w-6 h-6" />, bg: "bg-blue-50 border-blue-100", val: "text-[#0b1257]" },
+                { label: "Active Users", value: stats.activeUsers, icon: <CheckCircleIcon className="w-6 h-6" />, bg: "bg-green-50 border-green-100", val: "text-green-700" },
+                { label: "New This Month", value: stats.newThisMonth, icon: <SparklesIcon className="w-6 h-6" />, bg: "bg-orange-50 border-orange-100", val: "text-orange-600" },
               ].map((s) => (
                 <div key={s.label} className={`border rounded-2xl p-5 ${s.bg}`}>
-                  <div className="text-2xl mb-2">{s.icon}</div>
+                  <div className="mb-2 text-gray-500 opacity-60">{s.icon}</div>
                   <div className={`text-3xl font-bold ${s.val}`}>{s.value}</div>
                   <div className="text-sm text-gray-500 font-medium mt-1">{s.label}</div>
                 </div>
@@ -187,9 +188,7 @@ export default function AdminDashboard() {
               <div className="px-5 py-4 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <h2 className="font-bold text-[#0b1257] text-base">Registered Users</h2>
                 <div className="relative">
-                  <svg className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
+                  <MagnifyingGlassIcon className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     placeholder="Search users..."
@@ -209,7 +208,7 @@ export default function AdminDashboard() {
                   </div>
                 ) : users.length === 0 ? (
                   <div className="py-16 text-center">
-                    <div className="text-4xl mb-3">🔍</div>
+                    <MagnifyingGlassIcon className="w-12 h-12 text-gray-200 mx-auto mb-3" />
                     <p className="text-gray-500 text-sm">No users found.</p>
                   </div>
                 ) : (
@@ -271,9 +270,7 @@ export default function AdminDashboard() {
                                   {actionLoading === u._id ? (
                                     <div className="w-3.5 h-3.5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin" />
                                   ) : (
-                                    <svg className="w-4 h-4 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
-                                    </svg>
+                                    u.isActive ? <MoonIcon className="w-4 h-4 text-gray-400" /> : <SunIcon className="w-4 h-4 text-yellow-500" />
                                   )}
                                 </button>
                                 <button
@@ -281,9 +278,7 @@ export default function AdminDashboard() {
                                   title="Delete user"
                                   className="w-8 h-8 flex items-center justify-center rounded-lg border border-gray-200 hover:border-red-400 hover:bg-red-50 transition-colors"
                                 >
-                                  <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                  </svg>
+                                  <TrashIcon className="w-4 h-4 text-red-500" />
                                 </button>
                               </div>
                             )}
@@ -326,8 +321,10 @@ export default function AdminDashboard() {
           </>
         ) : activeTab === "careers" ? (
           <AdminCareers />
-        ) : (
+        ) : activeTab === "registrations" ? (
           <AdminRegistrations />
+        ) : (
+          <AdminApplications />
         )}
       </div>
     </div>

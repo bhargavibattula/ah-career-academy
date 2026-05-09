@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import { LockClosedIcon } from "@heroicons/react/24/solid";
 
 export default function HeroSection({ data }) {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
@@ -48,7 +49,10 @@ export default function HeroSection({ data }) {
           <textarea name="message" value={form.message} onChange={handleChange} placeholder="Any specific questions or requirements?" />
         </div>
         <button className="btn-form" onClick={handleSubmit}>{data.form.submitText}</button>
-        <p className="form-privacy">🔒 {data.form.privacy}</p>
+        <p className="form-privacy flex items-center justify-center gap-1">
+          <LockClosedIcon className="w-3.5 h-3.5" />
+          {data.form.privacy}
+        </p>
       </div>
     </section>
   );
