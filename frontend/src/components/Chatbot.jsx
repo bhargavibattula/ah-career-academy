@@ -22,6 +22,7 @@ const courses = [
 export default function Chatbot() {
   const [open, setOpen] = useState(false);
   const [showGreeting, setShowGreeting] = useState(false);
+  const [hasDismissedGreeting, setHasDismissedGreeting] = useState(false);
   const [step, setStep] = useState(STEPS.GREETING);
   const [name, setName] = useState("");
   const [interest, setInterest] = useState("");
@@ -42,10 +43,10 @@ export default function Chatbot() {
   // Auto-show greeting bubble after 3 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!open) setShowGreeting(true);
+      if (!open && !hasDismissedGreeting) setShowGreeting(true);
     }, 3000);
     return () => clearTimeout(timer);
-  }, [open]);
+  }, [open, hasDismissedGreeting]);
 
   const addMsg = (text, from = "bot") => {
     setMessages((prev) => [...prev, { from, text }]);
@@ -54,6 +55,7 @@ export default function Chatbot() {
   const handleYes = () => {
     setOpen(true);
     setShowGreeting(false);
+    setHasDismissedGreeting(true);
     addMsg("Yes", "user");
     setTimeout(() => {
       addMsg("Great! What's your name?");
@@ -63,6 +65,7 @@ export default function Chatbot() {
 
   const handleNo = () => {
     setShowGreeting(false);
+    setHasDismissedGreeting(true);
   };
 
   const handleName = () => {
@@ -127,7 +130,7 @@ export default function Chatbot() {
             </button>
           </div>
 
-          <div className="relative group cursor-pointer" onClick={() => { setOpen(true); setShowGreeting(false); }}>
+          <div className="relative group cursor-pointer" onClick={() => { setOpen(true); setShowGreeting(false); setHasDismissedGreeting(true); }}>
             <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-xl bg-purple-100">
               <img 
                 src="https://img.freepik.com/free-photo/young-beautiful-woman-customer-service-operator-with-headset-working-office_1303-19542.jpg" 
@@ -143,7 +146,7 @@ export default function Chatbot() {
       {/* Main Trigger Button (when bubble is hidden) */}
       {!open && !showGreeting && (
         <button
-          onClick={() => setOpen(true)}
+          onClick={() => { setOpen(true); setHasDismissedGreeting(true); }}
           className="w-14 h-14 bg-[#a78bfa] text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-[#8b5cf6] transition-all transform hover:scale-105 active:scale-95"
         >
           <ChatBubbleLeftRightIcon className="w-8 h-8" />
@@ -165,7 +168,7 @@ export default function Chatbot() {
                 Active Now
               </div>
             </div>
-            <button onClick={() => setOpen(false)} className="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+            <button onClick={() => { setOpen(false); setHasDismissedGreeting(true); setShowGreeting(false); }} className="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
               <XMarkIcon className="w-5 h-5" />
             </button>
           </div>
