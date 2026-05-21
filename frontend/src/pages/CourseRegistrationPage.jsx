@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  AcademicCapIcon,
+  ArrowRightIcon,
+  CheckCircleIcon,
+  CheckIcon,
+  ClockIcon,
+  PhoneIcon,
+  SparklesIcon,
+} from "@heroicons/react/24/outline";
 import { courses } from "../data/courses";
 import { useAuth } from "../context/AuthContext";
-import { createRegistration, checkRegistration } from "../services/registrationService";
+import { checkRegistration, createRegistration } from "../services/registrationService";
 import { toast } from "react-toastify";
-import { 
-  CheckCircleIcon, 
-  AcademicCapIcon, 
-  ClockIcon,
-  CheckIcon
-} from "@heroicons/react/24/outline";
 
 export default function CourseRegistrationPage() {
   const { id } = useParams();
@@ -22,7 +25,7 @@ export default function CourseRegistrationPage() {
     email: user?.email || "",
     phone: "",
     city: "",
-    notes: ""
+    notes: "",
   });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -31,14 +34,10 @@ export default function CourseRegistrationPage() {
 
   useEffect(() => {
     const foundCourse = courses.find((c) => c.id === id);
-    if (foundCourse) {
-      setCourse(foundCourse);
-    } else {
-      navigate("/");
-    }
+    if (foundCourse) setCourse(foundCourse);
+    else navigate("/");
   }, [id, navigate]);
 
-  // Check if user already registered for this course
   useEffect(() => {
     const checkExisting = async () => {
       if (!user?.email || !id) {
@@ -47,11 +46,9 @@ export default function CourseRegistrationPage() {
       }
       try {
         const res = await checkRegistration(user.email, id);
-        if (res.registered) {
-          setAlreadyRegistered(true);
-        }
+        if (res.registered) setAlreadyRegistered(true);
       } catch (err) {
-        // Ignore — just allow registration
+        // Ignore status check failures and allow registration.
       } finally {
         setCheckingStatus(false);
       }
@@ -71,7 +68,7 @@ export default function CourseRegistrationPage() {
       const data = await createRegistration({
         ...formData,
         courseId: course.id,
-        courseTitle: course.title
+        courseTitle: course.title,
       });
 
       if (data.success) {
@@ -88,175 +85,151 @@ export default function CourseRegistrationPage() {
     }
   };
 
+  const inputClass =
+    "w-full rounded-2xl border border-blue-100 bg-[#F8FAFC] px-4 py-3.5 text-sm font-semibold text-[#0F172A] outline-none transition-all placeholder:text-slate-400 focus:border-[#38BDF8] focus:bg-white focus:ring-4 focus:ring-[#38BDF8]/20";
+
   if (checkingStatus) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+      <div className="flex min-h-screen items-center justify-center bg-[#F8FAFC]">
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-100 border-t-[#2563EB]" />
       </div>
     );
   }
 
-  if (alreadyRegistered) {
+  if (alreadyRegistered || success) {
+    const isAlready = alreadyRegistered;
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-3xl p-10 text-center shadow-xl border border-blue-100">
-          <div className="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckIcon className="w-10 h-10" />
+      <div className="flex min-h-screen items-center justify-center bg-[#F8FAFC] p-4">
+        <div className="w-full max-w-md rounded-[2rem] border border-blue-100 bg-white p-10 text-center shadow-2xl shadow-blue-900/10">
+          <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-[#38BDF8]/15 text-[#2563EB]">
+            {isAlready ? <CheckIcon className="h-10 w-10" /> : <CheckCircleIcon className="h-10 w-10" />}
           </div>
-          <h2 className="text-2xl font-black text-[#0b1257] mb-4">Already Registered!</h2>
-          <p className="text-gray-500 mb-8">
-            You have already registered for <span className="font-bold text-gray-900">{course?.title}</span>. Our team will contact you soon.
+          <h2 className="text-3xl font-black text-[#0F172A]">
+            {isAlready ? "Already Registered" : "Registration Successful"}
+          </h2>
+          <p className="mt-4 text-sm font-medium leading-7 text-slate-500">
+            {isAlready ? "You have already registered for " : "Thank you for registering for "}
+            <span className="font-black text-[#0F172A]">{course?.title}</span>
+            {isAlready ? ". Our team will contact you soon." : ". Our counselor will contact you within 24 hours."}
           </p>
           <button
             onClick={() => navigate("/dashboard")}
-            className="w-full bg-[#0b1257] text-white font-bold py-4 rounded-xl transition-all hover:bg-[#0d1b3e]"
+            className="mt-8 w-full rounded-2xl bg-[#2563EB] px-6 py-4 text-sm font-black text-white shadow-xl shadow-blue-600/20 transition-all hover:bg-[#1D4ED8]"
           >
             Go to Dashboard
           </button>
-        </div>
-      </div>
-    );
-  }
-
-  if (success) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-3xl p-10 text-center shadow-xl border border-green-100">
-          <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircleIcon className="w-10 h-10" />
-          </div>
-          <h2 className="text-3xl font-black text-[#0b1257] mb-4">Registration Successful!</h2>
-          <p className="text-gray-500 mb-8">
-            Thank you for registering for <span className="font-bold text-gray-900">{course?.title}</span>. Our counselor will contact you within 24 hours.
-          </p>
-          <button
-            onClick={() => navigate("/dashboard")}
-            className="w-full bg-[#0b1257] text-white font-bold py-4 rounded-xl transition-all hover:bg-[#0d1b3e]"
-          >
-            Go to Dashboard
-          </button>
-          <p className="text-xs text-gray-400 mt-6 italic">Redirecting to dashboard...</p>
+          {success && <p className="mt-5 text-xs font-semibold text-slate-400">Redirecting to dashboard...</p>}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 bg-white rounded-[2.5rem] overflow-hidden shadow-2xl border border-gray-100">
+    <div className="min-h-screen bg-[#F8FAFC] px-4 py-12 text-[#0F172A]">
+      <div className="mx-auto max-w-5xl">
+        <div className="overflow-hidden rounded-[2rem] border border-blue-100 bg-white shadow-2xl shadow-blue-900/10">
+          <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
+            <section className="relative overflow-hidden bg-[#0F172A] p-8 text-white sm:p-10">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_14%,rgba(56,189,248,0.28),transparent_34%)]" />
+              <div className="relative flex h-full flex-col justify-between">
+                <div>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-bold text-[#38BDF8]">
+                    <SparklesIcon className="h-4 w-4" />
+                    Course Registration
+                  </span>
+                  <h1 className="mt-6 text-3xl font-black leading-tight sm:text-4xl">
+                    Secure your spot in {course?.title}
+                  </h1>
+                  <p className="mt-4 text-sm font-medium leading-7 text-slate-300">
+                    Fill out this quick form so our counselors can understand your background and guide you with the next step.
+                  </p>
 
-          {/* Left Side: Info */}
-          <div className="bg-[#0b1257] p-10 text-white flex flex-col justify-between">
-            <div>
-              <span className="text-orange-500 font-black tracking-widest text-xs uppercase mb-6 inline-block">
-                Course Registration
-              </span>
-              <h1 className="text-3xl font-black mb-4 leading-tight">
-                Secure Your Spot in {course?.title}
-              </h1>
-              <p className="text-white/70 text-sm leading-relaxed mb-10">
-                Please fill out the form to express your interest. This is a non-binding registration to help our counselors understand your background.
+                  <div className="mt-8 space-y-4">
+                    <div className="flex items-center gap-4 rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
+                      <AcademicCapIcon className="h-7 w-7 text-[#38BDF8]" />
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Course</p>
+                        <p className="font-black">{course?.title}</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4 rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
+                      <ClockIcon className="h-7 w-7 text-[#38BDF8]" />
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Duration</p>
+                        <p className="font-black">{course?.duration}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-10 border-t border-white/10 pt-6">
+                  <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Contact Admissions</p>
+                  <p className="mt-2 flex items-center gap-2 text-xl font-black">
+                    <PhoneIcon className="h-5 w-5 text-[#38BDF8]" />
+                    9989241515
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section className="p-8 sm:p-10">
+              <h2 className="text-3xl font-black">Personal Details</h2>
+              <p className="mt-2 text-sm font-medium text-slate-500">Your information helps us assign the right counselor.</p>
+
+              <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+                <div>
+                  <label className="mb-2 block text-xs font-black uppercase tracking-wider text-slate-500">Full Name</label>
+                  <input required type="text" name="name" value={formData.name} onChange={handleChange} placeholder="John Doe" className={inputClass} />
+                </div>
+
+                <div className="grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <label className="mb-2 block text-xs font-black uppercase tracking-wider text-slate-500">Email Address</label>
+                    <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder="john@example.com" className={inputClass} />
+                  </div>
+                  <div>
+                    <label className="mb-2 block text-xs font-black uppercase tracking-wider text-slate-500">Phone Number</label>
+                    <input required type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="9989241515" className={inputClass} />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-xs font-black uppercase tracking-wider text-slate-500">Current City</label>
+                  <input required type="text" name="city" value={formData.city} onChange={handleChange} placeholder="Rajahmundry" className={inputClass} />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-xs font-black uppercase tracking-wider text-slate-500">Any Questions? Optional</label>
+                  <textarea
+                    name="notes"
+                    value={formData.notes}
+                    onChange={handleChange}
+                    rows="4"
+                    placeholder="Tell us about your background or requirements..."
+                    className={`${inputClass} resize-none`}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={submitting}
+                  className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#2563EB] px-6 py-4 text-sm font-black text-white shadow-xl shadow-blue-600/20 transition-all hover:-translate-y-0.5 hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:bg-blue-300"
+                >
+                  {submitting ? (
+                    <span className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                  ) : (
+                    <>
+                      Complete Registration
+                      <ArrowRightIcon className="h-4 w-4" />
+                    </>
+                  )}
+                </button>
+              </form>
+
+              <p className="mt-6 text-center text-xs font-medium leading-6 text-slate-400">
+                By clicking Complete Registration, you agree to be contacted by our admissions team regarding AH Career Academy programs.
               </p>
-
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <span className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
-                    <AcademicCapIcon className="w-6 h-6" />
-                  </span>
-                  <div>
-                    <p className="text-xs text-white/50 uppercase font-bold tracking-wider">Course</p>
-                    <p className="font-bold">{course?.title}</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-4">
-                  <span className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
-                    <ClockIcon className="w-6 h-6" />
-                  </span>
-                  <div>
-                    <p className="text-xs text-white/50 uppercase font-bold tracking-wider">Duration</p>
-                    <p className="font-bold">{course?.duration}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-10 border-t border-white/10">
-              <p className="text-xs text-white/50 mb-4 uppercase font-bold tracking-wider">Contact Admissions</p>
-              <p className="text-xl font-bold">9989241515</p>
-            </div>
-          </div>
-
-          {/* Right Side: Form */}
-          <div className="p-10">
-            <h2 className="text-2xl font-black text-[#0b1257] mb-8">Personal Details</h2>
-
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 px-1">Full Name</label>
-                <input
-                  required type="text" name="name"
-                  value={formData.name} onChange={handleChange}
-                  placeholder="John Doe"
-                  className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all"
-                />
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 px-1">Email Address</label>
-                  <input
-                    required type="email" name="email"
-                    value={formData.email} onChange={handleChange}
-                    placeholder="john@example.com"
-                    className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all"
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 px-1">Phone Number</label>
-                  <input
-                    required type="tel" name="phone"
-                    value={formData.phone} onChange={handleChange}
-                    placeholder="9989241515"
-                    className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 px-1">Current City</label>
-                <input
-                  required type="text" name="city"
-                  value={formData.city} onChange={handleChange}
-                  placeholder="Rajahmundry"
-                  className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 px-1">Any Questions? (Optional)</label>
-                <textarea
-                  name="notes" value={formData.notes} onChange={handleChange}
-                  rows="3" placeholder="Tell us about your background or requirements..."
-                  className="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all resize-none"
-                />
-              </div>
-
-              <button
-                type="submit" disabled={submitting}
-                className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-gray-300 text-white font-black py-4 rounded-xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2"
-              >
-                {submitting ? (
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                ) : (
-                  "Complete Registration"
-                )}
-              </button>
-            </form>
-
-            <p className="text-[10px] text-center text-gray-400 mt-6 px-4">
-              By clicking "Complete Registration", you agree to be contacted by our admissions team regarding AH Career Academy programs.
-            </p>
+            </section>
           </div>
         </div>
       </div>

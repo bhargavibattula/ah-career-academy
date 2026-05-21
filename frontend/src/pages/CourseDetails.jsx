@@ -1,5 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import {
+  AcademicCapIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  BanknotesIcon,
+  CheckBadgeIcon,
+  CheckCircleIcon,
+  ClockIcon,
+  PhoneIcon,
+  SparklesIcon,
+} from "@heroicons/react/24/outline";
 import { courses } from "../data/courses";
 import { useAuth } from "../context/AuthContext";
 import { checkRegistration } from "../services/registrationService";
@@ -13,157 +24,169 @@ export default function CourseDetails() {
 
   useEffect(() => {
     const foundCourse = courses.find((c) => c.id === id);
-    if (foundCourse) {
-      setCourse(foundCourse);
-    }
+    if (foundCourse) setCourse(foundCourse);
   }, [id]);
 
-  // Check if user already registered
   useEffect(() => {
     const check = async () => {
       if (!user?.email || !id) return;
       try {
         const res = await checkRegistration(user.email, id);
         if (res.registered) setAlreadyRegistered(true);
-      } catch (err) { /* ignore */ }
+      } catch (err) {
+        // Ignore status check failures and allow the user to continue.
+      }
     };
     check();
   }, [user, id]);
 
   if (!course) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Course not found</h2>
-          <Link to="/" className="text-blue-600 hover:underline">Back to Home</Link>
+      <div className="flex min-h-screen items-center justify-center bg-[#F8FAFC] px-4">
+        <div className="rounded-[2rem] border border-blue-100 bg-white p-10 text-center shadow-xl shadow-blue-900/10">
+          <h2 className="text-2xl font-black text-[#0F172A]">Course not found</h2>
+          <Link to="/" className="mt-4 inline-flex items-center gap-2 text-sm font-black text-[#2563EB] hover:underline">
+            <ArrowLeftIcon className="h-4 w-4" />
+            Back to Home
+          </Link>
         </div>
       </div>
     );
   }
 
   const handleRegisterClick = () => {
-    if (!user) {
-      navigate("/login", { state: { from: `/courses/${id}/register` } });
-    } else {
-      navigate(`/courses/${id}/register`);
-    }
+    if (!user) navigate("/login", { state: { from: `/courses/${id}/register` } });
+    else navigate(`/courses/${id}/register`);
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
-      {/* Hero Section */}
-      <div className="bg-[#0b1257] text-white py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-            <div className="max-w-2xl">
-              <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block">
-                {course.category}
-              </span>
-              <h1 className="text-4xl md:text-5xl font-extrabold mb-6">
-                {course.title}
-              </h1>
-              <p className="text-lg text-white/80 leading-relaxed mb-8">
-                {course.longDescription}
-              </p>
-              <div className="flex flex-wrap gap-6 text-sm font-medium">
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">⏱</span>
-                  <span>Duration: {course.duration}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xl">💰</span>
-                  <span>Fees: {course.fees}</span>
-                </div>
+    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+      <section className="relative overflow-hidden bg-[#0F172A] px-4 py-20 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_16%,rgba(56,189,248,0.28),transparent_32%),radial-gradient(circle_at_86%_28%,rgba(37,99,235,0.24),transparent_30%)]" />
+        <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_0.42fr] lg:items-center">
+          <div>
+            <Link to="/" className="mb-7 inline-flex items-center gap-2 text-sm font-bold text-slate-300 transition-colors hover:text-[#38BDF8]">
+              <ArrowLeftIcon className="h-4 w-4" />
+              Back to courses
+            </Link>
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-bold text-[#38BDF8]">
+              <SparklesIcon className="h-4 w-4" />
+              {course.category}
+            </span>
+            <h1 className="mt-5 max-w-4xl text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+              {course.title}
+            </h1>
+            <p className="mt-6 max-w-3xl text-base font-medium leading-8 text-slate-300">
+              {course.longDescription}
+            </p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:max-w-2xl">
+              <div className="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
+                <ClockIcon className="mb-3 h-6 w-6 text-[#38BDF8]" />
+                <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">Duration</div>
+                <div className="mt-1 text-lg font-black">{course.duration}</div>
               </div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 w-full md:w-80">
-              <h3 className="text-xl font-bold mb-4">Get Certified</h3>
-              <p className="text-sm text-white/70 mb-6">
-                Join our expert-led training and kickstart your career today.
-              </p>
-              {alreadyRegistered ? (
-                <div className="w-full bg-green-500/20 border border-green-400/30 text-green-300 font-bold py-4 rounded-xl text-center text-sm">
-                  ✓ Already Registered
-                </div>
-              ) : (
-                <button
-                  onClick={handleRegisterClick}
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition-all shadow-lg active:scale-95"
-                >
-                  Register Now
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Content Section */}
-      <div className="max-w-7xl mx-auto px-4 -mt-10">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-              <h2 className="text-2xl font-bold text-[#0b1257] mb-6 flex items-center gap-3">
-                <span className="w-8 h-8 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center">📚</span>
-                Course Curriculum
-              </h2>
-              <div className="space-y-4">
-                {course.curriculum.map((item, index) => (
-                  <div key={index} className="flex gap-4 p-4 rounded-xl border border-gray-50 hover:bg-gray-50 transition-colors">
-                    <span className="font-bold text-orange-500">0{index + 1}</span>
-                    <span className="text-gray-700 font-medium">{item}</span>
-                  </div>
-                ))}
+              <div className="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
+                <BanknotesIcon className="mb-3 h-6 w-6 text-[#38BDF8]" />
+                <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">Fees</div>
+                <div className="mt-1 text-lg font-black">{course.fees}</div>
               </div>
             </div>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-8">
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-              <h2 className="text-xl font-bold text-[#0b1257] mb-6">Skills You'll Learn</h2>
-              <div className="flex flex-wrap gap-2">
-                {course.skills.map((skill) => (
-                  <span key={skill} className="bg-blue-50 text-blue-700 text-xs font-bold px-4 py-2 rounded-lg border border-blue-100">
-                    {skill}
-                  </span>
-                ))}
+          <div className="rounded-[2rem] border border-white/10 bg-white/10 p-6 shadow-2xl shadow-blue-950/20 backdrop-blur">
+            <AcademicCapIcon className="h-12 w-12 text-[#38BDF8]" />
+            <h2 className="mt-5 text-2xl font-black">Get certified</h2>
+            <p className="mt-3 text-sm font-medium leading-6 text-slate-300">
+              Join expert-led training with practical projects and career guidance.
+            </p>
+            {alreadyRegistered ? (
+              <div className="mt-6 rounded-2xl border border-[#38BDF8]/30 bg-[#38BDF8]/10 px-5 py-4 text-center text-sm font-black text-[#38BDF8]">
+                Already Registered
               </div>
-            </div>
-
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-              <h2 className="text-xl font-bold text-[#0b1257] mb-4">Quick Enroll</h2>
-              <p className="text-gray-500 text-sm mb-6">Secure your seat before the batch fills up.</p>
-              {alreadyRegistered ? (
-                <div className="w-full bg-green-50 border border-green-200 text-green-700 font-bold py-3 rounded-xl text-center text-sm">
-                  ✓ You're Registered
-                </div>
-              ) : (
-                <button
-                  onClick={handleRegisterClick}
-                  className="w-full bg-[#0b1257] hover:bg-[#0d1b3e] text-white font-bold py-3 rounded-xl transition-all active:scale-95"
-                >
-                  Register Now →
-                </button>
-              )}
-            </div>
-
-            <div className="bg-orange-500 rounded-3xl p-8 text-white">
-              <h2 className="text-xl font-bold mb-4">Any Questions?</h2>
-              <p className="text-white/80 text-sm mb-6">
-                Our counselors are here to help you choose the right path for your career.
-              </p>
-              <a
-                href="tel:9989241515"
-                className="block w-full bg-white text-orange-500 text-center font-bold py-3 rounded-xl hover:bg-gray-100 transition-colors"
+            ) : (
+              <button
+                onClick={handleRegisterClick}
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#38BDF8] px-5 py-4 text-sm font-black text-[#0F172A] transition-all hover:-translate-y-0.5 hover:bg-white"
               >
-                Call Us Now
-              </a>
-            </div>
+                Register Now
+                <ArrowRightIcon className="h-4 w-4" />
+              </button>
+            )}
           </div>
         </div>
-      </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-16 lg:grid-cols-[1fr_0.38fr]">
+        <div className="space-y-8">
+          <article className="rounded-[2rem] border border-blue-100 bg-white p-6 shadow-sm sm:p-8">
+            <div className="mb-8 flex items-center gap-4">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-[#2563EB] ring-1 ring-blue-100">
+                <AcademicCapIcon className="h-7 w-7" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-black">Course Curriculum</h2>
+                <p className="mt-1 text-sm font-medium text-slate-500">Structured modules designed for practical mastery.</p>
+              </div>
+            </div>
+            <div className="grid gap-4">
+              {course.curriculum.map((item, index) => (
+                <div key={item} className="group flex gap-4 rounded-3xl border border-blue-100 bg-[#F8FAFC] p-4 transition-all hover:border-[#38BDF8]/70 hover:bg-white hover:shadow-lg">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-white text-sm font-black text-[#2563EB] ring-1 ring-blue-100 group-hover:bg-[#2563EB] group-hover:text-white">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+                  <div className="flex items-center text-sm font-bold leading-6 text-slate-700">{item}</div>
+                </div>
+              ))}
+            </div>
+          </article>
+        </div>
+
+        <aside className="space-y-6">
+          <div className="rounded-[2rem] border border-blue-100 bg-white p-6 shadow-sm">
+            <h2 className="text-xl font-black">Skills you&apos;ll learn</h2>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {course.skills.map((skill) => (
+                <span key={skill} className="rounded-full border border-blue-100 bg-[#F8FAFC] px-4 py-2 text-xs font-black text-[#2563EB]">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border border-blue-100 bg-white p-6 shadow-sm">
+            <CheckBadgeIcon className="h-10 w-10 text-[#2563EB]" />
+            <h2 className="mt-4 text-xl font-black">Quick Enroll</h2>
+            <p className="mt-2 text-sm font-medium leading-6 text-slate-500">Secure your seat before the batch fills up.</p>
+            {alreadyRegistered ? (
+              <div className="mt-5 rounded-2xl border border-[#38BDF8]/30 bg-[#38BDF8]/10 px-5 py-3 text-center text-sm font-black text-[#2563EB]">
+                You&apos;re Registered
+              </div>
+            ) : (
+              <button
+                onClick={handleRegisterClick}
+                className="mt-5 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#2563EB] px-5 py-3.5 text-sm font-black text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-[#1D4ED8]"
+              >
+                Register Now
+                <ArrowRightIcon className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+
+          <div className="rounded-[2rem] bg-[#0F172A] p-6 text-white shadow-2xl shadow-blue-950/20">
+            <PhoneIcon className="h-10 w-10 text-[#38BDF8]" />
+            <h2 className="mt-4 text-xl font-black">Any Questions?</h2>
+            <p className="mt-2 text-sm font-medium leading-6 text-slate-300">
+              Our counselors can help you choose the right path for your career.
+            </p>
+            <a
+              href="tel:9989241515"
+              className="mt-5 block rounded-2xl bg-white px-5 py-3.5 text-center text-sm font-black text-[#0F172A] transition-all hover:bg-[#38BDF8]"
+            >
+              Call Us Now
+            </a>
+          </div>
+        </aside>
+      </section>
     </div>
   );
 }

@@ -1,5 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import {
+  ArrowLeftIcon,
+  CheckCircleIcon,
+  EyeIcon,
+  EyeSlashIcon,
+  SparklesIcon,
+  UserPlusIcon,
+} from "@heroicons/react/24/outline";
 import { registerUser } from "../services/authService";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
@@ -22,31 +30,20 @@ export default function RegisterPage() {
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = "Full name is required.";
-    } else if (formData.name.trim().length < 2) {
-      newErrors.name = "Name must be at least 2 characters.";
-    }
+    if (!formData.name.trim()) newErrors.name = "Full name is required.";
+    else if (formData.name.trim().length < 2) newErrors.name = "Name must be at least 2 characters.";
 
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required.";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Enter a valid email address.";
-    }
+    if (!formData.email.trim()) newErrors.email = "Email is required.";
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Enter a valid email address.";
 
-    if (!formData.password) {
-      newErrors.password = "Password is required.";
-    } else if (formData.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters.";
-    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
+    if (!formData.password) newErrors.password = "Password is required.";
+    else if (formData.password.length < 8) newErrors.password = "Password must be at least 8 characters.";
+    else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
       newErrors.password = "Must include uppercase, lowercase, and a number.";
     }
 
-    if (!formData.confirmPassword) {
-      newErrors.confirmPassword = "Please confirm your password.";
-    } else if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match.";
-    }
+    if (!formData.confirmPassword) newErrors.confirmPassword = "Please confirm your password.";
+    else if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Passwords do not match.";
 
     return newErrors;
   };
@@ -57,7 +54,6 @@ export default function RegisterPage() {
     if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  // Password strength indicator
   const getPasswordStrength = () => {
     const p = formData.password;
     if (!p) return null;
@@ -68,9 +64,9 @@ export default function RegisterPage() {
     if (/\d/.test(p)) score++;
     if (/[^A-Za-z0-9]/.test(p)) score++;
 
-    if (score <= 2) return { label: "Weak", color: "bg-red-400", width: "w-1/3" };
-    if (score === 3) return { label: "Fair", color: "bg-yellow-400", width: "w-2/3" };
-    return { label: "Strong", color: "bg-green-500", width: "w-full" };
+    if (score <= 2) return { label: "Weak", color: "bg-red-400", width: "w-1/3", text: "text-red-500" };
+    if (score === 3) return { label: "Fair", color: "bg-amber-400", width: "w-2/3", text: "text-amber-600" };
+    return { label: "Strong", color: "bg-[#2563EB]", width: "w-full", text: "text-[#2563EB]" };
   };
 
   const strength = getPasswordStrength();
@@ -86,7 +82,6 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      // Only send name, email, password — NEVER role
       const data = await registerUser({
         name: formData.name.trim(),
         email: formData.email.trim(),
@@ -95,7 +90,6 @@ export default function RegisterPage() {
 
       login(data.user);
       toast.success("Account created successfully!");
-      // New users are always "user" role → /dashboard
       navigate("/dashboard", { replace: true });
     } catch (err) {
       toast.error(err.message || "Registration failed. Please try again.");
@@ -104,68 +98,55 @@ export default function RegisterPage() {
     }
   };
 
+  const inputClass = (hasError) =>
+    `w-full rounded-2xl border px-4 py-3.5 text-sm font-semibold outline-none transition-all placeholder:text-slate-400 ${
+      hasError
+        ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100"
+        : "border-blue-100 bg-white focus:border-[#38BDF8] focus:ring-4 focus:ring-[#38BDF8]/20"
+    }`;
+
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Main */}
-      <div className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-md">
-          {/* Card */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
-            {/* Header */}
-            <div className="text-center mb-7">
-              <div className="w-14 h-14 bg-[#0b1257] rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                </svg>
+    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+      <div className="mx-auto grid min-h-screen max-w-7xl px-4 py-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-12">
+        <main className="mx-auto w-full max-w-md">
+          <div className="rounded-[2rem] border border-blue-100 bg-white p-7 shadow-2xl shadow-blue-900/10 sm:p-8">
+            <div className="mb-7 text-center">
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#2563EB] text-white shadow-lg shadow-blue-600/20">
+                <UserPlusIcon className="h-8 w-8" />
               </div>
-              <h1 className="text-2xl font-bold text-[#0b1257]">Create Account</h1>
-              <p className="text-gray-500 text-sm mt-1">Join 150k+ students on AH Career</p>
+              <h1 className="text-3xl font-black">Create account</h1>
+              <p className="mt-2 text-sm font-medium text-slate-500">Join AH Career and start your learning journey.</p>
             </div>
 
-            <form onSubmit={handleSubmit} noValidate>
-              {/* Name */}
-              <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                  Full Name
-                </label>
+            <form onSubmit={handleSubmit} noValidate className="space-y-4">
+              <div>
+                <label className="mb-2 block text-sm font-bold text-slate-700">Full Name</label>
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Your full name"
-                  className={`w-full border rounded-lg px-4 py-3 text-sm outline-none transition-colors ${errors.name
-                      ? "border-red-400 bg-red-50"
-                      : "border-gray-200 focus:border-[#0b1257]"
-                    }`}
+                  className={inputClass(errors.name)}
                 />
-                {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+                {errors.name && <p className="mt-1.5 text-xs font-semibold text-red-500">{errors.name}</p>}
               </div>
 
-              {/* Email */}
-              <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                  Email Address
-                </label>
+              <div>
+                <label className="mb-2 block text-sm font-bold text-slate-700">Email Address</label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="you@example.com"
-                  className={`w-full border rounded-lg px-4 py-3 text-sm outline-none transition-colors ${errors.email
-                      ? "border-red-400 bg-red-50"
-                      : "border-gray-200 focus:border-[#0b1257]"
-                    }`}
+                  className={inputClass(errors.email)}
                 />
-                {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+                {errors.email && <p className="mt-1.5 text-xs font-semibold text-red-500">{errors.email}</p>}
               </div>
 
-              {/* Password */}
-              <div className="mb-4">
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                  Password
-                </label>
+              <div>
+                <label className="mb-2 block text-sm font-bold text-slate-700">Password</label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
@@ -173,49 +154,30 @@ export default function RegisterPage() {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Min. 8 characters"
-                    className={`w-full border rounded-lg px-4 py-3 pr-11 text-sm outline-none transition-colors ${errors.password
-                        ? "border-red-400 bg-red-50"
-                        : "border-gray-200 focus:border-[#0b1257]"
-                      }`}
+                    className={`${inputClass(errors.password)} pr-12`}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-[#2563EB]"
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      {showPassword ? (
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                      ) : (
-                        <>
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </>
-                      )}
-                    </svg>
+                    {showPassword ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
                   </button>
                 </div>
-                {/* Password Strength Bar */}
                 {formData.password && strength && (
                   <div className="mt-2">
-                    <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                      <div className={`h-full rounded-full transition-all duration-300 ${strength.color} ${strength.width}`}></div>
+                    <div className="h-1.5 overflow-hidden rounded-full bg-blue-50">
+                      <div className={`h-full rounded-full transition-all duration-300 ${strength.color} ${strength.width}`} />
                     </div>
-                    <p className={`text-xs mt-1 font-medium ${strength.label === "Weak" ? "text-red-500" :
-                        strength.label === "Fair" ? "text-yellow-600" : "text-green-600"
-                      }`}>
-                      {strength.label} password
-                    </p>
+                    <p className={`mt-1 text-xs font-bold ${strength.text}`}>{strength.label} password</p>
                   </div>
                 )}
-                {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
+                {errors.password && <p className="mt-1.5 text-xs font-semibold text-red-500">{errors.password}</p>}
               </div>
 
-              {/* Confirm Password */}
-              <div className="mb-6">
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
-                  Confirm Password
-                </label>
+              <div>
+                <label className="mb-2 block text-sm font-bold text-slate-700">Confirm Password</label>
                 <div className="relative">
                   <input
                     type={showConfirm ? "text" : "password"}
@@ -223,45 +185,31 @@ export default function RegisterPage() {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     placeholder="Re-enter your password"
-                    className={`w-full border rounded-lg px-4 py-3 pr-11 text-sm outline-none transition-colors ${errors.confirmPassword
-                        ? "border-red-400 bg-red-50"
-                        : formData.confirmPassword && formData.password === formData.confirmPassword
-                          ? "border-green-400 focus:border-green-400"
-                          : "border-gray-200 focus:border-[#0b1257]"
-                      }`}
+                    className={`${inputClass(errors.confirmPassword)} pr-12 ${
+                      formData.confirmPassword && formData.password === formData.confirmPassword ? "border-[#38BDF8]" : ""
+                    }`}
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirm(!showConfirm)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 transition-colors hover:text-[#2563EB]"
+                    aria-label={showConfirm ? "Hide password" : "Show password"}
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      {showConfirm ? (
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                      ) : (
-                        <>
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </>
-                      )}
-                    </svg>
+                    {showConfirm ? <EyeSlashIcon className="h-5 w-5" /> : <EyeIcon className="h-5 w-5" />}
                   </button>
                 </div>
-                {errors.confirmPassword && (
-                  <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>
-                )}
+                {errors.confirmPassword && <p className="mt-1.5 text-xs font-semibold text-red-500">{errors.confirmPassword}</p>}
               </div>
 
-              {/* Submit */}
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-orange-500 hover:bg-orange-600 disabled:bg-orange-300 text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
+                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#2563EB] px-6 py-4 text-sm font-black text-white shadow-xl shadow-blue-600/20 transition-all hover:-translate-y-0.5 hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:bg-blue-300"
               >
                 {loading ? (
                   <>
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    Creating Account...
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                    Creating account...
                   </>
                 ) : (
                   "Create Account"
@@ -269,27 +217,45 @@ export default function RegisterPage() {
               </button>
             </form>
 
-            {/* Footer */}
-            <div className="mt-6 text-center">
-              <p className="text-gray-500 text-sm">
-                Already have an account?{" "}
-                <Link to="/login" className="text-orange-500 font-semibold hover:underline">
-                  Sign in
-                </Link>
-              </p>
-            </div>
+            <p className="mt-6 text-center text-sm font-medium text-slate-500">
+              Already have an account?{" "}
+              <Link to="/login" className="font-black text-[#2563EB] hover:underline">
+                Sign in
+              </Link>
+            </p>
           </div>
 
-          {/* Back to home */}
-          <div className="text-center mt-4">
-            <Link to="/" className="text-gray-400 text-sm hover:text-gray-600 flex items-center justify-center gap-1">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              Back to home
-            </Link>
+          <Link to="/" className="mt-5 flex items-center justify-center gap-2 text-sm font-bold text-slate-500 transition-colors hover:text-[#2563EB]">
+            <ArrowLeftIcon className="h-4 w-4" />
+            Back to home
+          </Link>
+        </main>
+
+        <section className="hidden overflow-hidden rounded-[2rem] bg-[#0F172A] p-10 text-white shadow-2xl shadow-blue-950/20 lg:block">
+          <div className="relative">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_24%_14%,rgba(56,189,248,0.28),transparent_34%)]" />
+            <div className="relative">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-bold text-[#38BDF8]">
+                <SparklesIcon className="h-4 w-4" />
+                Start learning today
+              </span>
+              <h2 className="mt-8 text-5xl font-black leading-tight tracking-tight">
+                A cleaner path from skills to career confidence.
+              </h2>
+              <p className="mt-5 max-w-xl text-base font-medium leading-8 text-slate-300">
+                Create your account to manage registrations, access your dashboard, and stay connected with AH Career.
+              </p>
+              <div className="mt-10 space-y-3">
+                {["Practical learning", "Mentor guidance", "Career-focused support"].map((item) => (
+                  <div key={item} className="flex items-center gap-3 rounded-2xl bg-white/10 px-4 py-3 text-sm font-bold ring-1 ring-white/10">
+                    <CheckCircleIcon className="h-5 w-5 text-[#38BDF8]" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );
