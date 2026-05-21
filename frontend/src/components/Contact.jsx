@@ -1,97 +1,133 @@
+import {
+  CalendarDaysIcon,
+  ChatBubbleLeftRightIcon,
+  EnvelopeIcon,
+  GlobeAltIcon,
+  PhoneIcon,
+  SparklesIcon,
+} from "@heroicons/react/24/outline";
+
 const contactMethods = [
   {
-    icon: "💬",
-    iconBg: "bg-green-500",
+    icon: ChatBubbleLeftRightIcon,
     title: "WhatsApp Chat",
     sub: "+91 9989241515",
-    link: "Chat Now →",
-    linkColor: "text-green-600",
+    action: "Chat Now",
+    href: "https://wa.me/919989241515",
   },
   {
-    icon: "📞",
-    iconBg: "bg-[#2563EB]",
+    icon: PhoneIcon,
     title: "Call Us",
     sub: "0883-2474088",
-    link: "Call Now →",
-    linkColor: "text-[#2563EB]",
+    action: "Call Now",
+    href: "tel:0883-2474088",
   },
   {
-    icon: "✉️",
-    iconBg: "bg-[#38BDF8]",
+    icon: EnvelopeIcon,
     title: "Email Us",
     sub: "ahcareerpvtltd@gmail.com",
-    link: "Send Mail →",
-    linkColor: "text-[#2563EB]",
+    action: "Send Mail",
+    href: "mailto:ahcareerpvtltd@gmail.com",
   },
   {
-    icon: "📅",
-    iconBg: "bg-red-500",
+    icon: CalendarDaysIcon,
     title: "Schedule Demo",
     sub: "Book a Free Demo Class",
-    link: "Book Now →",
-    linkColor: "text-[#2563EB]",
+    action: "Book Now",
+    href: "/contact",
   },
 ];
 
 const socials = [
-  { icon: "📘", name: "Facebook", followers: "4.4k+", color: "bg-blue-600", url: "https://www.facebook.com/share/18nvUvNp8m/" },
-  { icon: "📸", name: "Instagram", followers: "17.7k+", color: "bg-pink-500", url: "https://www.instagram.com/ah_career_rajahmundry" },
-  { icon: "💼", name: "LinkedIn", followers: "4k+", color: "bg-blue-700", url: "https://www.linkedin.com/company/ahcareer/" },
-  { icon: "🌐", name: "Website", followers: "Official", color: "bg-gray-800", url: "http://ahcareer.in" },
+  { icon: "f", name: "Facebook", followers: "4.4k+", url: "https://www.facebook.com/share/18nvUvNp8m/" },
+  { icon: "Ig", name: "Instagram", followers: "17.7k+", url: "https://www.instagram.com/ah_career_rajahmundry" },
+  { icon: "in", name: "LinkedIn", followers: "4k+", url: "https://www.linkedin.com/company/ahcareer/" },
+  { icon: <GlobeAltIcon className="h-5 w-5" />, name: "Website", followers: "Official", url: "http://ahcareer.in" },
 ];
 
 export default function Contact() {
   return (
-    <section className="bg-[#F8FAFC] py-16 px-4">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-center text-3xl sm:text-4xl font-bold text-[#0F172A] mb-2">
-          Talk to Our <span className="text-[#2563EB]">Experts</span>
-        </h2>
-        <p className="text-center text-gray-500 text-sm mb-10">
-          Available 24/7 • Multiple Ways to Connect
-        </p>
+    <section className="bg-white px-4 py-20">
+      <div className="mx-auto max-w-7xl">
+        <div className="overflow-hidden rounded-[2rem] bg-[#0F172A] shadow-2xl shadow-blue-950/20">
+          <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="relative p-8 text-white sm:p-10 lg:p-12">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(56,189,248,0.28),transparent_34%)]" />
+              <div className="relative">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-bold text-[#38BDF8]">
+                  <SparklesIcon className="h-4 w-4" />
+                  Talk to Experts
+                </span>
+                <h2 className="mt-5 text-3xl font-black tracking-tight sm:text-4xl">
+                  Need help choosing the right course?
+                </h2>
+                <p className="mt-4 max-w-xl text-sm font-medium leading-7 text-slate-300 sm:text-base">
+                  Speak with our counselors for course guidance, demo class details, batch timing, and career roadmap support.
+                </p>
 
-        {/* Contact Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-16">
-          {contactMethods.map((m) => (
-            <div key={m.title} className="bg-white border border-gray-200 rounded-2xl p-5 hover:shadow-md transition-shadow">
-              <div className={`w-14 h-14 ${m.iconBg} rounded-xl flex items-center justify-center text-2xl mb-4`}>
-                {m.icon}
+                <div className="mt-8 grid grid-cols-2 gap-3">
+                  {[
+                    ["24/7", "Learning support"],
+                    ["Free", "Career roadmap"],
+                    ["Live", "Demo guidance"],
+                    ["Fast", "Counselor callback"],
+                  ].map(([value, label]) => (
+                    <div key={label} className="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
+                      <div className="text-2xl font-black text-[#38BDF8]">{value}</div>
+                      <div className="mt-1 text-xs font-semibold text-slate-400">{label}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <h3 className="font-bold text-gray-900 text-base mb-1">{m.title}</h3>
-              <p className="text-gray-500 text-sm mb-2">{m.sub}</p>
-              <a 
-                href={m.title === "WhatsApp Chat" ? "https://wa.me/919989241515" : m.title === "Call Us" ? "tel:0883-2474088" : m.title === "Email Us" ? "mailto:ahcareerpvtltd@gmail.com" : "/contact"} 
-                className={`${m.linkColor} text-sm font-semibold hover:underline`}
-              >
-                {m.link}
-              </a>
             </div>
-          ))}
+
+            <div className="bg-[#F8FAFC] p-5 sm:p-6 lg:p-8">
+              <div className="grid gap-4 sm:grid-cols-2">
+                {contactMethods.map((method) => {
+                  const Icon = method.icon;
+                  return (
+                    <a
+                      key={method.title}
+                      href={method.href}
+                      className="group rounded-3xl border border-blue-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#38BDF8]/70 hover:shadow-xl hover:shadow-blue-900/10"
+                    >
+                      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-[#2563EB] ring-1 ring-blue-100 transition-colors group-hover:bg-[#2563EB] group-hover:text-white">
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <h3 className="text-base font-black text-[#0F172A]">{method.title}</h3>
+                      <p className="mt-1 text-sm font-semibold text-slate-500">{method.sub}</p>
+                      <div className="mt-4 text-sm font-black text-[#2563EB]">{method.action}</div>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Social Media */}
-        <h2 className="text-center text-3xl font-bold text-[#0F172A] mb-2">
-          Connect <span className="text-[#2563EB]">With Us</span>
-        </h2>
-        <p className="text-center text-gray-500 text-sm mb-8">
-          Follow us for updates, tips, and success stories
-        </p>
+        <div className="mt-14 text-center">
+          <h2 className="text-3xl font-black text-[#0F172A]">
+            Connect <span className="text-[#2563EB]">With Us</span>
+          </h2>
+          <p className="mt-3 text-sm font-medium text-slate-500">
+            Follow us for updates, tips, and success stories.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {socials.map((s) => (
+        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {socials.map((social) => (
             <a
-              key={s.name}
-              href={s.url}
+              key={social.name}
+              href={social.url}
               target="_blank"
               rel="noreferrer"
-              className="bg-white border border-gray-200 rounded-2xl p-4 text-center hover:shadow-md transition-shadow flex flex-col items-center gap-2"
+              className="group rounded-3xl border border-blue-100 bg-[#F8FAFC] p-5 text-center transition-all duration-300 hover:-translate-y-1 hover:border-[#38BDF8]/70 hover:bg-white hover:shadow-xl hover:shadow-blue-900/10"
             >
-              <div className={`w-12 h-12 ${s.color} rounded-full flex items-center justify-center text-2xl`}>
-                {s.icon}
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-sm font-black text-[#2563EB] ring-1 ring-blue-100 transition-colors group-hover:bg-[#2563EB] group-hover:text-white">
+                {social.icon}
               </div>
-              <div className="font-bold text-gray-800 text-sm">{s.name}</div>
-              <div className="text-[#2563EB] text-xs font-semibold">{s.followers}</div>
+              <div className="mt-3 text-sm font-black text-[#0F172A]">{social.name}</div>
+              <div className="mt-1 text-xs font-bold text-[#2563EB]">{social.followers}</div>
             </a>
           ))}
         </div>
