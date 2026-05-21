@@ -9,19 +9,19 @@ const contactMethods = [
   },
   {
     icon: "📞",
-    iconBg: "bg-[#1e1b4b]",
+    iconBg: "bg-[#2563EB]",
     title: "Call Us",
     sub: "0883-2474088",
     link: "Call Now →",
-    linkColor: "text-[#1e1b4b]",
+    linkColor: "text-[#2563EB]",
   },
   {
     icon: "✉️",
-    iconBg: "bg-orange-500",
+    iconBg: "bg-[#38BDF8]",
     title: "Email Us",
     sub: "ahcareerpvtltd@gmail.com",
     link: "Send Mail →",
-    linkColor: "text-orange-500",
+    linkColor: "text-[#2563EB]",
   },
   {
     icon: "📅",
@@ -29,7 +29,7 @@ const contactMethods = [
     title: "Schedule Demo",
     sub: "Book a Free Demo Class",
     link: "Book Now →",
-    linkColor: "text-orange-500",
+    linkColor: "text-[#2563EB]",
   },
 ];
 
@@ -42,10 +42,10 @@ const socials = [
 
 export default function Contact() {
   return (
-    <section className="bg-gray-50 py-16 px-4">
+    <section className="bg-[#F8FAFC] py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-center text-3xl sm:text-4xl font-bold text-[#1e1b4b] mb-2">
-          Talk to Our <span className="text-orange-500">Experts</span>
+        <h2 className="text-center text-3xl sm:text-4xl font-bold text-[#0F172A] mb-2">
+          Talk to Our <span className="text-[#2563EB]">Experts</span>
         </h2>
         <p className="text-center text-gray-500 text-sm mb-10">
           Available 24/7 • Multiple Ways to Connect
@@ -71,8 +71,8 @@ export default function Contact() {
         </div>
 
         {/* Social Media */}
-        <h2 className="text-center text-3xl font-bold text-[#1e1b4b] mb-2">
-          Connect <span className="text-orange-500">With Us</span>
+        <h2 className="text-center text-3xl font-bold text-[#0F172A] mb-2">
+          Connect <span className="text-[#2563EB]">With Us</span>
         </h2>
         <p className="text-center text-gray-500 text-sm mb-8">
           Follow us for updates, tips, and success stories
@@ -91,7 +91,7 @@ export default function Contact() {
                 {s.icon}
               </div>
               <div className="font-bold text-gray-800 text-sm">{s.name}</div>
-              <div className="text-orange-500 text-xs font-semibold">{s.followers}</div>
+              <div className="text-[#2563EB] text-xs font-semibold">{s.followers}</div>
             </a>
           ))}
         </div>

@@ -57,7 +57,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 flex-shrink-0 group">
             <img src="/logo.jpg" alt="AH Career Logo" className="h-16 w-auto object-contain" />
-            <span className="text-[#0d1b3e] font-black text-3xl tracking-tight">AH CAREER</span>
+            <span className="text-[#0F172A] font-black text-3xl tracking-tight">AH CAREER</span>
           </Link>
 
           {/* Desktop Nav */}
@@ -69,7 +69,7 @@ export default function Navbar() {
                 onMouseEnter={() => setOpenMenu(link.label)}
                 onMouseLeave={() => setOpenMenu(null)}
               >
-                <button className="flex items-center gap-1 px-3 py-2 text-gray-700 hover:text-orange-500 font-medium text-sm transition-colors rounded-md hover:bg-orange-50">
+                <button className="flex items-center gap-1 px-3 py-2 text-gray-700 hover:text-[#2563EB] font-medium text-sm transition-colors rounded-md hover:bg-blue-50">
                   {link.label}
                   <ChevronDownIcon className="w-3.5 h-3.5 text-gray-400" />
                 </button>
@@ -79,7 +79,7 @@ export default function Navbar() {
                       <Link
                         key={item.path}
                         to={item.path}
-                        className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-orange-50 hover:text-orange-500 transition-colors"
+                        className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#2563EB] transition-colors"
                       >
                         {item.label}
                       </Link>
@@ -96,13 +96,13 @@ export default function Navbar() {
               <div className="flex items-center gap-4">
                 <Link
                   to={user.role === "admin" ? "/admin-dashboard" : "/dashboard"}
-                  className="text-sm font-semibold text-gray-700 hover:text-orange-500 transition-colors"
+                  className="text-sm font-semibold text-gray-700 hover:text-[#2563EB] transition-colors"
                 >
                   Dashboard
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="bg-[#0b1257] hover:bg-[#1a2580] text-white text-sm font-bold px-5 py-2.5 rounded-full transition-all shadow-lg shadow-blue-900/10"
+                  className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-bold px-5 py-2.5 rounded-full transition-all shadow-lg shadow-blue-600/20"
                 >
                   Logout
                 </button>
@@ -111,13 +111,13 @@ export default function Navbar() {
               <div className="flex items-center gap-3">
                 <Link
                   to="/login"
-                  className="text-sm font-semibold text-gray-700 hover:text-orange-500 transition-colors px-4 py-2"
+                  className="text-sm font-semibold text-gray-700 hover:text-[#2563EB] transition-colors px-4 py-2"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-orange-500 hover:bg-orange-600 text-white text-sm font-bold px-6 py-2.5 rounded-full transition-all shadow-lg shadow-orange-500/20"
+                  className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-bold px-6 py-2.5 rounded-full transition-all shadow-lg shadow-blue-600/20"
                 >
                   Join for Free
                 </Link>
@@ -149,7 +149,7 @@ export default function Navbar() {
                     <Link
                       key={item.path}
                       to={item.path}
-                      className="block py-2 text-sm text-gray-700 hover:text-orange-500 font-medium"
+                      className="block py-2 text-sm text-gray-700 hover:text-[#2563EB] font-medium"
                       onClick={() => setMobileOpen(false)}
                     >
                       {item.label}
@@ -172,7 +172,7 @@ export default function Navbar() {
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="w-full py-3 bg-[#0b1257] text-white font-bold rounded-xl text-sm"
+                    className="w-full py-3 bg-[#2563EB] text-white font-bold rounded-xl text-sm"
                   >
                     Logout
                   </button>
@@ -188,7 +188,7 @@ export default function Navbar() {
                   </Link>
                   <Link
                     to="/register"
-                    className="flex items-center justify-center py-3 text-sm font-bold bg-orange-500 text-white rounded-xl"
+                    className="flex items-center justify-center py-3 text-sm font-bold bg-[#2563EB] text-white rounded-xl"
                     onClick={() => setMobileOpen(false)}
                   >
                     Join

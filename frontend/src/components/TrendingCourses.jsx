@@ -9,14 +9,14 @@ export default function TrendingCourses() {
       <div className="max-w-7xl mx-auto">
         {/* Section Label */}
         <div className="text-center mb-3">
-          <span className="text-orange-500 text-sm font-semibold border border-orange-200 bg-orange-50 px-4 py-1 rounded-full">
+          <span className="text-[#2563EB] text-sm font-semibold border border-[#38BDF8]/40 bg-[#38BDF8]/10 px-4 py-1 rounded-full">
             Most Popular
           </span>
         </div>
-        <h2 className="text-center text-3xl sm:text-4xl font-bold text-[#1e1b4b] mb-2">
+        <h2 className="text-center text-3xl sm:text-4xl font-bold text-[#0F172A] mb-2">
           Trending Courses
         </h2>
-        <p className="text-center text-indigo-600 text-base mb-10">
+        <p className="text-center text-[#2563EB] text-base mb-10">
           Master in-demand skills with our specialized programs
         </p>
 
@@ -24,10 +24,10 @@ export default function TrendingCourses() {
           {courses.map((course) => (
             <div key={course.id} className="border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col">
               {/* Card Header */}
-              <div className="bg-gradient-to-br from-[#2d1b8a] to-[#8b2232] p-5">
+              <div className="bg-gradient-to-br from-[#2563EB] to-[#38BDF8] p-5">
                 <h3 className="text-white text-2xl font-bold mb-0.5">{course.title}</h3>
                 <p className="text-white/80 text-sm mb-3 line-clamp-1">{course.description}</p>
-                <span className="bg-orange-400 text-white text-xs font-bold px-3 py-1 rounded-full">
+                <span className="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full">
                   High Demand
                 </span>
               </div>
@@ -37,7 +37,7 @@ export default function TrendingCourses() {
                 <div className="space-y-3 mb-6">
                   {course.curriculum.slice(0, 4).map((f) => (
                     <div key={f} className="flex items-center gap-2 text-sm text-gray-700 border-b border-gray-100 pb-3 last:border-0 last:pb-0">
-                      <CheckCircleIcon className="w-4 h-4 text-orange-400 flex-shrink-0" />
+                      <CheckCircleIcon className="w-4 h-4 text-[#2563EB] flex-shrink-0" />
                       {f}
                     </div>
                   ))}
@@ -51,13 +51,13 @@ export default function TrendingCourses() {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-700 font-medium">Placement</span>
-                    <span className="font-bold text-orange-500">100% Assistance</span>
+                    <span className="font-bold text-[#2563EB]">100% Assistance</span>
                   </div>
                 </div>
 
                 <Link 
                   to={`/courses/${course.id}`}
-                  className="w-full bg-[#0b1257] hover:bg-[#0d1b3e] text-white text-center font-semibold py-3 rounded-xl transition-all text-sm active:scale-95"
+                  className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-center font-semibold py-3 rounded-xl transition-all text-sm active:scale-95"
                 >
                   View Details
                 </Link>

@@ -27,14 +27,14 @@ function Stars({ rating }) {
 
 export default function FeaturedCourses() {
   return (
-    <section className="bg-gray-50 py-16 px-4">
+    <section className="bg-[#F8FAFC] py-16 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-3">
-          <span className="text-orange-500 text-sm font-semibold border border-orange-200 bg-orange-50 px-4 py-1 rounded-full">
+          <span className="text-[#2563EB] text-sm font-semibold border border-[#38BDF8]/40 bg-[#38BDF8]/10 px-4 py-1 rounded-full">
             Featured Programs
           </span>
         </div>
-        <h2 className="text-center text-3xl sm:text-4xl font-bold text-[#1e1b4b] mb-2">
+        <h2 className="text-center text-3xl sm:text-4xl font-bold text-[#0F172A] mb-2">
           Featured Courses
         </h2>
         <p className="text-center text-gray-500 text-sm mb-10 max-w-2xl mx-auto">
@@ -43,24 +43,24 @@ export default function FeaturedCourses() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {/* Premium Flagship Program Card */}
-          <div className="bg-gradient-to-br from-white to-blue-50/50 border-2 border-orange-500/20 rounded-2xl p-5 shadow-xl shadow-blue-900/5 flex flex-col relative overflow-hidden group">
-            <div className="absolute top-0 right-0 bg-orange-500 text-white text-[10px] font-black px-4 py-1 rounded-bl-xl uppercase tracking-widest z-10">
+          <div className="bg-gradient-to-br from-white to-blue-50/50 border-2 border-[#38BDF8]/30 rounded-2xl p-5 shadow-xl shadow-blue-900/5 flex flex-col relative overflow-hidden group">
+            <div className="absolute top-0 right-0 bg-[#2563EB] text-white text-[10px] font-black px-4 py-1 rounded-bl-xl uppercase tracking-widest z-10">
               Flagship
             </div>
             
             {/* Icon + Title */}
             <div className="flex items-start gap-3 mb-3">
-              <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 bg-orange-500 rounded-xl shadow-lg shadow-orange-500/20">
+              <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 bg-[#2563EB] rounded-xl shadow-lg shadow-blue-600/20">
                 <AcademicCapIcon className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="font-black text-[#1e1b4b] text-lg leading-tight">Job Ready Training</h3>
+                <h3 className="font-black text-[#0F172A] text-lg leading-tight">Job Ready Training</h3>
                 <div className="flex items-center gap-4 text-gray-500 text-xs mt-1 font-bold">
                   <span className="flex items-center gap-1">
                     <ClockIcon className="w-3.5 h-3.5" />
                     4 Months
                   </span>
-                  <span className="flex items-center gap-1 text-orange-600">
+                  <span className="flex items-center gap-1 text-[#2563EB]">
                     <BriefcaseIcon className="w-3.5 h-3.5" />
                     100% Placement
                   </span>
@@ -75,7 +75,7 @@ export default function FeaturedCourses() {
             {/* Tags */}
             <div className="flex flex-wrap gap-1.5 mb-4">
               {["Full Stack", "DSA", "Soft Skills"].map((skill) => (
-                <span key={skill} className="bg-white border border-gray-200 text-[#1e1b4b] text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
+                <span key={skill} className="bg-white border border-blue-100 text-[#0F172A] text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
                   {skill}
                 </span>
               ))}
@@ -90,7 +90,7 @@ export default function FeaturedCourses() {
 
             <Link 
               to="/programs/job-ready"
-              className="w-full bg-[#1e1b4b] hover:bg-[#0b1257] text-white font-black py-3.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-900/10 group-hover:scale-[1.02]"
+              className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-black py-3.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 group-hover:scale-[1.02]"
             >
               View Details
               <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -105,7 +105,7 @@ export default function FeaturedCourses() {
                   <AcademicCapIcon className="w-6 h-6 text-blue-600" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-[#1e1b4b] text-lg leading-tight">{course.title}</h3>
+                  <h3 className="font-bold text-[#0F172A] text-lg leading-tight">{course.title}</h3>
                   <div className="flex items-center gap-4 text-gray-500 text-xs mt-1">
                     <span className="flex items-center gap-1">
                       <ClockIcon className="w-3.5 h-3.5" />
@@ -145,7 +145,7 @@ export default function FeaturedCourses() {
 
               <Link 
                 to={`/courses/${course.id}`}
-                className="w-full bg-[#1e1b4b] hover:bg-[#2d2a6e] text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
+                className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
               >
                 View Course Details
                 <ArrowRightIcon className="w-4 h-4" />

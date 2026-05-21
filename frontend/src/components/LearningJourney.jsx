@@ -51,15 +51,15 @@ export default function LearningJourney() {
   const content = tabContent[active];
 
   return (
-    <section className="bg-[#0b1257] text-white py-16 px-4">
+    <section className="bg-[#0F172A] text-white py-16 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-3">
-          <span className="text-orange-400 text-sm font-semibold border border-orange-400/30 bg-orange-500/10 px-4 py-1 rounded-full">
+          <span className="text-[#38BDF8] text-sm font-semibold border border-[#38BDF8]/30 bg-[#38BDF8]/10 px-4 py-1 rounded-full">
             Most Popular
           </span>
         </div>
         <h2 className="text-center text-3xl sm:text-4xl font-bold mb-2">
-          Choose Your <span className="text-orange-500">Learning Journey</span>
+          Choose Your <span className="text-[#38BDF8]">Learning Journey</span>
         </h2>
         <p className="text-center text-gray-300 text-sm mb-8">
           Master in-demand skills with our specialized programs
@@ -73,7 +73,7 @@ export default function LearningJourney() {
               onClick={() => setActive(tab)}
               className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors border ${
                 active === tab
-                  ? "bg-white text-[#1e1b4b] border-white"
+                  ? "bg-white text-[#0F172A] border-white"
                   : "bg-transparent text-white border-white/30 hover:border-white/60"
               }`}
             >
@@ -86,8 +86,8 @@ export default function LearningJourney() {
         <div className="grid md:grid-cols-2 gap-8 items-start">
           {/* Left */}
           <div>
-            <div className="inline-flex items-center gap-2 bg-blue-900/50 rounded-lg px-3 py-2 mb-4">
-              <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
+            <div className="inline-flex items-center gap-2 bg-white/10 rounded-lg px-3 py-2 mb-4">
+              <div className="w-8 h-8 bg-[#2563EB] rounded flex items-center justify-center">
                 <BuildingOfficeIcon className="w-5 h-5 text-white" />
               </div>
               <div>
@@ -101,34 +101,34 @@ export default function LearningJourney() {
             {/* Stats */}
             <div className="flex gap-3 mb-6">
               {content.stats.map((s) => (
-                <div key={s.label} className="bg-blue-900/50 rounded-lg px-4 py-3 text-center flex-1">
-                  <div className="text-orange-400 font-bold text-lg">{s.value}</div>
+                <div key={s.label} className="bg-white/10 rounded-lg px-4 py-3 text-center flex-1">
+                  <div className="text-[#38BDF8] font-bold text-lg">{s.value}</div>
                   <div className="text-gray-400 text-xs">{s.label}</div>
                 </div>
               ))}
             </div>
 
-            <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-3 rounded-lg text-sm flex items-center gap-2 transition-colors">
+            <button className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold px-5 py-3 rounded-lg text-sm flex items-center gap-2 transition-colors">
               {content.btnLabel}
               <ArrowRightIcon className="w-4 h-4" />
             </button>
           </div>
 
           {/* Right */}
-          <div className="bg-[#131d5e] rounded-2xl p-6">
+          <div className="bg-white/10 rounded-2xl p-6">
             <div className="font-bold text-white text-base mb-4">What's Included:</div>
             <div className="space-y-3 mb-6">
               {content.included.map((item) => (
                 <div key={item} className="flex items-center gap-3 text-gray-200 text-sm">
-                  <CheckCircleIcon className="w-5 h-5 text-orange-400 flex-shrink-0" />
+                  <CheckCircleIcon className="w-5 h-5 text-[#38BDF8] flex-shrink-0" />
                   {item}
                 </div>
               ))}
             </div>
 
             {/* Success Story */}
-            <div className="bg-[#1e2d7d] rounded-xl p-4 border border-orange-500/20">
-              <div className="text-orange-400 font-bold text-sm mb-2">Success Story</div>
+            <div className="bg-[#2563EB]/15 rounded-xl p-4 border border-[#38BDF8]/20">
+              <div className="text-[#38BDF8] font-bold text-sm mb-2">Success Story</div>
               <p className="text-gray-300 text-sm">{content.story}</p>
             </div>
           </div>

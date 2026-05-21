@@ -42,7 +42,7 @@ export default function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={
-          <main>
+          <main className="bg-[#F8FAFC] text-[#0F172A]">
             <Hero />
             <TrendingCourses />
             <FeaturedCourses />

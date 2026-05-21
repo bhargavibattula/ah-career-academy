@@ -18,12 +18,12 @@ export default function Recognition() {
     <section className="bg-white py-16 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-3">
-          <span className="text-orange-500 text-sm font-semibold border border-orange-200 bg-orange-50 px-4 py-1 rounded-full">
+          <span className="text-[#2563EB] text-sm font-semibold border border-[#38BDF8]/40 bg-[#38BDF8]/10 px-4 py-1 rounded-full">
             Recognition
           </span>
         </div>
-        <h2 className="text-center text-3xl sm:text-4xl font-bold text-[#1e1b4b] mb-2">
-          Recognized <span className="text-orange-500">Excellence</span>
+        <h2 className="text-center text-3xl sm:text-4xl font-bold text-[#0F172A] mb-2">
+          Recognized <span className="text-[#2563EB]">Excellence</span>
         </h2>
         <p className="text-center text-gray-500 text-sm mb-12">
           Our achievements and industry recognition over 13+ years
@@ -33,16 +33,16 @@ export default function Recognition() {
           {/* Left: Achievements */}
           <div className="space-y-3">
             {achievements.map((a) => (
-              <div key={a} className="flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-4 hover:border-orange-200 transition-colors">
-                <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <TrophyIcon className="w-5 h-5 text-orange-500" />
+              <div key={a} className="flex items-center gap-3 border border-gray-200 rounded-xl px-4 py-4 hover:border-[#38BDF8] transition-colors">
+                <div className="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <TrophyIcon className="w-5 h-5 text-[#2563EB]" />
                 </div>
                 <span className="text-gray-800 font-semibold text-sm">{a}</span>
               </div>
             ))}
 
             {/* Featured In */}
-            <div className="border border-orange-100 bg-orange-50/50 rounded-xl px-4 py-4">
+            <div className="border border-[#38BDF8]/30 bg-[#38BDF8]/10 rounded-xl px-4 py-4">
               <div className="text-gray-600 font-semibold text-sm mb-2">Featured In</div>
               <div className="flex flex-wrap gap-2">
                 {media.map((m) => (
@@ -58,13 +58,13 @@ export default function Recognition() {
           <div className="text-center">
             <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6">
               <p className="text-gray-600 text-sm mb-1">We Are Honored as</p>
-              <h3 className="text-[#1e1b4b] font-extrabold text-xl mb-0.5">Premier Training Institute</h3>
+              <h3 className="text-[#0F172A] font-extrabold text-xl mb-0.5">Premier Training Institute</h3>
               <p className="text-gray-500 text-sm mb-4">in Rajahmundry</p>
-              <div className="w-full h-48 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center mb-4 overflow-hidden">
+              <div className="w-full h-48 bg-gradient-to-br from-blue-50 to-sky-100 rounded-xl flex items-center justify-center mb-4 overflow-hidden">
                 <div className="text-center px-4">
-                  <AcademicCapIcon className="w-16 h-16 text-orange-500 mx-auto mb-3" />
-                  <div className="text-orange-700 font-bold text-base">AH Career Academy</div>
-                  <div className="text-orange-600 text-sm">Empowering Students since 2013</div>
+                  <AcademicCapIcon className="w-16 h-16 text-[#2563EB] mx-auto mb-3" />
+                  <div className="text-[#0F172A] font-bold text-base">AH Career Academy</div>
+                  <div className="text-[#2563EB] text-sm">Empowering Students since 2013</div>
                 </div>
               </div>
               <div className="flex items-start gap-3 bg-white border border-gray-200 rounded-xl p-3 text-left">
