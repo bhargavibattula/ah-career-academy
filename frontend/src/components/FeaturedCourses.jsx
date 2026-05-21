@@ -1,156 +1,154 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { courses } from "../data/courses";
-import { 
-  AcademicCapIcon, 
-  ClockIcon, 
-  UserGroupIcon, 
-  ArrowRightIcon, 
+import {
+  AcademicCapIcon,
+  ArrowRightIcon,
   BriefcaseIcon,
-  StarIcon as StarSolid 
+  ChartBarIcon,
+  CheckBadgeIcon,
+  ClockIcon,
+  ShieldCheckIcon,
+  StarIcon as StarSolid,
+  UserGroupIcon,
 } from "@heroicons/react/24/solid";
 import { StarIcon as StarOutline } from "@heroicons/react/24/outline";
 
-function Stars({ rating }) {
+function Stars() {
   return (
     <div className="flex items-center gap-1">
-      {[1, 2, 3, 4, 5].map((i) => (
+      {[1, 2, 3, 4, 5].map((i) =>
         i <= 4 ? (
-          <StarSolid key={i} className="w-4 h-4 text-yellow-400" />
+          <StarSolid key={i} className="h-4 w-4 text-amber-400" />
         ) : (
-          <StarOutline key={i} className="w-4 h-4 text-gray-300" />
+          <StarOutline key={i} className="h-4 w-4 text-slate-300" />
         )
-      ))}
+      )}
     </div>
   );
 }
 
 export default function FeaturedCourses() {
   return (
-    <section className="bg-[#F8FAFC] py-16 px-4">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-3">
-          <span className="text-[#2563EB] text-sm font-semibold border border-[#38BDF8]/40 bg-[#38BDF8]/10 px-4 py-1 rounded-full">
+    <section className="bg-[#F8FAFC] px-4 py-20">
+      <div className="mx-auto max-w-7xl">
+        <div className="mx-auto mb-12 max-w-3xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#38BDF8]/40 bg-white px-4 py-1.5 text-sm font-bold text-[#2563EB] shadow-sm">
+            <ShieldCheckIcon className="h-4 w-4" />
             Featured Programs
           </span>
+          <h2 className="mt-4 text-3xl font-black tracking-tight text-[#0F172A] sm:text-4xl">
+            Choose a program built for career momentum
+          </h2>
+          <p className="mt-4 text-sm font-medium leading-6 text-slate-500 sm:text-base">
+            Clean learning paths, practical assignments, and support systems designed to help students move from learning to interviews.
+          </p>
         </div>
-        <h2 className="text-center text-3xl sm:text-4xl font-bold text-[#0F172A] mb-2">
-          Featured Courses
-        </h2>
-        <p className="text-center text-gray-500 text-sm mb-10 max-w-2xl mx-auto">
-          Industry-aligned curriculum designed by experts with 10+ years experience. Start your tech career today.
-        </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {/* Premium Flagship Program Card */}
-          <div className="bg-gradient-to-br from-white to-blue-50/50 border-2 border-[#38BDF8]/30 rounded-2xl p-5 shadow-xl shadow-blue-900/5 flex flex-col relative overflow-hidden group">
-            <div className="absolute top-0 right-0 bg-[#2563EB] text-white text-[10px] font-black px-4 py-1 rounded-bl-xl uppercase tracking-widest z-10">
-              Flagship
-            </div>
-            
-            {/* Icon + Title */}
-            <div className="flex items-start gap-3 mb-3">
-              <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 bg-[#2563EB] rounded-xl shadow-lg shadow-blue-600/20">
-                <AcademicCapIcon className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h3 className="font-black text-[#0F172A] text-lg leading-tight">Job Ready Training</h3>
-                <div className="flex items-center gap-4 text-gray-500 text-xs mt-1 font-bold">
-                  <span className="flex items-center gap-1">
-                    <ClockIcon className="w-3.5 h-3.5" />
-                    4 Months
-                  </span>
-                  <span className="flex items-center gap-1 text-[#2563EB]">
-                    <BriefcaseIcon className="w-3.5 h-3.5" />
-                    100% Placement
-                  </span>
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          <article className="group relative overflow-hidden rounded-3xl bg-[#0F172A] p-6 text-white shadow-2xl shadow-blue-950/20 lg:row-span-2">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_12%,rgba(56,189,248,0.35),transparent_32%)]" />
+            <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#2563EB] to-[#38BDF8]" />
+            <div className="relative flex h-full flex-col">
+              <div className="mb-8 flex items-center justify-between gap-4">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/15">
+                  <AcademicCapIcon className="h-8 w-8 text-[#38BDF8]" />
                 </div>
-              </div>
-            </div>
-
-            <p className="text-gray-600 text-sm mb-4 flex-grow font-medium leading-relaxed">
-              Our most intensive program designed to take you from a student to a professional with industry-grade skills and guaranteed support.
-            </p>
-
-            {/* Tags */}
-            <div className="flex flex-wrap gap-1.5 mb-4">
-              {["Full Stack", "DSA", "Soft Skills"].map((skill) => (
-                <span key={skill} className="bg-white border border-blue-100 text-[#0F172A] text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
-                  {skill}
+                <span className="rounded-full bg-[#38BDF8] px-3 py-1 text-[11px] font-black uppercase tracking-wider text-[#0F172A]">
+                  Flagship
                 </span>
-              ))}
-            </div>
-
-            {/* Rating */}
-            <div className="flex items-center gap-2 mb-4">
-              <Stars rating={5} />
-              <span className="text-sm font-bold text-gray-800">5.0</span>
-              <span className="text-gray-400 text-xs font-medium">Top Rated</span>
-            </div>
-
-            <Link 
-              to="/programs/job-ready"
-              className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-black py-3.5 rounded-xl transition-all text-sm flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 group-hover:scale-[1.02]"
-            >
-              View Details
-              <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-
-          {courses.map((course) => (
-            <div key={course.id} className="bg-white border border-gray-200 rounded-2xl p-5 hover:shadow-md transition-shadow flex flex-col">
-              {/* Icon + Title */}
-              <div className="flex items-start gap-3 mb-3">
-                <div className="w-10 h-10 flex items-center justify-center flex-shrink-0 bg-blue-50 rounded-xl">
-                  <AcademicCapIcon className="w-6 h-6 text-blue-600" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-[#0F172A] text-lg leading-tight">{course.title}</h3>
-                  <div className="flex items-center gap-4 text-gray-500 text-xs mt-1">
-                    <span className="flex items-center gap-1">
-                      <ClockIcon className="w-3.5 h-3.5" />
-                      {course.duration}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <UserGroupIcon className="w-3.5 h-3.5" />
-                      1,500+ Students
-                    </span>
-                  </div>
-                </div>
               </div>
 
-              <p className="text-gray-600 text-sm mb-3 flex-grow line-clamp-2">{course.description}</p>
+              <h3 className="text-3xl font-black leading-tight">Job Ready Training</h3>
+              <p className="mt-4 text-sm font-medium leading-7 text-slate-300">
+                Our intensive program for students who want structured technical skills, project confidence, interview readiness, and guided placement support.
+              </p>
 
-              {/* Tags */}
-              <div className="flex flex-wrap gap-1.5 mb-3">
-                {course.skills.map((skill) => (
-                  <span key={skill} className="bg-gray-100 text-gray-600 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+              <div className="mt-7 grid grid-cols-2 gap-3">
+                {[
+                  { icon: <ClockIcon className="h-5 w-5" />, label: "Duration", value: "4 Months" },
+                  { icon: <BriefcaseIcon className="h-5 w-5" />, label: "Support", value: "Placement" },
+                  { icon: <ChartBarIcon className="h-5 w-5" />, label: "Mode", value: "Practical" },
+                  { icon: <CheckBadgeIcon className="h-5 w-5" />, label: "Level", value: "Career" },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
+                    <div className="mb-3 text-[#38BDF8]">{item.icon}</div>
+                    <div className="text-xs font-semibold text-slate-400">{item.label}</div>
+                    <div className="mt-1 text-sm font-black text-white">{item.value}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-7 flex flex-wrap gap-2">
+                {["Full Stack", "DSA", "Soft Skills", "Mock Interviews"].map((skill) => (
+                  <span key={skill} className="rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-bold text-white">
                     {skill}
                   </span>
                 ))}
               </div>
 
-              {/* Rating */}
-              <div className="flex items-center gap-2 mb-3">
-                <Stars rating={4.8} />
-                <span className="text-sm font-semibold text-gray-800">4.8</span>
-                <span className="text-gray-400 text-xs">(500+ reviews)</span>
-              </div>
-
-              {/* Fee */}
-              <div className="bg-gray-50 rounded-lg px-3 py-2 flex justify-between items-center mb-3">
-                <span className="text-gray-600 text-sm">Training Fee</span>
-                <span className="font-bold text-gray-900 text-sm">{course.fees}</span>
-              </div>
-
-              <Link 
-                to={`/courses/${course.id}`}
-                className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold py-3 rounded-lg transition-colors text-sm flex items-center justify-center gap-2"
+              <Link
+                to="/programs/job-ready"
+                className="mt-8 flex w-full items-center justify-center gap-2 rounded-2xl bg-white px-5 py-4 text-sm font-black text-[#0F172A] transition-all hover:-translate-y-0.5 hover:bg-[#38BDF8]"
               >
-                View Course Details
-                <ArrowRightIcon className="w-4 h-4" />
+                View Flagship Program
+                <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
+          </article>
+
+          {courses.map((course) => (
+            <article
+              key={course.id}
+              className="group flex flex-col rounded-3xl border border-blue-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#38BDF8]/70 hover:shadow-2xl hover:shadow-blue-900/10"
+            >
+              <div className="mb-5 flex items-start justify-between gap-4">
+                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-[#2563EB] ring-1 ring-blue-100 transition-colors group-hover:bg-[#2563EB] group-hover:text-white">
+                  <AcademicCapIcon className="h-7 w-7" />
+                </div>
+                <div className="rounded-full bg-[#F8FAFC] px-3 py-1 text-[11px] font-black uppercase tracking-wider text-slate-500 ring-1 ring-blue-100">
+                  {course.duration}
+                </div>
+              </div>
+
+              <h3 className="text-xl font-black leading-tight text-[#0F172A]">{course.title}</h3>
+              <p className="mt-3 text-sm font-medium leading-6 text-slate-500 line-clamp-2">
+                {course.description}
+              </p>
+
+              <div className="mt-5 flex items-center justify-between rounded-2xl bg-[#F8FAFC] px-4 py-3">
+                <div className="flex items-center gap-2">
+                  <Stars />
+                  <span className="text-sm font-black text-[#0F172A]">4.8</span>
+                </div>
+                <span className="flex items-center gap-1 text-xs font-bold text-slate-500">
+                  <UserGroupIcon className="h-4 w-4 text-[#2563EB]" />
+                  500+ reviews
+                </span>
+              </div>
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                {course.skills.slice(0, 4).map((skill) => (
+                  <span key={skill} className="rounded-full border border-blue-100 bg-white px-3 py-1.5 text-xs font-bold text-slate-600">
+                    {skill}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-6 border-t border-blue-100 pt-5">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="font-semibold text-slate-500">Training Fee</span>
+                  <span className="font-black text-[#0F172A]">{course.fees}</span>
+                </div>
+              </div>
+
+              <Link
+                to={`/courses/${course.id}`}
+                className="mt-6 flex w-full items-center justify-center gap-2 rounded-2xl bg-[#2563EB] py-3.5 text-sm font-black text-white shadow-lg shadow-blue-600/20 transition-all hover:bg-[#1D4ED8]"
+              >
+                View Course Details
+                <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </article>
           ))}
         </div>
       </div>
