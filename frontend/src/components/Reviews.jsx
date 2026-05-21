@@ -1,4 +1,4 @@
-import React from 'react';
+import { ChatBubbleBottomCenterTextIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import { StarIcon as StarSolid } from "@heroicons/react/24/solid";
 import { StarIcon as StarOutline } from "@heroicons/react/24/outline";
 
@@ -8,8 +8,7 @@ const reviewsData = [
     name: "Rahul Sharma",
     course: "Full Stack Java",
     rating: 5,
-    text: "The training at AH Career completely transformed my career. The instructors are industry experts who provided real-world scenarios. I got placed in a top MNC right after completing the course!",
-    avatar: "https://ui-avatars.com/api/?name=Rahul+Sharma&background=f5a623&color=fff",
+    text: "The training at AH Career completely transformed my career. The instructors are industry experts who provided real-world scenarios. I got placed in a top MNC right after completing the course.",
   },
   {
     id: 2,
@@ -17,128 +16,129 @@ const reviewsData = [
     course: "Data Science",
     rating: 5,
     text: "Excellent curriculum and hands-on projects. The mock interviews and placement support were incredible. Highly recommend to anyone looking to transition into tech.",
-    avatar: "https://ui-avatars.com/api/?name=Priya+Patel&background=0d1b3e&color=fff",
   },
   {
     id: 3,
     name: "Amit Kumar",
     course: "DevOps & Cloud",
     rating: 4,
-    text: "Great learning experience. The trainers are very patient and clear all doubts. The lab facilities and 24/7 access to recorded sessions really helped me master AWS.",
-    avatar: "https://ui-avatars.com/api/?name=Amit+Kumar&background=10b981&color=fff",
+    text: "Great learning experience. The trainers are very patient and clear all doubts. The lab facilities and recorded sessions really helped me master AWS.",
   },
   {
     id: 4,
     name: "Sneha Reddy",
     course: "Python Full Stack",
     rating: 5,
-    text: "I joined as a fresher with no IT background. The structured approach and daily assignments made learning Python super easy. Today I am a working software developer.",
-    avatar: "https://ui-avatars.com/api/?name=Sneha+Reddy&background=ef4444&color=fff",
+    text: "I joined as a fresher with no IT background. The structured approach and daily assignments made learning Python easy. Today I am a working software developer.",
   },
   {
     id: 5,
     name: "Vikram Singh",
     course: "Software Testing",
     rating: 5,
-    text: "The best place to learn Automation Testing. The selenium framework explanations were crystal clear. Got 3 offers within a month of course completion.",
-    avatar: "https://ui-avatars.com/api/?name=Vikram+Singh&background=8b5cf6&color=fff",
+    text: "The best place to learn Automation Testing. The Selenium framework explanations were crystal clear. Got 3 offers within a month of course completion.",
   },
   {
     id: 6,
     name: "Neha Gupta",
     course: "Cyber Security",
     rating: 4,
-    text: "Very comprehensive content covering the latest security trends. The practical hacking labs gave me the confidence to handle real-world vulnerabilities.",
-    avatar: "https://ui-avatars.com/api/?name=Neha+Gupta&background=ec4899&color=fff",
-  }
+    text: "Very comprehensive content covering the latest security trends. The practical labs gave me the confidence to handle real-world vulnerabilities.",
+  },
 ];
+
+function initials(name) {
+  return name
+    .split(" ")
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2);
+}
+
+function Stars({ rating, size = "h-5 w-5" }) {
+  return (
+    <div className="flex text-amber-400">
+      {Array.from({ length: 5 }).map((_, index) =>
+        index < rating ? (
+          <StarSolid key={index} className={size} />
+        ) : (
+          <StarOutline key={index} className={`${size} text-slate-300`} />
+        )
+      )}
+    </div>
+  );
+}
 
 export default function Reviews() {
   return (
-    <div className="min-h-screen bg-gray-50 font-sans pb-20">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
-        .hero-bg {
-          background-color: #0d1b3e;
-          background-image:
-            radial-gradient(circle at 10% 50%, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.04) 30%, transparent 30%),
-            radial-gradient(circle at 90% 50%, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.04) 30%, transparent 30%),
-            radial-gradient(circle at 50% 50%, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.025) 40%, transparent 40%);
-        }
-      `}</style>
+    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+      <section className="relative overflow-hidden bg-[#0F172A] px-4 py-20 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(56,189,248,0.28),transparent_32%),radial-gradient(circle_at_84%_30%,rgba(37,99,235,0.25),transparent_30%)]" />
+        <div className="relative mx-auto max-w-7xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-bold text-[#38BDF8]">
+            <SparklesIcon className="h-4 w-4" />
+            Student Reviews
+          </span>
+          <h1 className="mx-auto mt-6 max-w-4xl text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+            Career outcomes, told by our students.
+          </h1>
+          <p className="mx-auto mt-5 max-w-2xl text-base font-medium leading-8 text-slate-300">
+            Hear from alumni who built skills, gained confidence, and moved closer to professional opportunities.
+          </p>
+        </div>
+      </section>
 
-      {/* Hero Section */}
-      <div className="hero-bg w-full flex flex-col items-center justify-center py-16 px-4">
-        <h1 className="text-white text-3xl md:text-5xl font-bold mb-4 text-center tracking-tight">
-          Student <span className="text-[#f5a623]">Success</span> Stories
-        </h1>
-        <p className="text-blue-100 text-lg max-w-2xl text-center">
-          Hear from our alumni who have transformed their careers with AH Career.
-        </p>
-      </div>
-
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-        
-        {/* Rating Summary */}
-        <div className="flex flex-col md:flex-row items-center justify-center gap-8 mb-16 bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-          <div className="text-center">
-            <div className="text-5xl font-black text-gray-900 mb-2">4.8</div>
-            <div className="flex text-[#f5a623] text-xl justify-center mb-1">
-              {[1, 2, 3, 4, 5].map((s) => (
-                <StarSolid key={s} className="w-6 h-6" />
-              ))}
-            </div>
-            <div className="text-gray-500 text-sm font-medium">Out of 2,500+ Reviews</div>
+      <section className="mx-auto max-w-7xl px-4 py-16">
+        <div className="mb-12 grid gap-6 rounded-[2rem] border border-blue-100 bg-white p-6 shadow-sm md:grid-cols-[0.7fr_1.3fr] md:p-8">
+          <div className="flex flex-col items-center justify-center rounded-3xl bg-[#0F172A] p-8 text-center text-white">
+            <div className="text-6xl font-black text-[#38BDF8]">4.8</div>
+            <Stars rating={5} size="h-6 w-6" />
+            <div className="mt-3 text-sm font-semibold text-slate-300">Out of 2,500+ reviews</div>
           </div>
-          <div className="hidden md:block w-px h-24 bg-gray-200"></div>
-          <div className="flex flex-col gap-2 w-full max-w-sm">
+          <div className="space-y-4">
             {[5, 4, 3, 2, 1].map((star) => (
-              <div key={star} className="flex items-center gap-3">
-                <div className="text-sm font-medium text-gray-600 w-12">{star} Stars</div>
-                <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-[#f5a623] rounded-full" 
-                    style={{ width: star === 5 ? '85%' : star === 4 ? '10%' : star === 3 ? '3%' : '1%' }}
-                  ></div>
+              <div key={star} className="grid grid-cols-[70px_1fr_42px] items-center gap-3">
+                <div className="text-sm font-black text-slate-600">{star} Stars</div>
+                <div className="h-3 overflow-hidden rounded-full bg-blue-50">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-[#2563EB] to-[#38BDF8]"
+                    style={{ width: star === 5 ? "85%" : star === 4 ? "10%" : star === 3 ? "3%" : "1%" }}
+                  />
                 </div>
+                <div className="text-right text-xs font-bold text-slate-400">{star === 5 ? "85%" : star === 4 ? "10%" : star === 3 ? "3%" : "1%"}</div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Reviews Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {reviewsData.map((review) => (
-            <div key={review.id} className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
-              {/* Stars */}
-              <div className="flex text-[#f5a623] mb-4">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <span key={i}>
-                    {i < review.rating ? <StarSolid className="w-5 h-5" /> : <StarOutline className="w-5 h-5" />}
-                  </span>
-                ))}
+            <article
+              key={review.id}
+              className="group flex h-full flex-col rounded-3xl border border-blue-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#38BDF8]/70 hover:shadow-2xl hover:shadow-blue-900/10"
+            >
+              <div className="mb-5 flex items-start justify-between gap-4">
+                <Stars rating={review.rating} />
+                <ChatBubbleBottomCenterTextIcon className="h-6 w-6 text-[#2563EB]" />
               </div>
-              
-              {/* Text */}
-              <p className="text-gray-700 leading-relaxed mb-6 flex-1 italic">
-                "{review.text}"
+
+              <p className="flex-1 text-sm font-medium leading-7 text-slate-600">
+                &quot;{review.text}&quot;
               </p>
-              
-              {/* User Info */}
-              <div className="flex items-center gap-4 mt-auto pt-4 border-t border-gray-100">
-                <img src={review.avatar} alt={review.name} className="w-12 h-12 rounded-full object-cover" />
+
+              <div className="mt-6 flex items-center gap-4 border-t border-blue-100 pt-5">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#2563EB] to-[#38BDF8] text-sm font-black text-white">
+                  {initials(review.name)}
+                </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 text-sm">{review.name}</h4>
-                  <p className="text-xs text-blue-600 font-medium">{review.course}</p>
+                  <h4 className="text-sm font-black text-[#0F172A]">{review.name}</h4>
+                  <p className="mt-1 text-xs font-bold text-[#2563EB]">{review.course}</p>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
-        
-      </div>
+      </section>
     </div>
   );
 }

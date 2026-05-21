@@ -1,144 +1,170 @@
-import React from 'react';
-import { 
-  ComputerDesktopIcon, 
-  ChartBarIcon, 
-  MapPinIcon, 
-  PhoneIcon, 
-  EnvelopeIcon, 
-  GlobeAltIcon 
+import {
+  AcademicCapIcon,
+  ChartBarIcon,
+  CheckCircleIcon,
+  ComputerDesktopIcon,
+  EnvelopeIcon,
+  GlobeAltIcon,
+  MapPinIcon,
+  PhoneIcon,
+  ShieldCheckIcon,
+  SparklesIcon,
+  UserGroupIcon,
 } from "@heroicons/react/24/outline";
+
+const techSkills = ["C, C++, Java, Python", "SQL", "Full Stack Development", "Web Designing", "AI & Machine Learning", "Data Science"];
+const businessSkills = ["MS Office / Microsoft 365", "Advanced Excel & Tally Accounting", "Digital Marketing", "Spoken English", "Cybersecurity"];
+const features = ["Practical Projects", "Corporate Workshops", "Online & Offline Classes", "Experienced Faculty", "Certification Programs", "Personalized Mentoring"];
 
 export default function AboutUs() {
   return (
-    <div className="min-h-screen bg-gray-50 font-sans pb-20">
-      <style>{`
-        .hero-bg {
-          background-color: #0d1b3e;
-          background-image:
-            radial-gradient(circle at 10% 50%, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.04) 30%, transparent 30%),
-            radial-gradient(circle at 90% 50%, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.04) 30%, transparent 30%),
-            radial-gradient(circle at 50% 50%, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.025) 40%, transparent 40%);
-        }
-      `}</style>
-
-      {/* Hero Section */}
-      <div className="hero-bg w-full flex flex-col items-center justify-center py-20 px-4">
-        <h1 className="text-white text-4xl md:text-5xl font-bold mb-4 text-center tracking-tight">
-          About <span className="text-[#f5a623]">AH Career Academy</span>
-        </h1>
-        <p className="text-blue-100 text-lg max-w-2xl text-center">
-          Empowering careers since 2013 with industry-oriented IT and skill development training.
-        </p>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 grid grid-cols-1 lg:grid-cols-3 gap-12">
-        {/* Main Info Column */}
-        <div className="lg:col-span-2 space-y-12">
-          {/* Overview */}
-          <section>
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
-            <p className="text-gray-600 leading-relaxed text-lg mb-4">
-              AH Career Academy of Skills is a premier computer training institute and skill development center located in Rajahmundry, Andhra Pradesh. Founded in 2013, we focus on equipping students, fresh graduates, and working professionals with the practical, job-oriented IT skills needed in today's fast-paced tech industry.
-            </p>
-            <p className="text-gray-600 leading-relaxed text-lg">
-              We provide expert mentoring, real-world projects, and a clean, safe learning environment. Our courses are designed to bridge the gap between academia and industry requirements.
-            </p>
-          </section>
-
-          {/* Courses Offered */}
-          <section>
-            <h2 className="text-3xl font-bold text-gray-900 mb-6">What We Teach</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4">
-                  <ComputerDesktopIcon className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-gray-900 text-lg mb-3">Programming & Tech</h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li>• C, C++, Java, Python</li>
-                  <li>• SQL</li>
-                  <li>• Full Stack Development (Java & Python)</li>
-                  <li>• Web Designing</li>
-                  <li>• AI & Machine Learning</li>
-                  <li>• Data Science</li>
-                </ul>
-              </div>
-              
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <div className="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mb-4">
-                  <ChartBarIcon className="w-6 h-6" />
-                </div>
-                <h3 className="font-bold text-gray-900 text-lg mb-3">Business & Other Skills</h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li>• MS Office / Microsoft 365</li>
-                  <li>• Advanced Excel & Tally Accounting</li>
-                  <li>• Digital Marketing</li>
-                  <li>• Spoken English & Communication</li>
-                  <li>• Cybersecurity (Mile2 Certification)</li>
-                </ul>
-              </div>
+    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+      <section className="relative overflow-hidden bg-[#0F172A] px-4 py-20 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_12%,rgba(56,189,248,0.28),transparent_32%),radial-gradient(circle_at_88%_35%,rgba(37,99,235,0.25),transparent_30%)]" />
+        <div className="relative mx-auto max-w-7xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-bold text-[#38BDF8]">
+            <SparklesIcon className="h-4 w-4" />
+            About AH Career
+          </span>
+          <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-end">
+            <div>
+              <h1 className="max-w-4xl text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+                Practical skill training for modern careers.
+              </h1>
+              <p className="mt-5 max-w-2xl text-base font-medium leading-8 text-slate-300">
+                Since 2013, AH Career Academy has helped students, graduates, and professionals build job-oriented IT and workplace skills.
+              </p>
             </div>
-          </section>
-
-          {/* Features */}
-          <section>
-             <h2 className="text-3xl font-bold text-gray-900 mb-6">Why Choose Us?</h2>
-             <div className="flex flex-wrap gap-3">
-               {["Practical & Project-Based Learning", "Corporate Workshops", "Online & Offline Classes", "Experienced Faculty", "Certification Programs", "Personalized Mentoring"].map((feature) => (
-                 <span key={feature} className="px-4 py-2 bg-orange-50 text-orange-700 border border-orange-200 rounded-full font-medium">
-                   {feature}
-                 </span>
-               ))}
-             </div>
-          </section>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                ["2013", "Founded"],
+                ["25+", "Courses"],
+                ["1000+", "Placements yearly"],
+              ].map(([value, label]) => (
+                <div key={label} className="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
+                  <div className="text-2xl font-black text-[#38BDF8]">{value}</div>
+                  <div className="mt-1 text-xs font-semibold text-slate-400">{label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
+      </section>
 
-        {/* Sidebar Info */}
+      <section className="mx-auto grid max-w-7xl gap-8 px-4 py-16 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="space-y-8">
-          {/* Quick Facts */}
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <h3 className="font-bold text-gray-900 text-xl mb-4 border-b pb-2">Quick Facts</h3>
-            <ul className="space-y-4 text-sm text-gray-600">
-              <li className="flex justify-between"><span className="font-medium text-gray-900">Founded:</span> 2013</li>
-              <li className="flex justify-between"><span className="font-medium text-gray-900">Industry:</span> Education & Skills</li>
-              <li className="flex justify-between"><span className="font-medium text-gray-900">Company Size:</span> 11–50 employees</li>
-              <li className="flex justify-between items-center">
-                <span className="font-medium text-gray-900">Certifications:</span>
-                <span className="text-right">ISO 9001:2015<br/>Tally Certified<br/>MSME Registered</span>
-              </li>
-            </ul>
+          <article className="rounded-[2rem] border border-blue-100 bg-white p-8 shadow-sm">
+            <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-[#2563EB] ring-1 ring-blue-100">
+              <AcademicCapIcon className="h-7 w-7" />
+            </span>
+            <h2 className="mt-5 text-3xl font-black">Our Story</h2>
+            <p className="mt-4 text-base font-medium leading-8 text-slate-600">
+              AH Career Academy of Skills is a computer training institute and skill development center located in Rajahmundry, Andhra Pradesh. We focus on equipping students, fresh graduates, and working professionals with practical, job-oriented skills needed in today&apos;s tech industry.
+            </p>
+            <p className="mt-4 text-base font-medium leading-8 text-slate-600">
+              Our training model combines expert mentoring, real-world projects, and structured curriculum to bridge the gap between academic learning and industry expectations.
+            </p>
+          </article>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            {[
+              { icon: ComputerDesktopIcon, title: "Programming & Tech", items: techSkills },
+              { icon: ChartBarIcon, title: "Business & Workplace Skills", items: businessSkills },
+            ].map((block) => {
+              const Icon = block.icon;
+              return (
+                <article key={block.title} className="rounded-3xl border border-blue-100 bg-white p-6 shadow-sm">
+                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-[#2563EB] ring-1 ring-blue-100">
+                    <Icon className="h-7 w-7" />
+                  </div>
+                  <h3 className="text-xl font-black">{block.title}</h3>
+                  <div className="mt-5 space-y-3">
+                    {block.items.map((item) => (
+                      <div key={item} className="flex items-start gap-3 text-sm font-semibold text-slate-600">
+                        <CheckCircleIcon className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#2563EB]" />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+                </article>
+              );
+            })}
           </div>
 
-          {/* Contact Details */}
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 text-[#0b1257]">
-            <h3 className="font-bold text-gray-900 text-xl mb-4 border-b pb-2">Contact Us</h3>
-            <div className="space-y-4 text-gray-600 text-sm">
+          <article className="rounded-[2rem] bg-[#0F172A] p-8 text-white shadow-2xl shadow-blue-950/20">
+            <h2 className="text-3xl font-black">Why Choose Us?</h2>
+            <p className="mt-3 max-w-2xl text-sm font-medium leading-7 text-slate-300">
+              We combine practical learning, mentorship, and career support into one focused training experience.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              {features.map((feature) => (
+                <span key={feature} className="rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm font-bold text-white">
+                  {feature}
+                </span>
+              ))}
+            </div>
+          </article>
+        </div>
+
+        <aside className="space-y-6">
+          <div className="rounded-[2rem] border border-blue-100 bg-white p-6 shadow-sm">
+            <h3 className="text-xl font-black">Quick Facts</h3>
+            <div className="mt-5 space-y-4">
+              {[
+                ["Founded", "2013"],
+                ["Industry", "Education & Skills"],
+                ["Company Size", "11-50 employees"],
+                ["Certifications", "ISO 9001:2015, Tally Certified, MSME Registered"],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-2xl bg-[#F8FAFC] p-4">
+                  <div className="text-xs font-bold uppercase tracking-wider text-slate-500">{label}</div>
+                  <div className="mt-1 text-sm font-black text-[#0F172A]">{value}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border border-blue-100 bg-white p-6 shadow-sm">
+            <h3 className="text-xl font-black">Contact Us</h3>
+            <div className="mt-5 space-y-4 text-sm font-medium text-slate-600">
               <div className="flex gap-3">
-                <MapPinIcon className="w-5 h-5 text-gray-400 shrink-0" />
-                <p>Danavaipeta, Near UCO Bank, T.T.D Road, Vadrevu Buildings, Rajahmundry – 533103</p>
+                <MapPinIcon className="h-5 w-5 flex-shrink-0 text-[#2563EB]" />
+                <p>Danavaipeta, Near UCO Bank, T.T.D Road, Vadrevu Buildings, Rajahmundry - 533103</p>
               </div>
-              <div className="flex gap-3 items-center">
-                <PhoneIcon className="w-5 h-5 text-gray-400 shrink-0" />
-                <p>9989241515<br/>0883-2474088 (Landline)</p>
+              <div className="flex gap-3">
+                <PhoneIcon className="h-5 w-5 flex-shrink-0 text-[#2563EB]" />
+                <p>9989241515<br />0883-2474088</p>
               </div>
-              <div className="flex gap-3 items-center">
-                <EnvelopeIcon className="w-5 h-5 text-gray-400 shrink-0" />
+              <div className="flex gap-3">
+                <EnvelopeIcon className="h-5 w-5 flex-shrink-0 text-[#2563EB]" />
                 <p>ahcareerpvtltd@gmail.com</p>
               </div>
             </div>
-            
-            <div className="flex gap-4 mt-6">
-              <a href="https://www.facebook.com/share/18nvUvNp8m/" target="_blank" rel="noreferrer" className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center hover:bg-blue-200 transition font-bold">f</a>
-              <a href="https://www.instagram.com/ah_career_rajahmundry" target="_blank" rel="noreferrer" className="w-10 h-10 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center hover:bg-pink-200 transition font-bold">in</a>
-              <a href="https://www.linkedin.com/company/ahcareer/" target="_blank" rel="noreferrer" className="w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center hover:bg-blue-200 transition font-bold">Li</a>
-              <a href="http://ahcareer.in" target="_blank" rel="noreferrer" className="w-10 h-10 bg-gray-100 text-gray-700 rounded-full flex items-center justify-center hover:bg-gray-200 transition">
-                <GlobeAltIcon className="w-5 h-5" />
+            <div className="mt-6 flex gap-3">
+              {[
+                ["f", "https://www.facebook.com/share/18nvUvNp8m/"],
+                ["Ig", "https://www.instagram.com/ah_career_rajahmundry"],
+                ["in", "https://www.linkedin.com/company/ahcareer/"],
+              ].map(([label, href]) => (
+                <a key={label} href={href} target="_blank" rel="noreferrer" className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-sm font-black text-[#2563EB] transition-all hover:bg-[#2563EB] hover:text-white">
+                  {label}
+                </a>
+              ))}
+              <a href="http://ahcareer.in" target="_blank" rel="noreferrer" className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-50 text-[#2563EB] transition-all hover:bg-[#2563EB] hover:text-white">
+                <GlobeAltIcon className="h-5 w-5" />
               </a>
             </div>
           </div>
-        </div>
 
-      </div>
+          <div className="rounded-[2rem] bg-gradient-to-br from-[#2563EB] to-[#38BDF8] p-6 text-white shadow-xl shadow-blue-600/20">
+            <ShieldCheckIcon className="h-10 w-10" />
+            <h3 className="mt-4 text-xl font-black">Certified Learning Experience</h3>
+            <p className="mt-2 text-sm font-medium leading-6 text-white/85">
+              Quality-focused training with practical projects, structured guidance, and career-ready outcomes.
+            </p>
+          </div>
+        </aside>
+      </section>
     </div>
   );
 }

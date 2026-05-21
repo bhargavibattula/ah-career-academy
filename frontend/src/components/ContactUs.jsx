@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { 
-  PhoneIcon, 
-  EnvelopeIcon, 
-  MapPinIcon, 
-  ArrowTopRightOnSquareIcon 
+import {
+  ArrowTopRightOnSquareIcon,
+  ChatBubbleLeftRightIcon,
+  EnvelopeIcon,
+  GlobeAltIcon,
+  MapPinIcon,
+  PhoneIcon,
+  SparklesIcon,
 } from "@heroicons/react/24/outline";
 
 const courses = [
@@ -18,6 +21,37 @@ const courses = [
 ];
 
 const modes = ["Online", "Offline", "Hybrid"];
+
+const contactCards = [
+  {
+    icon: PhoneIcon,
+    title: "Phone",
+    value: "+91 9989241515",
+    sub: "Landline: 0883-2474088",
+    href: "tel:9989241515",
+  },
+  {
+    icon: EnvelopeIcon,
+    title: "Email",
+    value: "ahcareerpvtltd@gmail.com",
+    sub: "Course and career inquiries",
+    href: "mailto:ahcareerpvtltd@gmail.com",
+  },
+  {
+    icon: MapPinIcon,
+    title: "Address",
+    value: "Rajamahendravaram",
+    sub: "Near UCO Bank, Danavai Peta, Andhra Pradesh 533103",
+    href: "https://maps.google.com/?q=AH+Career+Pvt+Ltd+Rajamahendravaram+Andhra+Pradesh",
+  },
+];
+
+const socials = [
+  { label: "f", name: "Facebook", href: "https://www.facebook.com/share/18nvUvNp8m/" },
+  { label: "Ig", name: "Instagram", href: "https://www.instagram.com/ah_career_rajahmundry" },
+  { label: "in", name: "LinkedIn", href: "https://www.linkedin.com/company/ahcareer/" },
+  { label: <GlobeAltIcon className="h-5 w-5" />, name: "Website", href: "http://ahcareer.in" },
+];
 
 export default function ContactUs() {
   const [form, setForm] = useState({
@@ -38,216 +72,175 @@ export default function ContactUs() {
     }));
   };
 
+  const fieldClass =
+    "w-full rounded-2xl border border-blue-100 bg-white px-4 py-3.5 text-sm font-semibold text-[#0F172A] outline-none transition-all placeholder:text-slate-400 focus:border-[#38BDF8] focus:ring-4 focus:ring-[#38BDF8]/20";
+
   return (
-    <div className="min-h-screen bg-white font-sans">
-      {/* Google Fonts */}
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-        * { font-family: 'Inter', sans-serif; box-sizing: border-box; }
-        .hero-bg {
-          background-color: #0d1b3e;
-          background-image:
-            radial-gradient(circle at 10% 50%, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.04) 30%, transparent 30%),
-            radial-gradient(circle at 90% 50%, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.04) 30%, transparent 30%),
-            radial-gradient(circle at 50% 50%, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.025) 40%, transparent 40%);
-        }
-        select { -webkit-appearance: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px !important; }
-        .map-container iframe { width: 100%; height: 100%; border: 0; }
-        .send-btn { background: linear-gradient(90deg, #f5a623 0%, #f0a000 100%); }
-        .send-btn:hover { background: linear-gradient(90deg, #e09510 0%, #d89000 100%); }
-        .info-icon-phone { background-color: #fff3e0; }
-        .info-icon-whatsapp { background-color: #e8f5e9; }
-        .info-icon-address { background-color: #e3f2fd; }
-        .card-item { border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px 20px; display: flex; align-items: center; gap: 16px; }
-        input::placeholder, textarea::placeholder { color: #9ca3af; font-size: 14px; }
-        input:focus, textarea:focus, select:focus { outline: none; border-color: #93c5fd; box-shadow: 0 0 0 2px rgba(147,197,253,0.3); }
-      `}</style>
-
-      {/* Hero Section */}
-      <div className="hero-bg w-full flex items-center justify-center" style={{ minHeight: "180px" }}>
-        <h1 style={{ color: "#ffffff", fontSize: "42px", fontWeight: 800, letterSpacing: "-0.5px", margin: 0 }}>
-          Contact Us
-        </h1>
-      </div>
-
-      {/* Main Content */}
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "48px 24px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.3fr 1fr", gap: "28px", alignItems: "start" }}>
-
-          {/* LEFT: Contact Info Card */}
-          <div style={{ border: "1px solid #e5e7eb", borderRadius: "12px", padding: "20px", background: "#fff" }}>
-            {/* Phone */}
-            <div className="card-item" style={{ marginBottom: "14px" }}>
-              <div className="info-icon-phone" style={{ width: "48px", height: "48px", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                <PhoneIcon className="w-5 h-5 text-[#f5a623]" />
-              </div>
-              <div>
-                <div style={{ fontWeight: 600, fontSize: "15px", color: "#111827", marginBottom: "2px" }}>Phone</div>
-                <div style={{ fontSize: "14px", color: "#6b7280" }}>+91 9989241515</div>
-                <div style={{ fontSize: "12px", color: "#9ca3af" }}>Landline: 0883-2474088</div>
-              </div>
+    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+      <section className="relative overflow-hidden bg-[#0F172A] px-4 py-20 text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_12%,rgba(56,189,248,0.28),transparent_32%),radial-gradient(circle_at_86%_30%,rgba(37,99,235,0.25),transparent_28%)]" />
+        <div className="relative mx-auto max-w-7xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-bold text-[#38BDF8]">
+            <SparklesIcon className="h-4 w-4" />
+            Contact AH Career
+          </span>
+          <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_0.85fr] lg:items-end">
+            <div>
+              <h1 className="max-w-3xl text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+                Let us help you choose the right learning path.
+              </h1>
+              <p className="mt-5 max-w-2xl text-base font-medium leading-8 text-slate-300">
+                Talk to our counselors about courses, demo classes, batch timings, and career roadmap support.
+              </p>
             </div>
-
-            {/* Email */}
-            <div className="card-item" style={{ marginBottom: "14px" }}>
-              <div className="info-icon-address" style={{ width: "48px", height: "48px", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, background: "#e0f2f1" }}>
-                <EnvelopeIcon className="w-5 h-5 text-[#00897b]" />
-              </div>
-              <div>
-                <div style={{ fontWeight: 600, fontSize: "15px", color: "#111827", marginBottom: "2px" }}>Email</div>
-                <div style={{ fontSize: "14px", color: "#6b7280" }}>ahcareerpvtltd@gmail.com</div>
-              </div>
-            </div>
-
-            {/* Address */}
-            <div className="card-item">
-              <div className="info-icon-address" style={{ width: "48px", height: "48px", borderRadius: "10px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, alignSelf: "flex-start", marginTop: "2px" }}>
-                <MapPinIcon className="w-5 h-5 text-[#2196f3]" />
-              </div>
-              <div>
-                <div style={{ fontWeight: 600, fontSize: "15px", color: "#111827", marginBottom: "2px" }}>Address</div>
-                <div style={{ fontSize: "14px", color: "#6b7280", lineHeight: "1.5" }}>
-                Nandam Ganiraju Junction, near UCO Bank, Danavai Peta, Rajamahendravaram, Andhra Pradesh 533103
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                ["24/7", "Learning support"],
+                ["Free", "Demo guidance"],
+                ["Fast", "Counselor callback"],
+                ["Hybrid", "Online and offline"],
+              ].map(([value, label]) => (
+                <div key={label} className="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
+                  <div className="text-2xl font-black text-[#38BDF8]">{value}</div>
+                  <div className="mt-1 text-xs font-semibold text-slate-400">{label}</div>
                 </div>
-              </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-16 lg:grid-cols-[0.85fr_1.15fr]">
+        <div className="space-y-6">
+          <div className="rounded-3xl border border-blue-100 bg-white p-6 shadow-sm">
+            <h2 className="text-2xl font-black">Reach us directly</h2>
+            <p className="mt-2 text-sm font-medium leading-6 text-slate-500">
+              Pick the easiest channel. We usually respond quickly during working hours.
+            </p>
+
+            <div className="mt-6 space-y-4">
+              {contactCards.map((card) => {
+                const Icon = card.icon;
+                return (
+                  <a
+                    key={card.title}
+                    href={card.href}
+                    target={card.title === "Address" ? "_blank" : undefined}
+                    rel={card.title === "Address" ? "noreferrer" : undefined}
+                    className="group flex gap-4 rounded-3xl border border-blue-100 bg-[#F8FAFC] p-4 transition-all hover:border-[#38BDF8]/70 hover:bg-white hover:shadow-lg"
+                  >
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-[#2563EB] ring-1 ring-blue-100 group-hover:bg-[#2563EB] group-hover:text-white">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-black text-[#0F172A]">{card.title}</div>
+                      <div className="mt-1 text-sm font-bold text-slate-700">{card.value}</div>
+                      <div className="mt-1 text-xs font-medium leading-5 text-slate-500">{card.sub}</div>
+                    </div>
+                  </a>
+                );
+              })}
             </div>
 
-            {/* Social Links */}
-            <div style={{ marginTop: "24px", paddingTop: "20px", borderTop: "1px solid #f3f4f6" }}>
-              <div style={{ fontWeight: 600, fontSize: "14px", color: "#111827", marginBottom: "12px" }}>Follow Us</div>
-              <div style={{ display: "flex", gap: "12px" }}>
-                <a href="https://www.facebook.com/share/18nvUvNp8m/" target="_blank" rel="noreferrer" style={{ width: "36px", height: "36px", borderRadius: "8px", background: "#f0f2f5", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}>
-                  <svg width="20" height="20" fill="#1877F2" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                </a>
-                <a href="https://www.instagram.com/ah_career_rajahmundry" target="_blank" rel="noreferrer" style={{ width: "36px", height: "36px", borderRadius: "8px", background: "#fdf2f8", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}>
-                  <svg width="20" height="20" fill="#E4405F" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                </a>
-                <a href="https://www.linkedin.com/company/ahcareer/" target="_blank" rel="noreferrer" style={{ width: "36px", height: "36px", borderRadius: "8px", background: "#eef2ff", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.2s" }}>
-                  <svg width="20" height="20" fill="#0A66C2" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                </a>
+            <div className="mt-6 border-t border-blue-100 pt-6">
+              <div className="text-sm font-black">Follow us</div>
+              <div className="mt-3 flex flex-wrap gap-3">
+                {socials.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={social.name}
+                    className="flex h-11 w-11 items-center justify-center rounded-2xl border border-blue-100 bg-white text-sm font-black text-[#2563EB] transition-all hover:-translate-y-0.5 hover:bg-[#2563EB] hover:text-white"
+                  >
+                    {social.label}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* CENTER: Contact Form */}
-          <div>
-            {/* Row 1: Name + Phone */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "12px" }}>
-              <input
-                type="text"
-                name="name"
-                placeholder="Name"
-                value={form.name}
-                onChange={handleChange}
-                style={{ border: "1px solid #d1d5db", borderRadius: "6px", padding: "12px 14px", fontSize: "14px", color: "#111827", width: "100%" }}
-              />
-              {/* Phone with label */}
-              <div style={{ display: "flex", border: "1px solid #d1d5db", borderRadius: "6px", overflow: "hidden" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "4px", padding: "0 10px", borderRight: "1px solid #d1d5db", background: "#f9fafb", flexShrink: 0 }}>
-                  <span style={{ color: "#6b7280", fontSize: "11px", fontWeight: 700 }}>IND</span>
-                  <span style={{ color: "#6b7280", fontSize: "10px" }}>▾</span>
-                </div>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone"
-                  value={form.phone}
-                  onChange={handleChange}
-                  style={{ border: "none", padding: "12px 14px", fontSize: "14px", color: "#111827", width: "100%", outline: "none" }}
-                />
-              </div>
-            </div>
-
-            {/* Row 2: Email */}
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={form.email}
-              onChange={handleChange}
-              style={{ border: "1px solid #d1d5db", borderRadius: "6px", padding: "12px 14px", fontSize: "14px", color: "#111827", width: "100%", marginBottom: "12px" }}
-            />
-
-            {/* Row 3: Course + Mode dropdowns */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "12px" }}>
-              <select
-                name="course"
-                value={form.course}
-                onChange={handleChange}
-                style={{ border: "1px solid #d1d5db", borderRadius: "6px", padding: "12px 14px", fontSize: "14px", color: "#111827", width: "100%", background: "#fff", cursor: "pointer" }}
-              >
-                {courses.map((c) => <option key={c}>{c}</option>)}
-              </select>
-              <select
-                name="mode"
-                value={form.mode}
-                onChange={handleChange}
-                style={{ border: "1px solid #d1d5db", borderRadius: "6px", padding: "12px 14px", fontSize: "14px", color: form.mode === "Mode of Training" ? "#9ca3af" : "#111827", width: "100%", background: "#fff", cursor: "pointer" }}
-              >
-                <option value="Mode of Training" disabled>Mode of Training</option>
-                {modes.map((m) => <option key={m}>{m}</option>)}
-              </select>
-            </div>
-
-            {/* Row 4: Message */}
-            <textarea
-              name="message"
-              placeholder="Message"
-              value={form.message}
-              onChange={handleChange}
-              rows={5}
-              style={{ border: "1px solid #d1d5db", borderRadius: "6px", padding: "12px 14px", fontSize: "14px", color: "#111827", width: "100%", marginBottom: "14px", resize: "vertical", lineHeight: "1.5" }}
-            />
-
-            {/* Checkbox */}
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px", marginBottom: "16px" }}>
-              <input
-                type="checkbox"
-                name="agree"
-                checked={form.agree}
-                onChange={handleChange}
-                style={{ marginTop: "2px", width: "16px", height: "16px", accentColor: "#2563eb", flexShrink: 0, cursor: "pointer" }}
-              />
-              <span style={{ fontSize: "13px", lineHeight: "1.55", color: "#2563eb" }}>
-                I agree to receive WhatsApp and SMS updates from AH Career regarding courses and services, as per terms &amp; conditions and privacy policy.
-              </span>
-            </div>
-
-            {/* Send Button */}
-            <button
-              className="send-btn"
-              style={{ width: "100%", padding: "14px", borderRadius: "6px", border: "none", color: "#fff", fontWeight: 700, fontSize: "16px", cursor: "pointer", letterSpacing: "0.3px" }}
-            >
-              Send
-            </button>
-          </div>
-
-          {/* RIGHT: Map */}
-          <div style={{ border: "1px solid #e5e7eb", borderRadius: "12px", overflow: "hidden", position: "relative", minHeight: "420px" }}>
-            {/* Open in Maps button */}
+          <div className="overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-sm">
             <a
               href="https://maps.google.com/?q=AH+Career+Pvt+Ltd+Rajamahendravaram+Andhra+Pradesh"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ position: "absolute", top: "10px", left: "10px", zIndex: 10, background: "#fff", border: "1px solid #d1d5db", borderRadius: "6px", padding: "6px 12px", fontSize: "13px", fontWeight: 500, color: "#111827", textDecoration: "none", display: "flex", alignItems: "center", gap: "6px", boxShadow: "0 1px 4px rgba(0,0,0,0.1)" }}
+              className="flex items-center justify-between border-b border-blue-100 px-5 py-4 text-sm font-black text-[#2563EB]"
             >
-              Open in Maps
-              <ArrowTopRightOnSquareIcon className="w-4 h-4 text-gray-500" />
+              Open location in Maps
+              <ArrowTopRightOnSquareIcon className="h-4 w-4" />
             </a>
             <iframe
               title="AH Career Pvt Ltd Location"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.5!2d81.7841!3d17.0055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a37a4b1e1a1a1a1%3A0x4c043fc81cb2a5f5!2sAH%20CAREER%20PVT%20LTD!5e0!3m2!1sen!2sin!4v1234567890"
               width="100%"
-              height="420"
-              style={{ border: 0, display: "block" }}
+              height="320"
+              className="block border-0"
               allowFullScreen=""
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
-
         </div>
-      </div>
+
+        <div className="rounded-[2rem] border border-blue-100 bg-white p-6 shadow-2xl shadow-blue-900/10 sm:p-8">
+          <div className="mb-8">
+            <span className="inline-flex items-center gap-2 rounded-full bg-[#38BDF8]/10 px-4 py-1.5 text-sm font-bold text-[#2563EB]">
+              <ChatBubbleLeftRightIcon className="h-4 w-4" />
+              Course inquiry
+            </span>
+            <h2 className="mt-4 text-3xl font-black tracking-tight">Send us a message</h2>
+            <p className="mt-2 text-sm font-medium text-slate-500">
+              Share your details and our team will guide you with the best next step.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <input className={fieldClass} type="text" name="name" placeholder="Name" value={form.name} onChange={handleChange} />
+            <input className={fieldClass} type="tel" name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} />
+          </div>
+          <input className={`${fieldClass} mt-4`} type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} />
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <select className={fieldClass} name="course" value={form.course} onChange={handleChange}>
+              {courses.map((course) => (
+                <option key={course}>{course}</option>
+              ))}
+            </select>
+            <select className={fieldClass} name="mode" value={form.mode} onChange={handleChange}>
+              <option value="Mode of Training" disabled>
+                Mode of Training
+              </option>
+              {modes.map((mode) => (
+                <option key={mode}>{mode}</option>
+              ))}
+            </select>
+          </div>
+          <textarea
+            className={`${fieldClass} mt-4 min-h-[150px] resize-y`}
+            name="message"
+            placeholder="Message"
+            value={form.message}
+            onChange={handleChange}
+          />
+          <label className="mt-5 flex items-start gap-3 text-sm font-medium leading-6 text-slate-500">
+            <input
+              type="checkbox"
+              name="agree"
+              checked={form.agree}
+              onChange={handleChange}
+              className="mt-1 h-4 w-4 rounded border-blue-200 accent-[#2563EB]"
+            />
+            I agree to receive WhatsApp and SMS updates from AH Career regarding courses and services, as per terms and privacy policy.
+          </label>
+          <button
+            type="button"
+            className="mt-6 w-full rounded-2xl bg-[#2563EB] px-6 py-4 text-base font-black text-white shadow-xl shadow-blue-600/20 transition-all hover:-translate-y-0.5 hover:bg-[#1D4ED8]"
+          >
+            Send Message
+          </button>
+        </div>
+      </section>
     </div>
   );
 }
