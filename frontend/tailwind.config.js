@@ -18,7 +18,8 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Poppins', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
+        display: ['Manrope', 'sans-serif'],
       },
       backgroundImage: {
         'card-gradient': 'linear-gradient(135deg, #2d1b8a 0%, #8b2232 100%)',
