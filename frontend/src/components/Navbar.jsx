@@ -51,7 +51,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
+    <nav className="bg-[#F8FAFC] border-b border-[#38BDF8]/25 sticky top-0 z-50 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -69,17 +69,17 @@ export default function Navbar() {
                 onMouseEnter={() => setOpenMenu(link.label)}
                 onMouseLeave={() => setOpenMenu(null)}
               >
-                <button className="flex items-center gap-1 px-3 py-2 text-gray-700 hover:text-[#2563EB] font-medium text-sm transition-colors rounded-md hover:bg-blue-50">
+                <button className="flex items-center gap-1 px-3 py-2 text-[#0F172A] hover:text-[#2563EB] font-medium text-sm transition-colors rounded-md hover:bg-[#38BDF8]/10">
                   {link.label}
-                  <ChevronDownIcon className="w-3.5 h-3.5 text-gray-400" />
+                  <ChevronDownIcon className="w-3.5 h-3.5 text-[#2563EB]" />
                 </button>
                 {openMenu === link.label && (
-                  <div className="absolute top-full left-0 bg-white rounded-xl shadow-xl border border-gray-100 min-w-[200px] py-2 z-50">
+                  <div className="absolute top-full left-0 bg-white rounded-xl shadow-xl border border-[#38BDF8]/25 min-w-[200px] py-2 z-50">
                     {link.links.map((item) => (
                       <Link
                         key={item.path}
                         to={item.path}
-                        className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-[#2563EB] transition-colors"
+                        className="block px-4 py-2.5 text-sm text-[#0F172A] hover:bg-[#38BDF8]/10 hover:text-[#2563EB] transition-colors"
                       >
                         {item.label}
                       </Link>
@@ -96,7 +96,7 @@ export default function Navbar() {
               <div className="flex items-center gap-4">
                 <Link
                   to={user.role === "admin" ? "/admin-dashboard" : "/dashboard"}
-                  className="text-sm font-semibold text-gray-700 hover:text-[#2563EB] transition-colors"
+                  className="text-sm font-semibold text-[#0F172A] hover:text-[#2563EB] transition-colors"
                 >
                   Dashboard
                 </Link>
@@ -111,7 +111,7 @@ export default function Navbar() {
               <div className="flex items-center gap-3">
                 <Link
                   to="/login"
-                  className="text-sm font-semibold text-gray-700 hover:text-[#2563EB] transition-colors px-4 py-2"
+                  className="text-sm font-semibold text-[#0F172A] hover:text-[#2563EB] transition-colors px-4 py-2"
                 >
                   Sign In
                 </Link>
@@ -127,7 +127,7 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="lg:hidden p-2 text-gray-700"
+            className="lg:hidden p-2 text-[#0F172A] hover:text-[#2563EB] transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? (
@@ -140,16 +140,16 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="lg:hidden border-t border-gray-100 py-4 space-y-4">
+          <div className="lg:hidden border-t border-[#38BDF8]/25 py-4 space-y-4">
             <div className="space-y-1">
               {navLinks.map((link) => (
                 <div key={link.label} className="px-4">
-                  <div className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 mt-4">{link.label}</div>
+                  <div className="text-xs font-bold text-[#2563EB] uppercase tracking-wider mb-2 mt-4">{link.label}</div>
                   {link.links.map((item) => (
                     <Link
                       key={item.path}
                       to={item.path}
-                      className="block py-2 text-sm text-gray-700 hover:text-[#2563EB] font-medium"
+                      className="block py-2 text-sm text-[#0F172A] hover:text-[#2563EB] font-medium"
                       onClick={() => setMobileOpen(false)}
                     >
                       {item.label}
@@ -160,12 +160,12 @@ export default function Navbar() {
             </div>
 
             {/* Mobile Auth */}
-            <div className="px-4 pt-4 border-t border-gray-100">
+            <div className="px-4 pt-4 border-t border-[#38BDF8]/25">
               {user ? (
                 <div className="space-y-3">
                   <Link
                     to={user.role === "admin" ? "/admin-dashboard" : "/dashboard"}
-                    className="block text-center w-full py-3 text-sm font-bold text-gray-700 border border-gray-200 rounded-xl"
+                    className="block text-center w-full py-3 text-sm font-bold text-[#0F172A] border border-[#38BDF8]/35 rounded-xl"
                     onClick={() => setMobileOpen(false)}
                   >
                     Dashboard
@@ -181,7 +181,7 @@ export default function Navbar() {
                 <div className="grid grid-cols-2 gap-3">
                   <Link
                     to="/login"
-                    className="flex items-center justify-center py-3 text-sm font-bold text-gray-700 border border-gray-200 rounded-xl"
+                    className="flex items-center justify-center py-3 text-sm font-bold text-[#0F172A] border border-[#38BDF8]/35 rounded-xl"
                     onClick={() => setMobileOpen(false)}
                   >
                     Sign In
