@@ -220,8 +220,8 @@ export default function JobReadyProgram() {
       <section className="px-4 py-20">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div className="relative rounded-[2rem] border border-blue-100 bg-white p-5 shadow-2xl shadow-blue-900/10">
-            <div className="flex aspect-square items-center justify-center rounded-[1.5rem] bg-[#0F172A]">
-              <UserIcon className="h-32 w-32 text-white/20" />
+            <div className="flex aspect-square items-center justify-center rounded-[1.5rem] bg-[#0F172A] overflow-hidden">
+              <img src="/atishjainsir.png" alt="Mr. Atish Jain" className="h-full w-full object-cover" />
             </div>
             <div className="absolute -bottom-5 -right-5 flex h-20 w-20 items-center justify-center rounded-3xl bg-[#2563EB] text-white shadow-xl shadow-blue-600/20">
               <BriefcaseIcon className="h-9 w-9" />
