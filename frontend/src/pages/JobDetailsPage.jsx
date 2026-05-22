@@ -26,7 +26,7 @@ export default function JobDetailsPage() {
 
   if (loading) return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="w-12 h-12 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+      <div className="w-12 h-12 border-4 border-[#2563EB] border-t-transparent rounded-full animate-spin"></div>
     </div>
   );
 
@@ -41,14 +41,14 @@ export default function JobDetailsPage() {
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
       {/* Header */}
-      <div className="bg-[#0d1b3e] text-white py-16 px-4">
+      <div className="bg-[#0F172A] text-white py-16 px-4">
         <div className="max-w-4xl mx-auto">
           <Link to="/careers" className="text-blue-400 font-bold text-sm flex items-center gap-2 mb-6 hover:text-blue-300 transition-colors">
             ← BACK TO CAREERS
           </Link>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div>
-              <span className="bg-orange-500 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">
+              <span className="bg-[#2563EB] text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">
                 {job.category}
               </span>
               <h1 className="text-3xl md:text-5xl font-black mb-4 tracking-tight leading-tight">
@@ -63,7 +63,7 @@ export default function JobDetailsPage() {
             <div className="flex flex-col gap-3 w-full md:w-auto">
               <WhatsAppButton jobTitle={job.title} className="w-full md:px-12 py-4" />
               <div className="grid grid-cols-2 gap-3">
-                <ShareButton jobId={job._id} jobSlug={job.slug} className="w-full bg-white/10 border-white/20 text-white hover:bg-white/20" />
+                <ShareButton jobId={job._id} jobSlug={job.slug} variant="dark" className="w-full" />
                 <a
                   href={`https://wa.me/?text=${encodeURIComponent(`Check out this job at AH Career: ${job.title}\n${window.location.href}`)}`}
                   target="_blank"
@@ -86,7 +86,7 @@ export default function JobDetailsPage() {
 
             {/* Overview */}
             <section>
-              <h2 className="text-2xl font-black text-[#0b1257] mb-4">Job Overview</h2>
+              <h2 className="text-2xl font-black text-[#0F172A] mb-4">Job Overview</h2>
               <p className="text-gray-600 leading-relaxed text-lg whitespace-pre-line">
                 {job.description || `Join our dynamic team at AH Career Academy. We are looking for a ${job.title} who is passionate about education and career development. This role is based in ${job.location} and offers a salary of ${job.salary}.`}
               </p>
@@ -95,7 +95,7 @@ export default function JobDetailsPage() {
             {/* Responsibilities */}
             {job.responsibilities?.length > 0 && (
               <section>
-                <h2 className="text-2xl font-black text-[#0b1257] mb-6">Key Responsibilities</h2>
+                <h2 className="text-2xl font-black text-[#0F172A] mb-6">Key Responsibilities</h2>
                 <ul className="space-y-4">
                   {job.responsibilities.map((item, i) => (
                     <li key={i} className="flex gap-4 items-start text-gray-700 text-lg">
@@ -110,11 +110,11 @@ export default function JobDetailsPage() {
             {/* Requirements */}
             {job.requirements?.length > 0 && (
               <section>
-                <h2 className="text-2xl font-black text-[#0b1257] mb-6">Requirements</h2>
+                <h2 className="text-2xl font-black text-[#0F172A] mb-6">Requirements</h2>
                 <ul className="space-y-4">
                   {job.requirements.map((item, i) => (
                     <li key={i} className="flex gap-4 items-start text-gray-700 text-lg">
-                      <span className="w-2 h-2 bg-orange-500 rounded-full mt-2.5 flex-shrink-0"></span>
+                      <span className="w-2 h-2 bg-[#2563EB] rounded-full mt-2.5 flex-shrink-0"></span>
                       {item}
                     </li>
                   ))}
@@ -124,7 +124,7 @@ export default function JobDetailsPage() {
 
             {/* Footer Apply */}
             <div className="pt-10 border-t border-gray-100 flex flex-col items-center text-center">
-              <h3 className="text-xl font-bold text-[#0b1257] mb-2">Ready to shape the future?</h3>
+              <h3 className="text-xl font-bold text-[#0F172A] mb-2">Ready to shape the future?</h3>
               <p className="text-gray-500 mb-8">Click the button below to start your application via WhatsApp.</p>
               <WhatsAppButton jobTitle={job.title} className="w-full md:w-auto md:px-20 py-5 text-xl" />
             </div>
