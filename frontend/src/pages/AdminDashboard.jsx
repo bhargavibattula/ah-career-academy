@@ -101,7 +101,7 @@ export default function AdminDashboard() {
             <div className="w-16 h-16 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <TrashIcon className="w-8 h-8" />
             </div>
-            <h3 className="font-bold text-[#0b1257] text-center text-lg mb-1">Delete User</h3>
+            <h3 className="font-bold text-[#0F172A] text-center text-lg mb-1">Delete User</h3>
             <p className="text-gray-500 text-sm text-center mb-5">
               Are you sure you want to delete{" "}
               <span className="font-semibold text-gray-800">{deleteConfirm.name}</span>?
@@ -134,38 +134,38 @@ export default function AdminDashboard() {
         {/* Header */}
         <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-[#0b1257]">Admin Dashboard</h1>
+            <h1 className="text-2xl font-black tracking-tight text-[#0F172A]">Admin Dashboard</h1>
             <p className="text-gray-500 text-sm mt-1">Manage users and monitor platform activity</p>
           </div>
 
-          <div className="flex bg-gray-200 p-1 rounded-xl w-fit overflow-x-auto max-w-full">
+          <div className="flex bg-[#F8FAFC] border border-blue-100 p-1 rounded-xl w-fit overflow-x-auto max-w-full shadow-sm">
             <button
               onClick={() => setActiveTab("users")}
-              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "users" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "users" ? "bg-white text-[#2563EB] shadow-sm ring-1 ring-blue-100/50" : "text-gray-500 hover:text-[#0F172A]"}`}
             >
               Users
             </button>
             <button
               onClick={() => setActiveTab("careers")}
-              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "careers" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "careers" ? "bg-white text-[#2563EB] shadow-sm ring-1 ring-blue-100/50" : "text-gray-500 hover:text-[#0F172A]"}`}
             >
               Careers
             </button>
             <button
               onClick={() => setActiveTab("registrations")}
-              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "registrations" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "registrations" ? "bg-white text-[#2563EB] shadow-sm ring-1 ring-blue-100/50" : "text-gray-500 hover:text-[#0F172A]"}`}
             >
               Registrations
             </button>
             <button
               onClick={() => setActiveTab("applications")}
-              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "applications" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "applications" ? "bg-white text-[#2563EB] shadow-sm ring-1 ring-blue-100/50" : "text-gray-500 hover:text-[#0F172A]"}`}
             >
               Applications
             </button>
             <button
               onClick={() => setActiveTab("kids")}
-              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "kids" ? "bg-white text-[#0b1257] shadow-sm" : "text-gray-500 hover:text-gray-700"}`}
+              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "kids" ? "bg-white text-[#2563EB] shadow-sm ring-1 ring-blue-100/50" : "text-gray-500 hover:text-[#0F172A]"}`}
             >
               Kids Camp
             </button>
@@ -177,9 +177,9 @@ export default function AdminDashboard() {
             {/* Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               {[
-                { label: "Total Users", value: stats.totalUsers, icon: <UsersIcon className="w-6 h-6" />, bg: "bg-blue-50 border-blue-100", val: "text-[#0b1257]" },
+                { label: "Total Users", value: stats.totalUsers, icon: <UsersIcon className="w-6 h-6" />, bg: "bg-blue-50 border-blue-100", val: "text-[#0F172A]" },
                 { label: "Active Users", value: stats.activeUsers, icon: <CheckCircleIcon className="w-6 h-6" />, bg: "bg-green-50 border-green-100", val: "text-green-700" },
-                { label: "New This Month", value: stats.newThisMonth, icon: <SparklesIcon className="w-6 h-6" />, bg: "bg-orange-50 border-orange-100", val: "text-orange-600" },
+                { label: "New This Month", value: stats.newThisMonth, icon: <SparklesIcon className="w-6 h-6" />, bg: "bg-sky-50 border-sky-100", val: "text-[#38BDF8]" },
               ].map((s) => (
                 <div key={s.label} className={`border rounded-2xl p-5 ${s.bg}`}>
                   <div className="mb-2 text-gray-500 opacity-60">{s.icon}</div>
@@ -193,7 +193,7 @@ export default function AdminDashboard() {
             <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
               {/* Table Header */}
               <div className="px-5 py-4 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <h2 className="font-bold text-[#0b1257] text-base">Registered Users</h2>
+                <h2 className="font-black text-[#0F172A] text-base tracking-tight">Registered Users</h2>
                 <div className="relative">
                   <MagnifyingGlassIcon className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
@@ -201,7 +201,7 @@ export default function AdminDashboard() {
                     placeholder="Search users..."
                     value={search}
                     onChange={(e) => { setSearch(e.target.value); setPage(1); }}
-                    className="pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm outline-none focus:border-[#0b1257] w-56"
+                    className="pl-9 pr-4 py-2 border border-blue-100 rounded-lg text-sm outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] w-56 transition-shadow"
                   />
                 </div>
               </div>
@@ -210,7 +210,7 @@ export default function AdminDashboard() {
               <div className="overflow-x-auto">
                 {loading ? (
                   <div className="py-16 text-center">
-                    <div className="w-8 h-8 border-4 border-gray-200 border-t-orange-500 rounded-full animate-spin mx-auto mb-3"></div>
+                    <div className="w-8 h-8 border-4 border-gray-200 border-t-[#2563EB] rounded-full animate-spin mx-auto mb-3"></div>
                     <p className="text-gray-400 text-sm">Loading users...</p>
                   </div>
                 ) : users.length === 0 ? (
@@ -234,7 +234,7 @@ export default function AdminDashboard() {
                         <tr key={u._id} className="hover:bg-gray-50/50 transition-colors">
                           <td className="px-5 py-4">
                             <div className="flex items-center gap-3">
-                              <div className="w-9 h-9 bg-[#0b1257] rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                              <div className="w-9 h-9 bg-[#2563EB] shadow-sm shadow-blue-600/20 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                                 {u.name[0]?.toUpperCase()}
                               </div>
                               <div>
@@ -245,8 +245,8 @@ export default function AdminDashboard() {
                           </td>
                           <td className="px-5 py-4 hidden sm:table-cell">
                             <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${u.role === "admin"
-                              ? "bg-orange-100 text-orange-600"
-                              : "bg-blue-100 text-blue-700"
+                              ? "bg-[#0F172A] text-white"
+                              : "bg-blue-50 text-[#2563EB] border border-blue-100"
                               }`}>
                               {u.role.toUpperCase()}
                             </span>
@@ -311,7 +311,7 @@ export default function AdminDashboard() {
                     >
                       ← Prev
                     </button>
-                    <span className="px-3 py-1.5 text-xs font-semibold bg-[#0b1257] text-white rounded-lg">
+                    <span className="px-3 py-1.5 text-xs font-semibold bg-[#2563EB] shadow-sm text-white rounded-lg">
                       {page}
                     </span>
                     <button

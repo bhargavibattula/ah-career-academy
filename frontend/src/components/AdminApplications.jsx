@@ -41,7 +41,7 @@ export default function AdminApplications() {
     <div className="space-y-6">
       <div className="flex justify-between items-center bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
         <div>
-          <h2 className="text-xl font-bold text-[#0b1257]">Job Applications</h2>
+          <h2 className="text-xl font-bold text-[#0F172A]">Job Applications</h2>
           <p className="text-sm text-gray-500">Review and manage candidates for career opportunities</p>
         </div>
         <button 
@@ -69,7 +69,7 @@ export default function AdminApplications() {
               {loading ? (
                 <tr>
                   <td colSpan="5" className="px-6 py-20 text-center">
-                    <div className="w-10 h-10 border-4 border-orange-100 border-t-orange-500 rounded-full animate-spin mx-auto mb-4"></div>
+                    <div className="w-10 h-10 border-4 border-blue-100 border-t-[#2563EB] rounded-full animate-spin mx-auto mb-4"></div>
                     <p className="text-gray-400 font-medium">Loading candidate profiles...</p>
                   </td>
                 </tr>
@@ -87,11 +87,11 @@ export default function AdminApplications() {
                       <div>
                         <p className="font-bold text-gray-900 leading-tight">{app.name}</p>
                         <p className="text-xs text-gray-500 mt-0.5">{app.email}</p>
-                        <p className="text-xs font-bold text-orange-600 mt-1">{app.phone}</p>
+                        <p className="text-xs font-bold text-[#2563EB] mt-1">{app.phone}</p>
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-xs font-bold text-[#0b1257] bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-200">
+                      <span className="text-xs font-bold text-[#0F172A] bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-200">
                         {app.jobTitle}
                       </span>
                     </td>

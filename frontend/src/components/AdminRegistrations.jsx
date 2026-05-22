@@ -87,7 +87,7 @@ export default function AdminRegistrations() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
         <div>
-          <h2 className="text-xl font-bold text-[#0b1257]">Course Registrations</h2>
+          <h2 className="text-xl font-bold text-[#0F172A]">Course Registrations</h2>
           <p className="text-sm text-gray-500">View and manage student inquiries from the database</p>
         </div>
         <div className="flex gap-3 w-full sm:w-auto">
@@ -149,7 +149,7 @@ export default function AdminRegistrations() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className="text-xs font-bold text-[#0b1257] bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100 inline-block">
+                      <span className="text-xs font-bold text-[#2563EB] bg-blue-50 px-3 py-1.5 rounded-lg border border-blue-100 inline-block">
                         {reg.courseTitle}
                       </span>
                     </td>
@@ -161,7 +161,7 @@ export default function AdminRegistrations() {
                         value={reg.status}
                         onChange={(e) => onStatusUpdate(reg._id, e.target.value)}
                         className={`text-[10px] font-black px-2 py-1.5 rounded-lg border-none outline-none cursor-pointer uppercase tracking-widest transition-colors ${
-                          reg.status === 'pending' ? 'bg-orange-100 text-orange-600' :
+                          reg.status === 'pending' ? 'bg-amber-100 text-amber-700' :
                           reg.status === 'contacted' ? 'bg-blue-100 text-blue-600' :
                           reg.status === 'enrolled' ? 'bg-green-100 text-green-600' :
                           'bg-gray-100 text-gray-600'

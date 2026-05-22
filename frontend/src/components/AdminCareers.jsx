@@ -145,14 +145,14 @@ export default function AdminCareers() {
 
   return (
     <div className="space-y-6 relative">
-      <div className="flex justify-between items-center bg-[#0b1257] p-6 rounded-3xl text-white shadow-xl">
+      <div className="flex justify-between items-center bg-[#0F172A] p-6 rounded-3xl text-white shadow-xl">
         <div>
           <h2 className="text-2xl font-black">Careers Management</h2>
           <p className="text-blue-200 text-sm font-bold uppercase tracking-widest">Post and manage job openings</p>
         </div>
         <button 
           onClick={() => handleOpenModal()}
-          className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-2xl text-sm font-black transition-all active:scale-95 shadow-lg flex items-center gap-2"
+          className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-6 py-3 rounded-2xl text-sm font-black transition-all active:scale-95 shadow-lg flex items-center gap-2"
         >
           <PlusIcon className="w-5 h-5" />
           ADD NEW POSTING
@@ -170,14 +170,14 @@ export default function AdminCareers() {
           </thead>
           <tbody className="divide-y divide-gray-50">
             {loading ? (
-              <tr><td colSpan="3" className="py-20 text-center"><div className="w-8 h-8 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto"></div></td></tr>
+              <tr><td colSpan="3" className="py-20 text-center"><div className="w-8 h-8 border-4 border-[#2563EB] border-t-transparent rounded-full animate-spin mx-auto"></div></td></tr>
             ) : jobs.length === 0 ? (
               <tr><td colSpan="3" className="py-20 text-center text-gray-400 font-bold uppercase tracking-widest">No jobs posted yet</td></tr>
             ) : (
               jobs.map((job) => (
                 <tr key={job._id} className="hover:bg-gray-50 transition-colors group">
                   <td className="px-6 py-5">
-                    <div className="text-lg font-black text-[#0b1257] group-hover:text-blue-600 transition-colors">{job.title}</div>
+                    <div className="text-lg font-black text-[#0F172A] group-hover:text-blue-600 transition-colors">{job.title}</div>
                     <div className="flex gap-4 text-xs font-bold text-gray-400 mt-1 uppercase tracking-tighter">
                       <span className="flex items-center gap-1"><BanknotesIcon className="w-4 h-4" /> {job.salary}</span>
                       <span className="flex items-center gap-1"><MapPinIcon className="w-4 h-4" /> {job.location}</span>
@@ -206,9 +206,9 @@ export default function AdminCareers() {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-[#0d1b3e]/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-[#0F172A]/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
           <div className="bg-white rounded-[2.5rem] w-full max-w-2xl p-8 overflow-y-auto max-h-[90vh] shadow-2xl">
-            <h3 className="text-3xl font-black text-[#0b1257] mb-8">{editingJob ? "Update Posting" : "New Opportunity"}</h3>
+            <h3 className="text-3xl font-black text-[#0F172A] mb-8">{editingJob ? "Update Posting" : "New Opportunity"}</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -217,7 +217,7 @@ export default function AdminCareers() {
                     type="text" 
                     value={formData.title}
                     onChange={e => setFormData({...formData, title: e.target.value})}
-                    className="w-full border-2 border-gray-100 rounded-2xl px-5 py-3.5 text-sm outline-none focus:border-orange-500 transition-all font-bold" 
+                    className="w-full border-2 border-gray-100 rounded-2xl px-5 py-3.5 text-sm outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all font-bold" 
                     required
                   />
                 </div>
@@ -226,7 +226,7 @@ export default function AdminCareers() {
                   <select 
                     value={formData.category}
                     onChange={e => setFormData({...formData, category: e.target.value})}
-                    className="w-full border-2 border-gray-100 rounded-2xl px-5 py-3.5 text-sm outline-none focus:border-orange-500 transition-all font-bold"
+                    className="w-full border-2 border-gray-100 rounded-2xl px-5 py-3.5 text-sm outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all font-bold"
                   >
                     <option>Software & Programming</option>
                     <option>Cloud & Advanced Technologies</option>
@@ -243,7 +243,7 @@ export default function AdminCareers() {
                 <textarea 
                   value={formData.description}
                   onChange={e => setFormData({...formData, description: e.target.value})}
-                  className="w-full border-2 border-gray-100 rounded-2xl px-5 py-3.5 text-sm outline-none focus:border-orange-500 transition-all font-bold h-24 resize-none"
+                  className="w-full border-2 border-gray-100 rounded-2xl px-5 py-3.5 text-sm outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all font-bold h-24 resize-none"
                   placeholder="Summarize the role in 2 sentences..."
                 />
               </div>
@@ -254,7 +254,7 @@ export default function AdminCareers() {
                   <textarea 
                     value={formData.responsibilities}
                     onChange={e => setFormData({...formData, responsibilities: e.target.value})}
-                    className="w-full border-2 border-gray-100 rounded-2xl px-5 py-3.5 text-xs outline-none focus:border-orange-500 transition-all font-bold h-32"
+                    className="w-full border-2 border-gray-100 rounded-2xl px-5 py-3.5 text-xs outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all font-bold h-32"
                   />
                 </div>
                 <div>
@@ -262,7 +262,7 @@ export default function AdminCareers() {
                   <textarea 
                     value={formData.requirements}
                     onChange={e => setFormData({...formData, requirements: e.target.value})}
-                    className="w-full border-2 border-gray-100 rounded-2xl px-5 py-3.5 text-xs outline-none focus:border-orange-500 transition-all font-bold h-32"
+                    className="w-full border-2 border-gray-100 rounded-2xl px-5 py-3.5 text-xs outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all font-bold h-32"
                   />
                 </div>
               </div>
@@ -273,7 +273,7 @@ export default function AdminCareers() {
                   <select 
                     value={formData.jobType}
                     onChange={e => setFormData({...formData, jobType: e.target.value})}
-                    className="w-full border-2 border-gray-100 rounded-2xl px-4 py-3 text-xs outline-none focus:border-orange-500 font-bold"
+                    className="w-full border-2 border-gray-100 rounded-2xl px-4 py-3 text-xs outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] font-bold"
                   >
                     <option>Full-time</option>
                     <option>Internship</option>
@@ -287,7 +287,7 @@ export default function AdminCareers() {
                     type="text" 
                     value={formData.salary}
                     onChange={e => setFormData({...formData, salary: e.target.value})}
-                    className="w-full border-2 border-gray-100 rounded-2xl px-4 py-3 text-xs outline-none focus:border-orange-500 font-bold" 
+                    className="w-full border-2 border-gray-100 rounded-2xl px-4 py-3 text-xs outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] font-bold" 
                   />
                 </div>
                 <div>
@@ -296,7 +296,7 @@ export default function AdminCareers() {
                     type="text" 
                     value={formData.experience}
                     onChange={e => setFormData({...formData, experience: e.target.value})}
-                    className="w-full border-2 border-gray-100 rounded-2xl px-4 py-3 text-xs outline-none focus:border-orange-500 font-bold" 
+                    className="w-full border-2 border-gray-100 rounded-2xl px-4 py-3 text-xs outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] font-bold" 
                   />
                 </div>
                 <div>
@@ -305,14 +305,14 @@ export default function AdminCareers() {
                     type="text" 
                     value={formData.location}
                     onChange={e => setFormData({...formData, location: e.target.value})}
-                    className="w-full border-2 border-gray-100 rounded-2xl px-4 py-3 text-xs outline-none focus:border-orange-500 font-bold" 
+                    className="w-full border-2 border-gray-100 rounded-2xl px-4 py-3 text-xs outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] font-bold" 
                   />
                 </div>
               </div>
 
               <div className="flex gap-4 pt-6">
                 <button type="button" onClick={() => setShowModal(false)} className="flex-1 bg-gray-100 text-gray-500 py-4 rounded-2xl font-black text-sm hover:bg-gray-200 transition-colors">Discard</button>
-                <button type="submit" className="flex-1 bg-[#0b1257] text-white py-4 rounded-2xl font-black text-sm hover:bg-blue-900 transition-all shadow-xl active:scale-95">Publish Opportunity</button>
+                <button type="submit" className="flex-1 bg-[#2563EB] text-white py-4 rounded-2xl font-black text-sm hover:bg-[#1D4ED8] transition-all shadow-xl active:scale-95">Publish Opportunity</button>
               </div>
             </form>
           </div>
