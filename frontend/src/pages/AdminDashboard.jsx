@@ -22,6 +22,7 @@ import AdminCareers from "../components/AdminCareers";
 import AdminRegistrations from "../components/AdminRegistrations";
 import AdminApplications from "../components/AdminApplications";
 import AdminKidsRegistrations from "../components/AdminKidsRegistrations";
+import AdminCourses from "../components/AdminCourses";
 
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
@@ -144,6 +145,12 @@ export default function AdminDashboard() {
               className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "users" ? "bg-white text-[#2563EB] shadow-sm ring-1 ring-blue-100/50" : "text-gray-500 hover:text-[#0F172A]"}`}
             >
               Users
+            </button>
+            <button
+              onClick={() => setActiveTab("courses")}
+              className={`px-6 py-2 rounded-lg text-sm font-bold transition-all whitespace-nowrap ${activeTab === "courses" ? "bg-white text-[#2563EB] shadow-sm ring-1 ring-blue-100/50" : "text-gray-500 hover:text-[#0F172A]"}`}
+            >
+              Courses
             </button>
             <button
               onClick={() => setActiveTab("careers")}
@@ -326,6 +333,8 @@ export default function AdminDashboard() {
               )}
             </div>
           </>
+        ) : activeTab === "courses" ? (
+          <AdminCourses />
         ) : activeTab === "careers" ? (
           <AdminCareers />
         ) : activeTab === "registrations" ? (

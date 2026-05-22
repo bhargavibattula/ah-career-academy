@@ -4,6 +4,7 @@ import {
   XMarkIcon, 
   PaperAirplaneIcon 
 } from "@heroicons/react/24/outline";
+import { getCourses } from "../services/courseService";
 
 const STEPS = {
   GREETING: "greeting",
@@ -13,11 +14,7 @@ const STEPS = {
   DONE: "done",
 };
 
-const courses = [
-  "FullStack Python", "Data Science", "Cyber Security",
-  "Full Stack Java", "DevOps & Cloud", "AI Testing",
-  "Gen AI Development", "Quantum Computing",
-];
+// Removed static courses array
 
 export default function Chatbot() {
   const [open, setOpen] = useState(false);
@@ -31,6 +28,21 @@ export default function Chatbot() {
     { from: "bot", text: "Hello! May I have a moment to chat with you?" },
   ]);
   const messagesEndRef = useRef(null);
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await getCourses();
+        if (res.success) {
+          setCourses(res.data.map(c => c.title));
+        }
+      } catch (err) {
+        console.error("Failed to fetch courses for chatbot", err);
+      }
+    };
+    fetchCourses();
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

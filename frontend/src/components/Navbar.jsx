@@ -1,10 +1,10 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-import { courses } from "../data/courses";
+import { getCourses } from "../services/courseService";
 
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState(null);
@@ -12,11 +12,27 @@ export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
+  const [dynamicCourses, setDynamicCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await getCourses();
+        if (res.success) {
+          setDynamicCourses(res.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch courses:", err);
+      }
+    };
+    fetchCourses();
+  }, []);
+
   // Dynamically generate nav links to ensure all courses appear
   const navLinks = useMemo(() => [
     {
       label: "Courses",
-      links: courses.map((course) => ({
+      links: dynamicCourses.map((course) => ({
         label: course.title,
         path: `/courses/${course.id}`,
       })),
@@ -42,7 +58,7 @@ export default function Navbar() {
         { label: "Kids Training", path: "/kids-training" },
       ],
     },
-  ], []);
+  ], [dynamicCourses]);
 
   const handleLogout = async () => {
     await logout();

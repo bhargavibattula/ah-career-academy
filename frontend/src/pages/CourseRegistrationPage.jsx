@@ -9,7 +9,7 @@ import {
   PhoneIcon,
   SparklesIcon,
 } from "@heroicons/react/24/outline";
-import { courses } from "../data/courses";
+import { getCourseById } from "../services/courseService";
 import { useAuth } from "../context/AuthContext";
 import { checkRegistration, createRegistration } from "../services/registrationService";
 import { toast } from "react-toastify";
@@ -33,9 +33,20 @@ export default function CourseRegistrationPage() {
   const [checkingStatus, setCheckingStatus] = useState(true);
 
   useEffect(() => {
-    const foundCourse = courses.find((c) => c.id === id);
-    if (foundCourse) setCourse(foundCourse);
-    else navigate("/");
+    const fetchCourse = async () => {
+      try {
+        const data = await getCourseById(id);
+        if (data.success && data.data) {
+          setCourse(data.data);
+        } else {
+          navigate("/");
+        }
+      } catch (err) {
+        console.error("Failed to fetch course", err);
+        navigate("/");
+      }
+    };
+    fetchCourse();
   }, [id, navigate]);
 
   useEffect(() => {

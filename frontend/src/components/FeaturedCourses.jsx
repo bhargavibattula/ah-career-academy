@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { courses } from "../data/courses";
+import { useState, useEffect } from "react";
+import { getCourses } from "../services/courseService";
 import {
   AcademicCapIcon,
   ArrowRightIcon,
@@ -28,6 +29,22 @@ function Stars() {
 }
 
 export default function FeaturedCourses() {
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await getCourses();
+        if (res.success) {
+          setCourses(res.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch featured courses", err);
+      }
+    };
+    fetchCourses();
+  }, []);
+
   return (
     <section className="bg-[#F8FAFC] px-4 py-20">
       <div className="mx-auto max-w-7xl">

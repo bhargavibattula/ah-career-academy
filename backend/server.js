@@ -11,6 +11,7 @@ import jobRoutes from "./routes/jobRoutes.js";
 import registrationRoutes from "./routes/registrationRoutes.js";
 import applicationRoutes from "./routes/applicationRoutes.js";
 import kidsRegistrationRoutes from "./routes/kidsRegistrationRoutes.js";
+import courseRoutes from "./routes/courseRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -75,6 +76,7 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/registrations", registrationRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/kids-registrations", kidsRegistrationRoutes);
+app.use("/api/courses", courseRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {

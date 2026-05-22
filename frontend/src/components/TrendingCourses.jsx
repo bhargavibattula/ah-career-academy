@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { courses } from "../data/courses";
+import { useState, useEffect } from "react";
+import { getCourses } from "../services/courseService";
 import {
   ArrowRightIcon,
   CheckCircleIcon,
@@ -9,6 +10,22 @@ import {
 } from "@heroicons/react/24/solid";
 
 export default function TrendingCourses() {
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const res = await getCourses();
+        if (res.success) {
+          setCourses(res.data);
+        }
+      } catch (err) {
+        console.error("Failed to fetch trending courses", err);
+      }
+    };
+    fetchCourses();
+  }, []);
+
   return (
     <section className="bg-white px-4 py-20">
       <div className="mx-auto max-w-7xl">

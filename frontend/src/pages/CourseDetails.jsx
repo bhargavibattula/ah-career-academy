@@ -11,7 +11,7 @@ import {
   PhoneIcon,
   SparklesIcon,
 } from "@heroicons/react/24/outline";
-import { courses } from "../data/courses";
+import { getCourseById } from "../services/courseService";
 import { useAuth } from "../context/AuthContext";
 import { checkRegistration } from "../services/registrationService";
 
@@ -23,8 +23,17 @@ export default function CourseDetails() {
   const [alreadyRegistered, setAlreadyRegistered] = useState(false);
 
   useEffect(() => {
-    const foundCourse = courses.find((c) => c.id === id);
-    if (foundCourse) setCourse(foundCourse);
+    const fetchCourse = async () => {
+      try {
+        const data = await getCourseById(id);
+        if (data.success) {
+          setCourse(data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching course:", error);
+      }
+    };
+    fetchCourse();
   }, [id]);
 
   useEffect(() => {
