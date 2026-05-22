@@ -66,5 +66,22 @@ export const courses = [
       "Payroll & TDS Compliance"
     ],
     skills: ["Tally Prime", "GST", "Accounting", "Taxation", "Audit"]
+  },
+  {
+    id: "job-ready",
+    title: "Job Ready Training Program",
+    category: "Flagship Program",
+    description: "Become job ready with industry skills.",
+    longDescription: "Master Full Stack Development with hands-on training in Java, Python, React.js, HTML/CSS/JavaScript, Data Structures & Algorithms, and Soft Skills. Build real-time projects and gain practical skills through structured, industry-oriented training designed to help you get placed.",
+    duration: "4 Months",
+    fees: "Contact for Pricing",
+    curriculum: [
+      "Full Stack Development",
+      "Data Structures & Algorithms",
+      "Communication Skills",
+      "Aptitude Training",
+      "Interview Preparation"
+    ],
+    skills: ["Java", "Python", "React.js", "Node.js", "Data Structures", "Communication"]
   }
 ];

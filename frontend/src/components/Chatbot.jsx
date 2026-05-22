@@ -147,7 +147,7 @@ export default function Chatbot() {
       {!open && !showGreeting && (
         <button
           onClick={() => { setOpen(true); setHasDismissedGreeting(true); }}
-          className="w-14 h-14 bg-[#a78bfa] text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-[#8b5cf6] transition-all transform hover:scale-105 active:scale-95"
+          className="w-14 h-14 bg-[#2563EB] text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-[#1D4ED8] transition-all transform hover:scale-105 active:scale-95 shadow-blue-600/25"
         >
           <ChatBubbleLeftRightIcon className="w-8 h-8" />
         </button>
@@ -157,8 +157,8 @@ export default function Chatbot() {
       {open && (
         <div className="w-80 sm:w-96 h-[500px] bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-gray-100 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-300">
           {/* Header */}
-          <div className="bg-[#0b1257] px-5 py-4 flex items-center gap-3 shrink-0">
-            <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center text-white font-black text-sm flex-shrink-0 shadow-lg shadow-orange-500/20">
+          <div className="bg-[#0F172A] px-5 py-4 flex items-center gap-3 shrink-0">
+            <div className="w-10 h-10 bg-[#2563EB] rounded-xl flex items-center justify-center text-white font-black text-sm flex-shrink-0 shadow-lg shadow-blue-600/25">
               AH
             </div>
             <div className="flex-1">
@@ -180,7 +180,7 @@ export default function Chatbot() {
                 <div
                   className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-sm ${
                     msg.from === "user"
-                      ? "bg-[#0b1257] text-white rounded-br-none"
+                      ? "bg-[#0F172A] text-white rounded-br-none"
                       : "bg-white border border-gray-100 text-gray-700 rounded-bl-none"
                   }`}
                 >
@@ -201,11 +201,11 @@ export default function Chatbot() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleName()}
-                  className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-orange-400"
+                  className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-[#2563EB]"
                 />
                 <button
                   onClick={handleName}
-                  className="bg-orange-500 text-white px-3 py-2 rounded-lg text-sm font-semibold hover:bg-orange-600 transition-colors"
+                  className="bg-[#2563EB] text-white px-3 py-2 rounded-lg text-sm font-semibold hover:bg-[#1D4ED8] transition-colors"
                 >
                   <PaperAirplaneIcon className="w-4 h-4" />
                 </button>
@@ -218,7 +218,7 @@ export default function Chatbot() {
                   <button
                     key={c}
                     onClick={() => handleInterest(c)}
-                    className="text-left text-xs bg-gray-50 border border-gray-200 rounded-lg px-2 py-2 hover:bg-orange-50 hover:border-orange-300 transition-colors"
+                    className="text-left text-xs bg-gray-50 border border-gray-200 rounded-lg px-2 py-2 hover:bg-blue-50 hover:border-[#2563EB]/30 transition-colors"
                   >
                     {c}
                   </button>

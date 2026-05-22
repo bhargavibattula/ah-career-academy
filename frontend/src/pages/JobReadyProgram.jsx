@@ -14,6 +14,8 @@ import {
   UserGroupIcon,
   UserIcon,
 } from "@heroicons/react/24/outline";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const highlights = [
   {
@@ -55,6 +57,14 @@ const whyAHCareer = [
 ];
 
 export default function JobReadyProgram() {
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const handleRegisterClick = () => {
+    if (!user) navigate("/login", { state: { from: `/courses/job-ready/register` } });
+    else navigate(`/courses/job-ready/register`);
+  };
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
       <section className="relative overflow-hidden bg-[#0F172A] px-4 py-20 text-white lg:py-24">
@@ -73,13 +83,13 @@ export default function JobReadyProgram() {
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="tel:9989241515"
+              <button
+                onClick={handleRegisterClick}
                 className="flex items-center justify-center gap-2 rounded-2xl bg-[#38BDF8] px-8 py-4 text-sm font-black text-[#0F172A] shadow-xl shadow-sky-400/20 transition-all hover:-translate-y-0.5 hover:bg-white"
               >
                 Enroll Now
                 <ArrowRightIcon className="h-5 w-5" />
-              </a>
+              </button>
               <a
                 href="https://wa.me/919989241515"
                 className="flex items-center justify-center gap-2 rounded-2xl border border-white/15 bg-white/10 px-8 py-4 text-sm font-black text-white transition-all hover:-translate-y-0.5 hover:bg-white hover:text-[#0F172A]"
