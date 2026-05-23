@@ -8,6 +8,8 @@ import Services from "./components/Services";
 import Recognition from "./components/Recognition";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import ScrollVelocity from "./components/ScrollVelocity";
+import CompanyLogos from "./components/CompanyLogos";
 import Chatbot from "./components/Chatbot";
 import FloatingContact from "./components/FloatingContact";
 import ContactUs from "./components/ContactUs";
@@ -44,9 +46,21 @@ export default function App() {
         <Route path="/" element={
           <main className="bg-[#F8FAFC] text-[#0F172A]">
             <Hero />
+            <CompanyLogos />
             <TrendingCourses />
             <FeaturedCourses />
             <LearningJourney />
+            {/* Dynamic Marquee Section */}
+            <div className="bg-[#020617] py-10 overflow-hidden select-none border-y border-[#38BDF8]/20 my-4">
+              <ScrollVelocity
+                texts={[
+                  "Python ✦ Java Full Stack ✦ Web Designing ✦ Advanced Excel ✦ Data Science & AI ✦ Digital Marketing ✦ Cyber Security ✦ DevOps ✦",
+                  "100% Practical Training ✦ ISO 9001:2015 Certified ✦ 1000+ Placements Annually ✦ Tally Certified Partner ✦ Expert Industry Mentors ✦ Placement Support ✦"
+                ]}
+                velocity={80}
+                className="text-transparent bg-clip-text bg-gradient-to-r from-[#38BDF8] via-white to-blue-400 font-extrabold tracking-tight opacity-75 hover:opacity-100 transition-opacity duration-300 mx-4"
+              />
+            </div>
             <Services />
             <Recognition />
             <Contact />
