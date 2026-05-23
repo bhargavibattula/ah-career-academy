@@ -10,6 +10,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ScrollVelocity from "./components/ScrollVelocity";
 import CompanyLogos from "./components/CompanyLogos";
+import JobAccelerationProgram from "./components/JobAccelerationProgram";
 import Chatbot from "./components/Chatbot";
 import FloatingContact from "./components/FloatingContact";
 import ContactUs from "./components/ContactUs";
@@ -20,6 +21,8 @@ import KidsTraining from "./components/KidsTraining";
 import Blog from "./components/Blog";
 import BlogPost from "./components/BlogPost";
 import JobReadyProgram from "./pages/JobReadyProgram";
+import SkillCoursePage from "./pages/SkillCoursePage";
+import JobAccelerationProgramPage from "./pages/JobAccelerationProgramPage";
 
 import JobDetailsPage from "./pages/JobDetailsPage";
 import CourseDetails from "./pages/CourseDetails";
@@ -47,6 +50,7 @@ export default function App() {
           <main className="bg-[#F8FAFC] text-[#0F172A]">
             <Hero />
             <CompanyLogos />
+            <JobAccelerationProgram />
             <TrendingCourses />
             <FeaturedCourses />
             <LearningJourney />
@@ -74,8 +78,10 @@ export default function App() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogPost />} />
         <Route path="/programs/job-ready" element={<JobReadyProgram />} />
+        <Route path="/programs/job-acceleration" element={<JobAccelerationProgramPage />} />
         <Route path="/kids-course/:id" element={<KidsCourseDetails />} />
         <Route path="/jobs/:idOrSlug" element={<JobDetailsPage />} />
+        <Route path="/courses/skill-development/:slug" element={<SkillCoursePage />} />
         <Route path="/courses/:id" element={<CourseDetails />} />
         <Route path="/courses/:id/register" element={
           <ProtectedRoute>

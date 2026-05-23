@@ -38,6 +38,14 @@ export default function Navbar() {
       })),
     },
     {
+      label: "Skill Development",
+      links: [
+        { label: "Java Full Stack Developer", path: "/courses/skill-development/java-full-stack" },
+        { label: "Python Full Stack Developer", path: "/courses/skill-development/python-full-stack" },
+        { label: "Data Analyst Specialist", path: "/courses/skill-development/data-analytics" },
+      ],
+    },
+    {
       label: "Company",
       links: [
         { label: "About Us", path: "/about" },
@@ -55,6 +63,7 @@ export default function Navbar() {
       label: "Programs",
       links: [
         { label: "Job Ready Program", path: "/programs/job-ready" },
+        { label: "Job Acceleration Program", path: "/programs/job-acceleration" },
         { label: "Kids Training", path: "/kids-training" },
       ],
     },

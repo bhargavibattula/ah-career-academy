@@ -34,6 +34,23 @@ export default function CourseRegistrationPage() {
 
   useEffect(() => {
     const fetchCourse = async () => {
+      // Local fallback for static Skill Development / 100 Days courses
+      if (id === "java-full-stack") {
+        setCourse({ id: "java-full-stack", title: "Java Full Stack Developer", duration: "100 Days" });
+        setCheckingStatus(false);
+        return;
+      }
+      if (id === "python-full-stack") {
+        setCourse({ id: "python-full-stack", title: "Python Full Stack Developer", duration: "100 Days" });
+        setCheckingStatus(false);
+        return;
+      }
+      if (id === "data-analytics") {
+        setCourse({ id: "data-analytics", title: "Data Analyst Specialist", duration: "100 Days" });
+        setCheckingStatus(false);
+        return;
+      }
+
       try {
         const data = await getCourseById(id);
         if (data.success && data.data) {
