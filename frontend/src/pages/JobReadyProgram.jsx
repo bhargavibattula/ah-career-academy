@@ -16,6 +16,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import SEO from "../components/SEO";
 
 const highlights = [
   {
@@ -67,6 +68,11 @@ export default function JobReadyProgram() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+      <SEO 
+        title="Job Ready Training Program"
+        description="Become job ready in 4 months. Get intensive training in Full Stack Java/Python development, aptitude, communication skills, and mock interviews with 100% placement support."
+        keywords="job ready program, coding bootcamp, learn code from scratch, 100% placement program, java backend training, software development academy"
+      />
       <section className="relative overflow-hidden bg-[#0F172A] px-4 py-20 text-white lg:py-24">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_14%,rgba(56,189,248,0.28),transparent_32%),radial-gradient(circle_at_86%_28%,rgba(37,99,235,0.24),transparent_30%)]" />
         <div className="relative mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1fr_0.82fr] lg:items-center">

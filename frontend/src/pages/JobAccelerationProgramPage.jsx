@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import ScrollVelocity from "../components/ScrollVelocity";
+import SEO from "../components/SEO";
 import { 
   AcademicCapIcon, 
   ArrowRightIcon, 
@@ -60,6 +61,11 @@ export default function JobAccelerationProgramPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] overflow-x-hidden font-sans">
+      <SEO 
+        title="Job Acceleration Program"
+        description="Launch your software engineering career in 100 days. Specialized tracks in Java, Python, and Data Analytics with certified corporate mentoring and active placements."
+        keywords="100 days software engineering bootcamp, java web developer, python backend class, data analyst course, corporate job training institute"
+      />
       
       {/* 1. HERO SECTION */}
       <section className="relative overflow-hidden pt-24 pb-20 px-4">

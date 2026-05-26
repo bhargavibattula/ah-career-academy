@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -13,28 +14,34 @@ import CompanyLogos from "./components/CompanyLogos";
 import JobAccelerationProgram from "./components/JobAccelerationProgram";
 import Chatbot from "./components/Chatbot";
 import FloatingContact from "./components/FloatingContact";
-import ContactUs from "./components/ContactUs";
-import Careers from "./components/Careers";
-import Reviews from "./components/Reviews";
-import AboutUs from "./components/AboutUs";
-import KidsTraining from "./components/KidsTraining";
-import Blog from "./components/Blog";
-import BlogPost from "./components/BlogPost";
-import JobReadyProgram from "./pages/JobReadyProgram";
-import SkillCoursePage from "./pages/SkillCoursePage";
-import JobAccelerationProgramPage from "./pages/JobAccelerationProgramPage";
 
-import JobDetailsPage from "./pages/JobDetailsPage";
-import CourseDetails from "./pages/CourseDetails";
-import KidsCourseDetails from "./pages/KidsCourseDetails";
-import CourseRegistrationPage from "./pages/CourseRegistrationPage";
+// SEO & Loader
+import SEO from "./components/SEO";
+import Loader from "./components/Loader";
+
+// Lazy Loaded Components
+const ContactUs = lazy(() => import("./components/ContactUs"));
+const Careers = lazy(() => import("./components/Careers"));
+const Reviews = lazy(() => import("./components/Reviews"));
+const AboutUs = lazy(() => import("./components/AboutUs"));
+const KidsTraining = lazy(() => import("./components/KidsTraining"));
+const Blog = lazy(() => import("./components/Blog"));
+const BlogPost = lazy(() => import("./components/BlogPost"));
+const JobReadyProgram = lazy(() => import("./pages/JobReadyProgram"));
+const SkillCoursePage = lazy(() => import("./pages/SkillCoursePage"));
+const JobAccelerationProgramPage = lazy(() => import("./pages/JobAccelerationProgramPage"));
+
+const JobDetailsPage = lazy(() => import("./pages/JobDetailsPage"));
+const CourseDetails = lazy(() => import("./pages/CourseDetails"));
+const KidsCourseDetails = lazy(() => import("./pages/KidsCourseDetails"));
+const CourseRegistrationPage = lazy(() => import("./pages/CourseRegistrationPage"));
 
 // Pages
-import LoginPage from "./pages/LoginPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import RegisterPage from "./pages/RegisterPage";
-import Dashboard from "./pages/Dashboard";
-import AdminDashboard from "./pages/AdminDashboard";
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
+const RegisterPage = lazy(() => import("./pages/RegisterPage"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 
 // Routes
 import { GuestRoute, ProtectedRoute, AdminRoute } from "./routes/ProtectedRoutes";
@@ -46,75 +53,82 @@ export default function App() {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <Routes>
-        <Route path="/" element={
-          <main className="bg-[#F8FAFC] text-[#0F172A]">
-            <Hero />
-            <CompanyLogos />
-            <JobAccelerationProgram />
-            <TrendingCourses />
-            <FeaturedCourses />
-            <LearningJourney />
-            {/* Dynamic Marquee Section */}
-            <div className="bg-[#020617] py-10 overflow-hidden select-none border-y border-[#38BDF8]/20 my-4">
-              <ScrollVelocity
-                texts={[
-                  "Python ✦ Java Full Stack ✦ Web Designing ✦ Advanced Excel ✦ Data Science & AI ✦ Digital Marketing ✦ Cyber Security ✦ DevOps ✦",
-                  "100% Practical Training ✦ ISO 9001:2015 Certified ✦ 1000+ Placements Annually ✦ Tally Certified Partner ✦ Expert Industry Mentors ✦ Placement Support ✦"
-                ]}
-                velocity={80}
-                className="text-transparent bg-clip-text bg-gradient-to-r from-[#38BDF8] via-white to-blue-400 font-extrabold tracking-tight opacity-75 hover:opacity-100 transition-opacity duration-300 mx-4"
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={
+            <main className="bg-[#F8FAFC] text-[#0F172A]">
+              <SEO 
+                title="Top Software Training Institute"
+                description="AH Career Academy is a leading ISO 9001:2015 certified software training institute offering 100% practical training in Java, Python, UI/UX, Data Science, DevOps, and Digital Marketing with placement support."
+                keywords="software training institute, learn coding, full stack java training, python course, data science certification, job oriented programs, placement support"
               />
-            </div>
-            <Services />
-            <Recognition />
-            <Contact />
-          </main>
-        } />
-        <Route path="/contact" element={<ContactUs />} />
-        <Route path="/careers" element={<Careers />} />
-        <Route path="/reviews" element={<Reviews />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/kids-training" element={<KidsTraining />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:id" element={<BlogPost />} />
-        <Route path="/programs/job-ready" element={<JobReadyProgram />} />
-        <Route path="/programs/job-acceleration" element={<JobAccelerationProgramPage />} />
-        <Route path="/kids-course/:id" element={<KidsCourseDetails />} />
-        <Route path="/jobs/:idOrSlug" element={<JobDetailsPage />} />
-        <Route path="/courses/skill-development/:slug" element={<SkillCoursePage />} />
-        <Route path="/courses/:id" element={<CourseDetails />} />
-        <Route path="/courses/:id/register" element={
-          <ProtectedRoute>
-            <CourseRegistrationPage />
-          </ProtectedRoute>
-        } />
+              <Hero />
+              <CompanyLogos />
+              <JobAccelerationProgram />
+              <TrendingCourses />
+              <FeaturedCourses />
+              <LearningJourney />
+              {/* Dynamic Marquee Section */}
+              <div className="bg-[#020617] py-10 overflow-hidden select-none border-y border-[#38BDF8]/20 my-4">
+                <ScrollVelocity
+                  texts={[
+                    "Python ✦ Java Full Stack ✦ Web Designing ✦ Advanced Excel ✦ Data Science & AI ✦ Digital Marketing ✦ Cyber Security ✦ DevOps ✦",
+                    "100% Practical Training ✦ ISO 9001:2015 Certified ✦ 1000+ Placements Annually ✦ Tally Certified Partner ✦ Expert Industry Mentors ✦ Placement Support ✦"
+                  ]}
+                  velocity={80}
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-[#38BDF8] via-white to-blue-400 font-extrabold tracking-tight opacity-75 hover:opacity-100 transition-opacity duration-300 mx-4"
+                />
+              </div>
+              <Services />
+              <Recognition />
+              <Contact />
+            </main>
+          } />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/reviews" element={<Reviews />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/kids-training" element={<KidsTraining />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
+          <Route path="/programs/job-ready" element={<JobReadyProgram />} />
+          <Route path="/programs/job-acceleration" element={<JobAccelerationProgramPage />} />
+          <Route path="/kids-course/:id" element={<KidsCourseDetails />} />
+          <Route path="/jobs/:idOrSlug" element={<JobDetailsPage />} />
+          <Route path="/courses/skill-development/:slug" element={<SkillCoursePage />} />
+          <Route path="/courses/:id" element={<CourseDetails />} />
+          <Route path="/courses/:id/register" element={
+            <ProtectedRoute>
+              <CourseRegistrationPage />
+            </ProtectedRoute>
+          } />
 
-        {/* Auth Routes */}
-        <Route path="/login" element={
-          <GuestRoute>
-            <LoginPage />
-          </GuestRoute>
-        } />
-        <Route path="/register" element={
-          <GuestRoute>
-            <RegisterPage />
-          </GuestRoute>
-        } />
+          {/* Auth Routes */}
+          <Route path="/login" element={
+            <GuestRoute>
+              <LoginPage />
+            </GuestRoute>
+          } />
+          <Route path="/register" element={
+            <GuestRoute>
+              <RegisterPage />
+            </GuestRoute>
+          } />
 
-        {/* Protected Dashboard Routes */}
-        <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        } />
-        <Route path="/admin-dashboard" element={
-          <AdminRoute>
-            <AdminDashboard />
-          </AdminRoute>
-        } />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+          {/* Protected Dashboard Routes */}
+          <Route path="/dashboard" element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin-dashboard" element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          } />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
       <Footer />
       <Chatbot />
       <FloatingContact />
@@ -133,3 +147,4 @@ export default function App() {
     </div>
   );
 }
+

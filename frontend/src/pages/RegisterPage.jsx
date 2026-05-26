@@ -15,6 +15,8 @@ import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { motion } from "motion/react";
 
+import SEO from "../components/SEO";
+
 export default function RegisterPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -103,6 +105,11 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] flex flex-col justify-center relative overflow-hidden">
+      <SEO 
+        title="Register"
+        description="Join AH Career Academy. Create your account to start learning, practice with live codes, schedule mock interview sessions, and apply for direct placement drives."
+        keywords="register ah career, sign up academy, coding bootcamp account, start learning code"
+      />
       {/* Background decoration matching home page */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-[30%] h-[30%] bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.15),transparent_60%)] filter blur-3xl" />

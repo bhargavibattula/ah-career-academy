@@ -13,6 +13,8 @@ import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { motion } from "motion/react";
 
+import SEO from "../components/SEO";
+
 export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -69,6 +71,11 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] flex flex-col justify-center relative overflow-hidden">
+      <SEO 
+        title="Login"
+        description="Sign in to your AH Career Academy dashboard to track your classes, view program milestone schedules, submit coding tasks, and access placements."
+        keywords="login ah career, student portal, coding dashboard, sign in academy"
+      />
       {/* Background decoration matching home page */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-0 w-[30%] h-[30%] bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.15),transparent_60%)] filter blur-3xl" />
