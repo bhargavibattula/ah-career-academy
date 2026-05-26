@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "motion/react";
 import ScrollVelocity from "../components/ScrollVelocity";
@@ -15,6 +16,13 @@ import {
   CheckCircleIcon,
   ChatBubbleLeftRightIcon
 } from "@heroicons/react/24/outline";
+
+const iconMap = {
+  AcademicCapIcon: AcademicCapIcon,
+  CpuChipIcon: CpuChipIcon,
+  ClockIcon: ClockIcon,
+  BriefcaseIcon: BriefcaseIcon
+};
 
 const streams = [
   {
@@ -50,14 +58,101 @@ const streams = [
 ];
 
 const programMilestones = [
-  { dayRange: "Day 1 - 30", title: "Foundation & Core Logic", desc: "Master basic language syntax, OOPs, data structures, algorithms, and logical problem solving." },
-  { dayRange: "Day 31 - 60", title: "Advanced Frameworks & Databases", desc: "Build APIs using Spring Boot, Flask or SQL queries. Integrate database triggers and storage architectures." },
-  { dayRange: "Day 61 - 80", title: "Real-World Industry Projects", desc: "Work in active lab environments. Deploy multi-tier apps with frontend UI (React) and docker containers." },
-  { dayRange: "Day 81 - 100", title: "Placement Bootcamp & Mock Drives", desc: "Resume editing, behavioral rounds, coding assessments, and direct interviews with top-tier hiring partners." }
+  {
+    dayRange: "Day 1 - 30",
+    title: "Foundation & Core Logic",
+    desc: "Master basic language syntax, OOPs, data structures, algorithms, and logical problem solving.",
+    icon: "AcademicCapIcon",
+    color: "blue",
+    points: [
+      "Language Syntax & Paradigm Fundamentals (Java/Python)",
+      "Object-Oriented Programming (OOP) Principles & Design Patterns",
+      "Core Data Structures (Arrays, Linked Lists, Stacks, Queues, HashMaps)",
+      "Essential Algorithms (Searching, Sorting, and Time/Space Complexity)",
+      "Weekly Core Coding Evaluations & Speed Optimization Drills"
+    ]
+  },
+  {
+    dayRange: "Day 31 - 60",
+    title: "Advanced Frameworks & Databases",
+    desc: "Build RESTful APIs using Spring Boot, Flask or SQL queries. Integrate database triggers and storage architectures.",
+    icon: "CpuChipIcon",
+    color: "sky",
+    points: [
+      "RESTful API Development & Service-Oriented Architecture Design",
+      "Enterprise Backend Frameworks (Spring Boot / Flask / Node.js)",
+      "Relational (MySQL/PostgreSQL) & NoSQL (MongoDB) Schema Modeling",
+      "Complex SQL Queries, Database Triggers, Indexing, and Store Procedures",
+      "Modern Authentication Protocols (JWT, OAuth2, and Middleware Security)"
+    ]
+  },
+  {
+    dayRange: "Day 61 - 80",
+    title: "Real-World Industry Projects",
+    desc: "Work in active lab environments. Deploy multi-tier apps with frontend UI (React) and docker containers.",
+    icon: "ClockIcon",
+    color: "indigo",
+    points: [
+      "Dynamic Frontend Development with React.js & Tailwind CSS",
+      "Advanced State Management (Redux Toolkit / Context API) & Client Routing",
+      "Containerization and Service Isolation using Docker & Docker Compose",
+      "Setting up Automated CI/CD Pipelines (GitHub Actions / Jenkins)",
+      "End-to-End Capstone Project with Live Hosting, Domains, and SSL Certificates"
+    ]
+  },
+  {
+    dayRange: "Day 81 - 100",
+    title: "Placement Bootcamp & Mock Drives",
+    desc: "Resume editing, behavioral rounds, coding assessments, and direct interviews with top-tier hiring partners.",
+    icon: "BriefcaseIcon",
+    color: "emerald",
+    isFeatured: true,
+    points: [
+      "ATS-Optimized Resume Overhaul & Tech-Specific Customization",
+      "Professional LinkedIn & GitHub Developer Portfolio Enhancement",
+      "Daily Technical MCQ & Live Code-Execution Assessments",
+      "1-on-1 Mock Interviews with Senior Industry Mentors & Engineers",
+      "Comprehensive Behavioral, HR & Salary Negotiation Workshops",
+      "Direct Recruitment Drives & Referrals to 100+ Hiring Partners"
+    ],
+    bootcampPillars: [
+      {
+        title: "Resume & Branding",
+        days: "Days 81 - 85",
+        desc: "Overhaul resumes to bypass automated ATS filters, and optimize LinkedIn & GitHub profiles to showcase developer projects.",
+        status: "High Impact"
+      },
+      {
+        title: "Mock Technical Rounds",
+        days: "Days 86 - 90",
+        desc: "Simulate live whiteboarding, system design, and algorithmic problem solving with real feedback scorecards.",
+        status: "1-on-1 Mentor"
+      },
+      {
+        title: "Aptitude & Assessments",
+        days: "Days 91 - 95",
+        desc: "Timed practice tests covering quantitative aptitude, logical reasoning, and industry-standard coding platforms.",
+        status: "Weekly Tests"
+      },
+      {
+        title: "Direct Hiring Drives",
+        days: "Days 96 - 100",
+        desc: "Fast-track interviews with 100+ corporate hiring partners for junior, mid-level and associate engineer roles.",
+        status: "Guaranteed Referrals"
+      }
+    ],
+    placementStats: [
+      { label: "Placement Rate", value: "93%" },
+      { label: "Average Package", value: "₹6.5 LPA" },
+      { label: "Highest Package", value: "₹20 LPA" },
+      { label: "Hiring Partners", value: "100+" }
+    ]
+  }
 ];
 
 export default function JobAccelerationProgramPage() {
   const navigate = useNavigate();
+  const [activeMilestone, setActiveMilestone] = useState(3); // Default to Day 81 - 100 (index 3)
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] overflow-x-hidden font-sans">
@@ -236,29 +331,176 @@ export default function JobAccelerationProgramPage() {
               The 100-Days Learning Pathway
             </h2>
             <p className="mt-3 text-slate-500 font-medium">
-              How we structure your progress step-by-step from zero code to hired.
+              Click on each milestone to explore key objectives, curriculum breakdown, and career acceleration details.
             </p>
           </div>
 
-          <div className="relative border-l-2 border-slate-200 ml-4 md:ml-12 space-y-12 py-2">
-            {programMilestones.map((milestone, idx) => (
-              <div key={idx} className="relative pl-8 md:pl-12 group">
-                {/* Timeline circle */}
-                <div className="absolute -left-[11px] top-1.5 h-5 w-5 rounded-full border-4 border-[#F8FAFC] bg-[#2563EB] group-hover:scale-125 transition-transform duration-300" />
-                
-                <div>
-                  <span className="text-xs font-extrabold text-[#2563EB] uppercase tracking-wider block mb-2">
-                    {milestone.dayRange}
-                  </span>
-                  <h4 className="text-xl font-bold text-[#0F172A] mb-2 group-hover:text-[#2563EB] transition-colors">
-                    {milestone.title}
-                  </h4>
-                  <p className="text-sm text-slate-500 leading-relaxed max-w-2xl font-medium">
-                    {milestone.desc}
-                  </p>
+          <div className="space-y-6">
+            {programMilestones.map((milestone, idx) => {
+              const IconComponent = iconMap[milestone.icon] || AcademicCapIcon;
+              const isOpen = activeMilestone === idx;
+              
+              return (
+                <div 
+                  key={idx}
+                  className={`rounded-[2rem] border transition-all duration-300 overflow-hidden cursor-pointer ${
+                    isOpen 
+                      ? 'border-[#2563EB] bg-white shadow-xl shadow-blue-600/5' 
+                      : 'border-slate-200/80 bg-white/70 hover:bg-white hover:border-slate-300 shadow-sm'
+                  }`}
+                  onClick={() => setActiveMilestone(idx)}
+                >
+                  {/* Card Header */}
+                  <div className="p-6 md:p-8 flex items-start gap-4 md:gap-6">
+                    {/* Circle icon container */}
+                    <div className={`p-4 rounded-2xl flex-shrink-0 transition-colors duration-300 ${
+                      isOpen 
+                        ? 'bg-[#2563EB] text-white' 
+                        : 'bg-slate-100 text-slate-500'
+                    }`}>
+                      <IconComponent className="h-6 w-6" />
+                    </div>
+
+                    <div className="flex-1">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                        <span className={`text-xs font-black uppercase tracking-widest px-3 py-1 rounded-full w-fit ${
+                          isOpen 
+                            ? 'bg-[#2563EB]/10 text-[#2563EB]' 
+                            : 'bg-slate-100 text-slate-500'
+                        }`}>
+                          {milestone.dayRange}
+                        </span>
+                        {milestone.isFeatured && (
+                          <span className="inline-flex items-center gap-1.5 text-xs font-black text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full w-fit">
+                            <SparklesIcon className="h-3 w-3" />
+                            PLACEMENT BOOTCAMP
+                          </span>
+                        )}
+                      </div>
+                      
+                      <h4 className="text-xl md:text-2xl font-black text-[#0F172A] mb-2 flex items-center gap-2">
+                        {milestone.title}
+                      </h4>
+                      <p className="text-sm text-slate-500 leading-relaxed font-medium">
+                        {milestone.desc}
+                      </p>
+                    </div>
+
+                    {/* Expand/Collapse Chevron Indicator */}
+                    <div className="self-center hidden sm:block">
+                      <svg 
+                        className={`h-6 w-6 text-slate-400 transition-transform duration-300 ${isOpen ? 'transform rotate-180 text-[#2563EB]' : ''}`} 
+                        fill="none" 
+                        viewBox="0 0 24 24" 
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Card Content (Expandable with CSS transitions) */}
+                  <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                    isOpen 
+                      ? "max-h-[1500px] opacity-100 border-t border-slate-100 bg-[#FBFDFE] p-6 md:p-8 space-y-8" 
+                      : "max-h-0 opacity-0 p-0"
+                  }`}>
+                    {/* Objectives/Points list */}
+                    <div>
+                      <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">
+                        Key Learning Objectives & Skills
+                      </h5>
+                      <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        {milestone.points.map((point, pIdx) => (
+                          <li key={pIdx} className="flex items-start gap-3 text-sm text-slate-600 font-medium">
+                            <CheckCircleIcon className="h-5 w-5 text-[#2563EB] flex-shrink-0 mt-0.5" />
+                            <span>{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {/* If Placement Bootcamp: Render detailed bootcamp features & statistics */}
+                    {milestone.isFeatured && (
+                      <>
+                        {/* 4 Pillars of Placement Bootcamp */}
+                        <div className="space-y-4">
+                          <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest">
+                            Bootcamp Implementation Plan
+                          </h5>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            {milestone.bootcampPillars.map((pillar, pilIdx) => (
+                              <div 
+                                key={pilIdx} 
+                                className="p-5 rounded-2xl bg-white border border-slate-200/70 shadow-sm flex flex-col justify-between hover:border-emerald-500/30 hover:shadow-md transition-all group"
+                              >
+                                <div>
+                                  <div className="flex justify-between items-start gap-2 mb-3">
+                                    <span className="text-xs font-extrabold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md">
+                                      {pillar.days}
+                                    </span>
+                                    <span className="text-[10px] font-bold text-slate-400 border border-slate-200/80 px-2 py-0.5 rounded-full">
+                                      {pillar.status}
+                                    </span>
+                                  </div>
+                                  <h6 className="text-base font-extrabold text-slate-800 mb-1 group-hover:text-[#2563EB] transition-colors">
+                                    {pillar.title}
+                                  </h6>
+                                  <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                                    {pillar.desc}
+                                  </p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Stat Counter Badges */}
+                        <div className="space-y-4 pt-2 border-t border-slate-100">
+                          <h5 className="text-xs font-black text-slate-400 uppercase tracking-widest">
+                            Placement Statistics & Track Record
+                          </h5>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            {milestone.placementStats.map((stat, sIdx) => (
+                              <div key={sIdx} className="bg-white border border-slate-200/60 p-4 rounded-2xl text-center shadow-sm">
+                                <div className="text-2xl md:text-3xl font-black text-[#2563EB] mb-1">
+                                  {stat.value}
+                                </div>
+                                <div className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">
+                                  {stat.label}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* CTA Mock Drive */}
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-r from-emerald-50 to-teal-50/50 border border-emerald-100/80 mt-4">
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 bg-emerald-500 text-white rounded-lg hidden sm:block">
+                              <BriefcaseIcon className="h-5 w-5" />
+                            </div>
+                            <div>
+                              <h6 className="text-sm font-extrabold text-slate-800">Ready to boost your career prospects?</h6>
+                              <p className="text-xs text-slate-500 font-medium">Join our next batch and get access to exclusive mock drives.</p>
+                            </div>
+                          </div>
+                          <a
+                            href="https://wa.me/919989241515"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-xl shadow-md shadow-emerald-600/10 flex items-center gap-1.5 hover:scale-[1.02] transition-all"
+                          >
+                            Reserve Slot
+                            <ArrowRightIcon className="h-3.5 w-3.5" />
+                          </a>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
