@@ -13,6 +13,7 @@ export default function Careers() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const [copySuccess, setCopySuccess] = useState(null);
 
   useEffect(() => {
@@ -36,11 +37,25 @@ export default function Careers() {
     setTimeout(() => setCopySuccess(null), 3000);
   };
 
-  const filteredJobs = jobs.filter((job) =>
-    job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.location.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Safe search + category filter
+  const filteredJobs = jobs.filter((job) => {
+    const title = job.title || "";
+    const category = job.category || "";
+    const location = job.location || "";
+
+    const matchesSearch =
+      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      location.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === "All" || category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+
+  // Extract unique categories dynamically
+  const categories = ["All", ...new Set(jobs.map((job) => job.category).filter(Boolean))];
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
@@ -111,6 +126,25 @@ export default function Careers() {
             {filteredJobs.length} roles found
           </div>
         </div>
+
+        {/* Dynamic Category Filter Chips */}
+        {categories.length > 2 && (
+          <div className="mb-10 flex flex-wrap gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                className={`rounded-full border px-5 py-2.5 text-xs font-black transition-all ${
+                  selectedCategory === cat
+                    ? "bg-[#2563EB] border-[#2563EB] text-white shadow-md"
+                    : "bg-white border-slate-200 text-slate-600 hover:border-blue-200 hover:text-[#2563EB]"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        )}
 
         {loading ? (
           <div className="rounded-[2rem] border border-blue-100 bg-white p-16 text-center shadow-sm">
