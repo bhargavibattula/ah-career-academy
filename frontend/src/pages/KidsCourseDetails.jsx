@@ -40,6 +40,7 @@ export default function KidsCourseDetails() {
     age: "",
     message: ""
   });
+  const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -52,12 +53,67 @@ export default function KidsCourseDetails() {
   }, [id]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const validate = () => {
+    const newErrors = {};
+
+    const cleanedStudent = formData.studentName.trim();
+    if (!cleanedStudent) {
+      newErrors.studentName = "Student name is required.";
+    } else if (!/^[a-zA-Z\s]{2,50}$/.test(cleanedStudent)) {
+      newErrors.studentName = "Name must be letters & spaces (min 2 characters).";
+    }
+
+    const cleanedParent = formData.parentName.trim();
+    if (!cleanedParent) {
+      newErrors.parentName = "Parent name is required.";
+    } else if (!/^[a-zA-Z\s]{2,50}$/.test(cleanedParent)) {
+      newErrors.parentName = "Name must be letters & spaces (min 2 characters).";
+    }
+
+    const cleanedPhone = formData.phone.trim();
+    if (!cleanedPhone) {
+      newErrors.phone = "Phone number is required.";
+    } else if (!/^[6-9]\d{9}$/.test(cleanedPhone)) {
+      newErrors.phone = "Enter a valid 10-digit WhatsApp number starting with 6-9.";
+    }
+
+    const cleanedEmail = formData.email.trim();
+    if (!cleanedEmail) {
+      newErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(cleanedEmail)) {
+      newErrors.email = "Enter a valid email address.";
+    }
+
+    const cleanedAge = parseInt(formData.age, 10);
+    if (!formData.age) {
+      newErrors.age = "Age is required.";
+    } else if (isNaN(cleanedAge) || cleanedAge < 4 || cleanedAge > 16) {
+      newErrors.age = "Age must be between 4 and 16.";
+    }
+
+    return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
+
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      toast.error("Please correct the errors in the form.");
+      setSubmitting(false);
+      return;
+    }
+
+    setErrors({});
     try {
       const data = await createKidsRegistration({
         ...formData,
@@ -217,68 +273,78 @@ export default function KidsCourseDetails() {
                   <p className="text-blue-200 text-sm font-bold">Reserve a spot for your child today</p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="relative z-10 space-y-4">
+                <form onSubmit={handleSubmit} noValidate className="relative z-10 space-y-4">
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-black uppercase tracking-widest text-blue-300 ml-2">Student Name</label>
                     <input 
-                      required
                       type="text" 
                       name="studentName"
                       value={formData.studentName}
                       onChange={handleChange}
                       placeholder="Enter student name"
-                      className="w-full bg-white/10 border border-white/20 rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-white/40 outline-none focus:border-orange-500 transition-all"
+                      className={`w-full bg-white/10 border rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-white/40 outline-none transition-all focus:border-orange-500 ${
+                        errors.studentName ? "border-red-400" : "border-white/20"
+                      }`}
                     />
+                    {errors.studentName && <p className="text-xs font-semibold text-red-300 mt-1 pl-2">{errors.studentName}</p>}
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-black uppercase tracking-widest text-blue-300 ml-2">Parent Name</label>
                     <input 
-                      required
                       type="text" 
                       name="parentName"
                       value={formData.parentName}
                       onChange={handleChange}
                       placeholder="Enter parent name"
-                      className="w-full bg-white/10 border border-white/20 rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-white/40 outline-none focus:border-orange-500 transition-all"
+                      className={`w-full bg-white/10 border rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-white/40 outline-none transition-all focus:border-orange-500 ${
+                        errors.parentName ? "border-red-400" : "border-white/20"
+                      }`}
                     />
+                    {errors.parentName && <p className="text-xs font-semibold text-red-300 mt-1 pl-2">{errors.parentName}</p>}
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-black uppercase tracking-widest text-blue-300 ml-2">Age</label>
                       <input 
-                        required
                         type="number" 
                         name="age"
                         value={formData.age}
                         onChange={handleChange}
                         placeholder="Age"
-                        className="w-full bg-white/10 border border-white/20 rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-white/40 outline-none focus:border-orange-500 transition-all"
+                        className={`w-full bg-white/10 border rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-white/40 outline-none transition-all focus:border-orange-500 ${
+                          errors.age ? "border-red-400" : "border-white/20"
+                        }`}
                       />
+                      {errors.age && <p className="text-xs font-semibold text-red-300 mt-1 pl-2">{errors.age}</p>}
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-black uppercase tracking-widest text-blue-300 ml-2">Phone Number</label>
                       <input 
-                        required
                         type="tel" 
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="WhatsApp #"
-                        className="w-full bg-white/10 border border-white/20 rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-white/40 outline-none focus:border-orange-500 transition-all"
+                        className={`w-full bg-white/10 border rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-white/40 outline-none transition-all focus:border-orange-500 ${
+                          errors.phone ? "border-red-400" : "border-white/20"
+                        }`}
                       />
+                      {errors.phone && <p className="text-xs font-semibold text-red-300 mt-1 pl-2">{errors.phone}</p>}
                     </div>
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-black uppercase tracking-widest text-blue-300 ml-2">Email Address</label>
                     <input 
-                      required
                       type="email" 
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="Email for communications"
-                      className="w-full bg-white/10 border border-white/20 rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-white/40 outline-none focus:border-orange-500 transition-all"
+                      className={`w-full bg-white/10 border rounded-2xl px-5 py-3.5 text-sm text-white placeholder:text-white/40 outline-none transition-all focus:border-orange-500 ${
+                        errors.email ? "border-red-400" : "border-white/20"
+                      }`}
                     />
+                    {errors.email && <p className="text-xs font-semibold text-red-300 mt-1 pl-2">{errors.email}</p>}
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-black uppercase tracking-widest text-blue-300 ml-2">Message (Optional)</label>

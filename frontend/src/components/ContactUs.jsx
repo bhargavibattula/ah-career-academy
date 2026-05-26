@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import {
   ArrowTopRightOnSquareIcon,
   ChatBubbleLeftRightIcon,
@@ -63,6 +64,7 @@ export default function ContactUs() {
     message: "",
     agree: true,
   });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -70,6 +72,67 @@ export default function ContactUs() {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const validate = () => {
+    const newErrors = {};
+
+    const cleanedName = form.name.trim();
+    if (!cleanedName) {
+      newErrors.name = "Name is required.";
+    } else if (!/^[a-zA-Z\s]{2,50}$/.test(cleanedName)) {
+      newErrors.name = "Enter a valid name (letters and spaces only, min 2 characters).";
+    }
+
+    const cleanedPhone = form.phone.trim();
+    if (!cleanedPhone) {
+      newErrors.phone = "Phone number is required.";
+    } else if (!/^[6-9]\d{9}$/.test(cleanedPhone)) {
+      newErrors.phone = "Enter a valid 10-digit WhatsApp number starting with 6-9.";
+    }
+
+    const cleanedEmail = form.email.trim();
+    if (!cleanedEmail) {
+      newErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(cleanedEmail)) {
+      newErrors.email = "Enter a valid email address.";
+    }
+
+    if (form.mode === "Mode of Training") {
+      newErrors.mode = "Please select a training mode.";
+    }
+
+    if (!form.agree) {
+      newErrors.agree = "You must agree to the terms to proceed.";
+    }
+
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      toast.error("Please correct the errors in the form.");
+      return;
+    }
+
+    setErrors({});
+    toast.success("Message sent successfully! Our counselors will contact you soon.");
+    
+    setForm({
+      name: "",
+      phone: "",
+      email: "",
+      course: "DevOps Engineer",
+      mode: "Mode of Training",
+      message: "",
+      agree: true,
+    });
   };
 
   const fieldClass =
@@ -184,7 +247,7 @@ export default function ContactUs() {
           </div>
         </div>
 
-        <div className="rounded-[2rem] border border-blue-100 bg-white p-6 shadow-2xl shadow-blue-900/10 sm:p-8">
+        <form onSubmit={handleSubmit} noValidate className="rounded-[2rem] border border-blue-100 bg-white p-6 shadow-2xl shadow-blue-900/10 sm:p-8">
           <div className="mb-8">
             <span className="inline-flex items-center gap-2 rounded-full bg-[#38BDF8]/10 px-4 py-1.5 text-sm font-bold text-[#2563EB]">
               <ChatBubbleLeftRightIcon className="h-4 w-4" />
@@ -197,24 +260,72 @@ export default function ContactUs() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <input className={fieldClass} type="text" name="name" placeholder="Name" value={form.name} onChange={handleChange} />
-            <input className={fieldClass} type="tel" name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} />
+            <div>
+              <input 
+                className={`w-full rounded-2xl border px-4 py-3.5 text-sm font-semibold outline-none transition-all placeholder:text-slate-400 focus:ring-4 ${
+                  errors.name ? "border-red-300 focus:border-red-300 focus:ring-red-100 text-red-900" : "border-blue-100 focus:border-[#38BDF8] focus:ring-[#38BDF8]/20 text-[#0F172A]"
+                }`} 
+                type="text" 
+                name="name" 
+                placeholder="Name" 
+                value={form.name} 
+                onChange={handleChange} 
+              />
+              {errors.name && <p className="text-xs font-semibold text-red-500 mt-1 pl-2">{errors.name}</p>}
+            </div>
+            <div>
+              <input 
+                className={`w-full rounded-2xl border px-4 py-3.5 text-sm font-semibold outline-none transition-all placeholder:text-slate-400 focus:ring-4 ${
+                  errors.phone ? "border-red-300 focus:border-red-300 focus:ring-red-100 text-red-900" : "border-blue-100 focus:border-[#38BDF8] focus:ring-[#38BDF8]/20 text-[#0F172A]"
+                }`} 
+                type="tel" 
+                name="phone" 
+                placeholder="Phone" 
+                value={form.phone} 
+                onChange={handleChange} 
+              />
+              {errors.phone && <p className="text-xs font-semibold text-red-500 mt-1 pl-2">{errors.phone}</p>}
+            </div>
           </div>
-          <input className={`${fieldClass} mt-4`} type="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} />
+          <div className="mt-4">
+            <input 
+              className={`w-full rounded-2xl border px-4 py-3.5 text-sm font-semibold outline-none transition-all placeholder:text-slate-400 focus:ring-4 ${
+                errors.email ? "border-red-300 focus:border-red-300 focus:ring-red-100 text-red-900" : "border-blue-100 focus:border-[#38BDF8] focus:ring-[#38BDF8]/20 text-[#0F172A]"
+              }`} 
+              type="email" 
+              name="email" 
+              placeholder="Email" 
+              value={form.email} 
+              onChange={handleChange} 
+            />
+            {errors.email && <p className="text-xs font-semibold text-red-500 mt-1 pl-2">{errors.email}</p>}
+          </div>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            <select className={fieldClass} name="course" value={form.course} onChange={handleChange}>
-              {courses.map((course) => (
-                <option key={course}>{course}</option>
-              ))}
-            </select>
-            <select className={fieldClass} name="mode" value={form.mode} onChange={handleChange}>
-              <option value="Mode of Training" disabled>
-                Mode of Training
-              </option>
-              {modes.map((mode) => (
-                <option key={mode}>{mode}</option>
-              ))}
-            </select>
+            <div>
+              <select className={fieldClass} name="course" value={form.course} onChange={handleChange}>
+                {courses.map((course) => (
+                  <option key={course}>{course}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <select 
+                className={`w-full rounded-2xl border px-4 py-3.5 text-sm font-semibold outline-none transition-all placeholder:text-slate-400 focus:ring-4 ${
+                  errors.mode ? "border-red-300 focus:border-red-300 focus:ring-red-100 text-red-900" : "border-blue-100 focus:border-[#38BDF8] focus:ring-[#38BDF8]/20 text-[#0F172A]"
+                }`} 
+                name="mode" 
+                value={form.mode} 
+                onChange={handleChange}
+              >
+                <option value="Mode of Training" disabled>
+                  Mode of Training
+                </option>
+                {modes.map((mode) => (
+                  <option key={mode}>{mode}</option>
+                ))}
+              </select>
+              {errors.mode && <p className="text-xs font-semibold text-red-500 mt-1 pl-2">{errors.mode}</p>}
+            </div>
           </div>
           <textarea
             className={`${fieldClass} mt-4 min-h-[150px] resize-y`}
@@ -223,23 +334,26 @@ export default function ContactUs() {
             value={form.message}
             onChange={handleChange}
           />
-          <label className="mt-5 flex items-start gap-3 text-sm font-medium leading-6 text-slate-500">
-            <input
-              type="checkbox"
-              name="agree"
-              checked={form.agree}
-              onChange={handleChange}
-              className="mt-1 h-4 w-4 rounded border-blue-200 accent-[#2563EB]"
-            />
-            I agree to receive WhatsApp and SMS updates from AH Career regarding courses and services, as per terms and privacy policy.
-          </label>
+          <div className="mt-5">
+            <label className="flex items-start gap-3 text-sm font-medium leading-6 text-slate-500">
+              <input
+                type="checkbox"
+                name="agree"
+                checked={form.agree}
+                onChange={handleChange}
+                className="mt-1 h-4 w-4 rounded border-blue-200 accent-[#2563EB]"
+              />
+              I agree to receive WhatsApp and SMS updates from AH Career regarding courses and services, as per terms and privacy policy.
+            </label>
+            {errors.agree && <p className="text-xs font-semibold text-red-500 mt-1 pl-2">{errors.agree}</p>}
+          </div>
           <button
-            type="button"
+            type="submit"
             className="mt-6 w-full rounded-2xl bg-[#2563EB] px-6 py-4 text-base font-black text-white shadow-xl shadow-blue-600/20 transition-all hover:-translate-y-0.5 hover:bg-[#1D4ED8]"
           >
             Send Message
           </button>
-        </div>
+        </form>
       </section>
     </div>
   );

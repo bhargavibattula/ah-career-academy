@@ -96,10 +96,27 @@ export default function Chatbot() {
   };
 
   const handleName = () => {
-    if (!name.trim()) return;
-    addMsg(name, "user");
+    const cleanedName = name.trim();
+    if (!cleanedName) {
+      setTimeout(() => {
+        addMsg("Name cannot be empty. Please enter your name to proceed.");
+      }, 200);
+      return;
+    }
+    
+    const nameRegex = /^[a-zA-Z\s]{2,50}$/;
+    if (!nameRegex.test(cleanedName)) {
+      addMsg(cleanedName, "user");
+      setTimeout(() => {
+        addMsg("Please enter a valid name (letters and spaces only, min 2 characters).");
+      }, 400);
+      return;
+    }
+
+    addMsg(cleanedName, "user");
+    setName(cleanedName);
     setTimeout(() => {
-      addMsg(`Nice to meet you, ${name}! Which course are you interested in?`);
+      addMsg(`Nice to meet you, ${cleanedName}! Which course are you interested in?`);
       setStep(STEPS.INTEREST);
     }, 400);
   };
@@ -114,8 +131,24 @@ export default function Chatbot() {
   };
 
   const handlePhone = () => {
-    if (!phone.trim() || phone.length < 10) return;
-    addMsg(phone, "user");
+    const cleanedPhone = phone.trim();
+    if (!cleanedPhone) {
+      setTimeout(() => {
+        addMsg("WhatsApp number cannot be empty. Please enter your number to proceed.");
+      }, 200);
+      return;
+    }
+
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(cleanedPhone)) {
+      addMsg(cleanedPhone, "user");
+      setTimeout(() => {
+        addMsg("Please enter a valid 10-digit WhatsApp number (starting with 6, 7, 8, or 9).");
+      }, 400);
+      return;
+    }
+
+    addMsg(cleanedPhone, "user");
     setTimeout(() => {
       addMsg(`Thanks ${name}! Redirecting you to WhatsApp now... 🚀`);
       setStep(STEPS.DONE);

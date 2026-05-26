@@ -27,6 +27,7 @@ export default function CourseRegistrationPage() {
     city: "",
     notes: "",
   });
+  const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [alreadyRegistered, setAlreadyRegistered] = useState(false);
@@ -85,12 +86,60 @@ export default function CourseRegistrationPage() {
   }, [user, id]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+  };
+
+  const validate = () => {
+    const newErrors = {};
+
+    const cleanedName = formData.name.trim();
+    if (!cleanedName) {
+      newErrors.name = "Full name is required.";
+    } else if (!/^[a-zA-Z\s]{2,50}$/.test(cleanedName)) {
+      newErrors.name = "Name must be letters and spaces only (min 2 characters).";
+    }
+
+    const cleanedPhone = formData.phone.trim();
+    if (!cleanedPhone) {
+      newErrors.phone = "Phone number is required.";
+    } else if (!/^[6-9]\d{9}$/.test(cleanedPhone)) {
+      newErrors.phone = "Enter a valid 10-digit WhatsApp number starting with 6-9.";
+    }
+
+    const cleanedEmail = formData.email.trim();
+    if (!cleanedEmail) {
+      newErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(cleanedEmail)) {
+      newErrors.email = "Enter a valid email address.";
+    }
+
+    const cleanedCity = formData.city.trim();
+    if (!cleanedCity) {
+      newErrors.city = "City is required.";
+    } else if (cleanedCity.length < 2) {
+      newErrors.city = "City must be at least 2 characters.";
+    }
+
+    return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
+
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      toast.error("Please correct the errors in the form.");
+      setSubmitting(false);
+      return;
+    }
+
+    setErrors({});
 
     try {
       const data = await createRegistration({
@@ -204,26 +253,30 @@ export default function CourseRegistrationPage() {
               <h2 className="text-3xl font-black">Personal Details</h2>
               <p className="mt-2 text-sm font-medium text-slate-500">Your information helps us assign the right counselor.</p>
 
-              <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+              <form onSubmit={handleSubmit} noValidate className="mt-8 space-y-5">
                 <div>
                   <label className="mb-2 block text-xs font-black uppercase tracking-wider text-slate-500">Full Name</label>
-                  <input required type="text" name="name" value={formData.name} onChange={handleChange} placeholder="John Doe" className={inputClass} />
+                  <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="John Doe" className={`${inputClass} ${errors.name ? 'border-red-300 focus:border-red-300 focus:ring-red-100' : ''}`} />
+                  {errors.name && <p className="text-xs font-semibold text-red-500 mt-1 pl-1">{errors.name}</p>}
                 </div>
 
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-xs font-black uppercase tracking-wider text-slate-500">Email Address</label>
-                    <input required type="email" name="email" value={formData.email} onChange={handleChange} placeholder="john@example.com" className={inputClass} />
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="john@example.com" className={`${inputClass} ${errors.email ? 'border-red-300 focus:border-red-300 focus:ring-red-100' : ''}`} />
+                    {errors.email && <p className="text-xs font-semibold text-red-500 mt-1 pl-1">{errors.email}</p>}
                   </div>
                   <div>
                     <label className="mb-2 block text-xs font-black uppercase tracking-wider text-slate-500">Phone Number</label>
-                    <input required type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="9989241515" className={inputClass} />
+                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="9989241515" className={`${inputClass} ${errors.phone ? 'border-red-300 focus:border-red-300 focus:ring-red-100' : ''}`} />
+                    {errors.phone && <p className="text-xs font-semibold text-red-500 mt-1 pl-1">{errors.phone}</p>}
                   </div>
                 </div>
 
                 <div>
                   <label className="mb-2 block text-xs font-black uppercase tracking-wider text-slate-500">Current City</label>
-                  <input required type="text" name="city" value={formData.city} onChange={handleChange} placeholder="Rajahmundry" className={inputClass} />
+                  <input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="Rajahmundry" className={`${inputClass} ${errors.city ? 'border-red-300 focus:border-red-300 focus:ring-red-100' : ''}`} />
+                  {errors.city && <p className="text-xs font-semibold text-red-500 mt-1 pl-1">{errors.city}</p>}
                 </div>
 
                 <div>
