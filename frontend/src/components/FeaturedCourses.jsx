@@ -113,7 +113,7 @@ export default function FeaturedCourses() {
             </div>
           </article>
 
-          {courses.map((course) => (
+          {courses.filter((course) => course.id !== "job-ready").map((course) => (
             <article
               key={course.id}
               className="group flex flex-col rounded-3xl border border-blue-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#38BDF8]/70 hover:shadow-2xl hover:shadow-blue-900/10"

@@ -115,7 +115,7 @@ export default function TrendingCourses() {
                 </div>
 
                 <Link
-                  to={`/courses/${course.id}`}
+                  to={course.id === "job-ready" ? "/programs/job-ready" : `/courses/${course.id}`}
                   className="mt-auto flex w-full items-center justify-center gap-2 rounded-xl bg-[#0F172A] py-3.5 text-sm font-black text-white transition-all hover:bg-[#2563EB]"
                 >
                   View Details

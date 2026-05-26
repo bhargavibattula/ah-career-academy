@@ -34,7 +34,7 @@ export default function Navbar() {
       label: "Courses",
       links: dynamicCourses.map((course) => ({
         label: course.title,
-        path: `/courses/${course.id}`,
+        path: course.id === "job-ready" ? "/programs/job-ready" : `/courses/${course.id}`,
       })),
     },
     {
