@@ -157,12 +157,19 @@ export default function Chatbot() {
 
       {/* Main Trigger Button (when bubble is hidden) */}
       {!open && !showGreeting && (
-        <button
+        <div 
+          className="relative group cursor-pointer transition-all transform hover:scale-105 active:scale-95"
           onClick={() => { setOpen(true); setHasDismissedGreeting(true); }}
-          className="w-14 h-14 bg-[#2563EB] text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-[#1D4ED8] transition-all transform hover:scale-105 active:scale-95 shadow-blue-600/25"
         >
-          <ChatBubbleLeftRightIcon className="w-8 h-8" />
-        </button>
+          <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-2xl bg-blue-50">
+            <img 
+              src="/bot_avatar.png" 
+              alt="Chatbot Trigger" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+        </div>
       )}
 
       {/* Chat Window */}
