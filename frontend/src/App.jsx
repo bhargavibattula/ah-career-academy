@@ -31,6 +31,7 @@ import CourseRegistrationPage from "./pages/CourseRegistrationPage";
 
 // Pages
 import LoginPage from "./pages/LoginPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import RegisterPage from "./pages/RegisterPage";
 import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -112,6 +113,7 @@ export default function App() {
             <AdminDashboard />
           </AdminRoute>
         } />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
       <Chatbot />
