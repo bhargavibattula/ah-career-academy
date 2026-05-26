@@ -144,7 +144,7 @@ export default function CompanyLogos() {
               {logosList}
             </div>
           ]}
-          velocity={100}
+          velocity={-180}
           numCopies={8}
           parallaxClassName="parallax w-full"
           scrollerClassName="scroller flex items-center justify-start"
