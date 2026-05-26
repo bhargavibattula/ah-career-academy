@@ -64,6 +64,20 @@ export default function Chatbot() {
     setMessages((prev) => [...prev, { from, text }]);
   };
 
+  const handleOpenChat = () => {
+    setOpen(true);
+    setShowGreeting(false);
+    setHasDismissedGreeting(true);
+    if (step === STEPS.GREETING) {
+      // Automatically reply to start the conversation and focus the name input field
+      addMsg("Hello, I would like to chat!", "user");
+      setTimeout(() => {
+        addMsg("Great! What's your name?");
+        setStep(STEPS.NAME);
+      }, 400);
+    }
+  };
+
   const handleYes = () => {
     setOpen(true);
     setShowGreeting(false);
@@ -78,6 +92,7 @@ export default function Chatbot() {
   const handleNo = () => {
     setShowGreeting(false);
     setHasDismissedGreeting(true);
+    setOpen(false);
   };
 
   const handleName = () => {
@@ -142,7 +157,7 @@ export default function Chatbot() {
             </button>
           </div>
 
-          <div className="relative group cursor-pointer" onClick={() => { setOpen(true); setShowGreeting(false); setHasDismissedGreeting(true); }}>
+          <div className="relative group cursor-pointer" onClick={handleOpenChat}>
             <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-xl bg-blue-50">
               <img 
                 src="/bot_avatar.png" 
@@ -159,7 +174,7 @@ export default function Chatbot() {
       {!open && !showGreeting && (
         <div 
           className="relative group cursor-pointer transition-all transform hover:scale-105 active:scale-95"
-          onClick={() => { setOpen(true); setHasDismissedGreeting(true); }}
+          onClick={handleOpenChat}
         >
           <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-2xl bg-blue-50">
             <img 
@@ -212,6 +227,23 @@ export default function Chatbot() {
 
           {/* Input Area */}
           <div className="border-t border-gray-100 p-4 bg-white shrink-0">
+            {step === STEPS.GREETING && (
+              <div className="flex gap-3 justify-center">
+                <button 
+                  onClick={handleYes}
+                  className="bg-[#2563EB] text-white font-bold px-6 py-2.5 rounded-full shadow hover:bg-[#1D4ED8] transition-all active:scale-95 text-xs"
+                >
+                  Yes
+                </button>
+                <button 
+                  onClick={handleNo}
+                  className="bg-white border border-gray-200 text-gray-700 font-bold px-6 py-2.5 rounded-full shadow hover:bg-gray-50 transition-all active:scale-95 text-xs"
+                >
+                  No
+                </button>
+              </div>
+            )}
+
             {step === STEPS.NAME && (
               <div className="flex gap-2">
                 <input
