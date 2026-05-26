@@ -143,9 +143,9 @@ export default function Chatbot() {
           </div>
 
           <div className="relative group cursor-pointer" onClick={() => { setOpen(true); setShowGreeting(false); setHasDismissedGreeting(true); }}>
-            <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-xl bg-purple-100">
+            <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-xl bg-blue-50">
               <img 
-                src="https://img.freepik.com/free-photo/young-beautiful-woman-customer-service-operator-with-headset-working-office_1303-19542.jpg" 
+                src="/bot_avatar.png" 
                 alt="Support Agent" 
                 className="w-full h-full object-cover"
               />
@@ -170,8 +170,8 @@ export default function Chatbot() {
         <div className="w-80 sm:w-96 h-[500px] bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-gray-100 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-300">
           {/* Header */}
           <div className="bg-[#0F172A] px-5 py-4 flex items-center gap-3 shrink-0">
-            <div className="w-10 h-10 bg-[#2563EB] rounded-xl flex items-center justify-center text-white font-black text-sm flex-shrink-0 shadow-lg shadow-blue-600/25">
-              AH
+            <div className="w-10 h-10 bg-[#2563EB] rounded-xl overflow-hidden flex items-center justify-center text-white font-black text-sm flex-shrink-0 shadow-lg shadow-blue-600/25">
+              <img src="/bot_avatar.png" alt="AH Career Bot" className="w-full h-full object-cover" />
             </div>
             <div className="flex-1">
               <div className="text-white font-bold text-sm">AH Career Support</div>
