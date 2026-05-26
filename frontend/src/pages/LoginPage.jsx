@@ -1,9 +1,17 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ArrowLeftIcon, EyeIcon, EyeSlashIcon, LockClosedIcon, SparklesIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowLeftIcon,
+  EyeIcon,
+  EyeSlashIcon,
+  LockClosedIcon,
+  SparklesIcon,
+  EnvelopeIcon,
+} from "@heroicons/react/24/outline";
 import { loginUser } from "../services/authService";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
+import { motion } from "motion/react";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -59,67 +67,134 @@ export default function LoginPage() {
     }
   };
 
-  const inputClass = (hasError) =>
-    `w-full rounded-2xl border px-4 py-3.5 text-sm font-semibold outline-none transition-all placeholder:text-slate-400 ${
-      hasError
-        ? "border-red-300 bg-red-50 focus:border-red-400 focus:ring-4 focus:ring-red-100"
-        : "border-blue-100 bg-white focus:border-[#38BDF8] focus:ring-4 focus:ring-[#38BDF8]/20"
-    }`;
-
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
-      <div className="mx-auto grid min-h-screen max-w-7xl px-4 py-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:gap-12">
-        <section className="hidden overflow-hidden rounded-[2rem] bg-[#0F172A] p-10 text-white shadow-2xl shadow-blue-950/20 lg:block">
-          <div className="relative">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_12%,rgba(56,189,248,0.28),transparent_34%)]" />
-            <div className="relative">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-bold text-[#38BDF8]">
-                <SparklesIcon className="h-4 w-4" />
-                AH Career Portal
-              </span>
-              <h1 className="mt-8 text-5xl font-black leading-tight tracking-tight">
-                Continue your learning journey.
-              </h1>
-              <p className="mt-5 max-w-xl text-base font-medium leading-8 text-slate-300">
-                Access your dashboard, course registrations, and career learning updates in one clean workspace.
-              </p>
-              <div className="mt-10 grid grid-cols-3 gap-3">
-                {[
-                  ["25+", "Courses"],
-                  ["24/7", "Support"],
-                  ["100%", "Practical"],
-                ].map(([value, label]) => (
-                  <div key={label} className="rounded-2xl bg-white/10 p-4 ring-1 ring-white/10">
-                    <div className="text-2xl font-black text-[#38BDF8]">{value}</div>
-                    <div className="mt-1 text-xs font-semibold text-slate-400">{label}</div>
+    <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] flex flex-col justify-center relative overflow-hidden">
+      {/* Background decoration matching home page */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-0 w-[30%] h-[30%] bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.15),transparent_60%)] filter blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-[30%] h-[30%] bg-[radial-gradient(circle_at_center,rgba(37,99,235,0.12),transparent_60%)] filter blur-3xl" />
+      </div>
+
+      <div className="mx-auto w-full max-w-7xl px-4 py-8 lg:py-16 grid lg:grid-cols-[1.1fr_0.9fr] items-center gap-12 relative z-10">
+        
+        {/* Left Column - Slate Card like the flagship sections */}
+        <motion.section 
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="hidden lg:flex flex-col justify-between h-full min-h-[500px] p-10 rounded-[2.5rem] bg-[#0F172A] text-white relative overflow-hidden shadow-2xl shadow-blue-950/20"
+        >
+          {/* Radial glow */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_14%,rgba(56,189,248,0.22),transparent_32%),radial-gradient(circle_at_86%_28%,rgba(37,99,235,0.18),transparent_30%)]" />
+          
+          <div className="relative z-10">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-bold text-[#38BDF8]">
+              <SparklesIcon className="h-4 w-4" />
+              AH Career Portal
+            </span>
+            <h1 className="mt-8 text-5xl font-black leading-tight tracking-tight">
+              Continue your learning journey.
+            </h1>
+            <p className="mt-5 max-w-xl text-base font-medium leading-8 text-slate-300">
+              Access your dashboard, course registrations, and career learning updates in one clean workspace.
+            </p>
+          </div>
+
+          {/* SaaS interactive block */}
+          <div className="my-8 rounded-2xl bg-white/5 border border-white/10 p-6 backdrop-blur-sm relative z-10">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
+              </div>
+              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active Workspace</span>
+            </div>
+            
+            <div className="space-y-3.5">
+              <div className="flex justify-between items-center bg-white/5 rounded-xl p-3 border border-white/5">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-[#38BDF8]/10 flex items-center justify-center text-[#38BDF8]">
+                    <SparklesIcon className="w-4.5 h-4.5" />
                   </div>
-                ))}
+                  <div>
+                    <div className="text-xs font-black text-white">Full Stack Track</div>
+                    <div className="text-[10px] text-slate-400 mt-0.5">Next milestone: Mock Interview</div>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-xs font-black text-[#38BDF8]">82%</div>
+                  <div className="w-12 h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                    <div className="bg-[#38BDF8] h-full rounded-full w-[82%]" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-between items-center bg-white/5 rounded-xl p-3 border border-white/5">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                    <SparklesIcon className="w-4.5 h-4.5" />
+                  </div>
+                  <div>
+                    <div className="text-xs font-black text-white">Resume Verification</div>
+                    <div className="text-[10px] text-slate-400 mt-0.5">Verified by instructor</div>
+                  </div>
+                </div>
+                <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[9px] font-black text-emerald-400 border border-emerald-500/20">
+                  Approved
+                </span>
               </div>
             </div>
           </div>
-        </section>
 
-        <main className="mx-auto w-full max-w-md">
-          <div className="rounded-[2rem] border border-blue-100 bg-white p-7 shadow-2xl shadow-blue-900/10 sm:p-8">
-            <div className="mb-8 text-center">
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#2563EB] text-white shadow-lg shadow-blue-600/20">
-                <UserCircleIcon className="h-8 w-8" />
+          {/* Stats Bar */}
+          <div className="grid grid-cols-3 gap-4 relative z-10">
+            {[
+              ["25+", "Courses"],
+              ["24/7", "Support"],
+              ["100%", "Practical"],
+            ].map(([value, label]) => (
+              <div key={label} className="rounded-2xl bg-white/5 border border-white/10 p-4">
+                <div className="text-xl font-black text-[#38BDF8]">{value}</div>
+                <div className="mt-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">{label}</div>
               </div>
-              <h1 className="text-3xl font-black">Welcome back</h1>
-              <p className="mt-2 text-sm font-medium text-slate-500">Sign in to your AH Career account.</p>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* Right Column - White Card Form */}
+        <motion.main 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="mx-auto w-full max-w-md"
+        >
+          <div className="rounded-[2rem] border border-blue-100/80 bg-white p-8 shadow-2xl shadow-blue-900/5 relative overflow-hidden">
+            <div className="mb-8 text-center">
+              <h1 className="text-3xl font-black tracking-tight text-[#0F172A]">
+                Welcome Back
+              </h1>
+              <p className="mt-2 text-sm font-semibold text-slate-500">
+                Sign in to continue your learning.
+              </p>
             </div>
 
             <form onSubmit={handleSubmit} noValidate className="space-y-5">
               <div>
                 <label className="mb-2 block text-sm font-bold text-slate-700">Email Address</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="you@example.com"
-                  className={inputClass(errors.email)}
-                />
+                <div className="relative">
+                  <EnvelopeIcon className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="you@example.com"
+                    className={`w-full rounded-2xl border px-4 py-3.5 pl-11 text-sm font-semibold outline-none transition-all placeholder:text-slate-400 bg-slate-50 border-blue-100 focus:bg-white focus:border-[#38BDF8] focus:ring-4 focus:ring-[#38BDF8]/10 text-slate-800 ${
+                      errors.email ? "border-red-300 focus:border-red-300 focus:ring-red-100" : ""
+                    }`}
+                  />
+                </div>
                 {errors.email && <p className="mt-1.5 text-xs font-semibold text-red-500">{errors.email}</p>}
               </div>
 
@@ -133,7 +208,9 @@ export default function LoginPage() {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Enter your password"
-                    className={`${inputClass(errors.password)} pl-11 pr-12`}
+                    className={`w-full rounded-2xl border px-4 py-3.5 pl-11 pr-12 text-sm font-semibold outline-none transition-all placeholder:text-slate-400 bg-slate-50 border-blue-100 focus:bg-white focus:border-[#38BDF8] focus:ring-4 focus:ring-[#38BDF8]/10 text-slate-800 ${
+                      errors.password ? "border-red-300 focus:border-red-300 focus:ring-red-100" : ""
+                    }`}
                   />
                   <button
                     type="button"
@@ -150,7 +227,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#2563EB] px-6 py-4 text-sm font-black text-white shadow-xl shadow-blue-600/20 transition-all hover:-translate-y-0.5 hover:bg-[#1D4ED8] disabled:cursor-not-allowed disabled:bg-blue-300"
+                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#2563EB] to-[#38BDF8] hover:from-[#1D4ED8] hover:to-[#0284c7] py-4 text-sm font-black text-white shadow-xl shadow-blue-500/10 transition-all hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {loading ? (
                   <>
@@ -163,19 +240,19 @@ export default function LoginPage() {
               </button>
             </form>
 
-            <p className="mt-6 text-center text-sm font-medium text-slate-500">
+            <p className="mt-6 text-center text-sm font-semibold text-slate-500">
               Don&apos;t have an account?{" "}
-              <Link to="/register" className="font-black text-[#2563EB] hover:underline">
+              <Link to="/register" className="font-bold text-[#2563EB] hover:underline">
                 Create one
               </Link>
             </p>
           </div>
 
-          <Link to="/" className="mt-5 flex items-center justify-center gap-2 text-sm font-bold text-slate-500 transition-colors hover:text-[#2563EB]">
+          <Link to="/" className="mt-6 flex items-center justify-center gap-2 text-sm font-bold text-slate-500 transition-colors hover:text-[#2563EB]">
             <ArrowLeftIcon className="h-4 w-4" />
             Back to home
           </Link>
-        </main>
+        </motion.main>
       </div>
     </div>
   );
