@@ -20,7 +20,7 @@ const highlights = [
 ];
 
 const stats = [
-  { value: "10+", label: "Years of Excellence" },
+  { value: "25+", label: "Years of Excellence" },
   { value: "25+", label: "Courses Offered" },
   { value: "100%", label: "Practical Training" },
   { value: "24/7", label: "Learning Support" },
