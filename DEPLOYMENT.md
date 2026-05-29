@@ -1,90 +1,64 @@
-# 🚀 Deployment Guide: AH Career Academy
+# 🚀 Deployment Guide: AH Career Academy (Vercel Multi-Services)
 
-This guide outlines the step-by-step instructions to deploy the **AH Career Academy** application using **Vercel** for the frontend, **Render** for the backend, and **MongoDB Atlas** for the database.
+This guide outlines the step-by-step instructions to deploy the entire **AH Career Academy** application (both Frontend and Backend) using **Vercel Multi-Services** (Beta) with **MongoDB Atlas**.
 
 ---
 
 ## 📋 Pre-Deployment Check
-We have added `frontend/vercel.json` to handle client-side routing. This ensures that direct navigation to paths (e.g., `/about` or `/login`) does not return 404 errors on Vercel.
+We have set up the project for Vercel Multi-Services with the following configurations:
+1. **Root `vercel.json`**: Configures Vercel to treat the repository as a monorepo containing:
+   - `frontend` (Vite, mounted at `/`)
+   - `backend` (Express Node.js, mounted at `/_/backend`)
+2. **Frontend `frontend/vercel.json`**: Handles client-side routing rewrites for the SPA.
 
-Before proceeding, run a Git commit and push the new configuration to your repository:
+Commit and push these files to your repository:
 ```bash
-git add frontend/vercel.json
-git commit -m "chore: add vercel.json for SPA routing redirects"
+git add vercel.json frontend/vercel.json DEPLOYMENT.md
+git commit -m "chore: add vercel multi-service and routing configuration"
 git push origin main
 ```
 
 ---
 
 ## 🗄️ Step 1: Database Setup (MongoDB Atlas)
-If you haven't set up a MongoDB Atlas cluster yet:
 1. Log in to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 2. Create a new shared cluster (Free Tier).
-3. **Network Access**: Go to **Network Access** > **Add IP Address** > Select **Allow Access from Anywhere** (`0.0.0.0/0`). 
+3. **Network Access**: Go to **Network Access** > **Add IP Address** > Select **Allow Access from Anywhere** (`0.0.0.0/0`).
    > [!IMPORTANT]
-   > Render uses dynamic IP addresses that change frequently. You must allow access from anywhere, or configure a proxy/static IP service.
-4. **Database Access**: Create a database user with read/write privileges. Keep the username and password handy.
-5. **Connection String**: Click **Connect** > **Drivers** and copy your connection string. It will look like this:
-   `mongodb+srv://<username>:<password>@cluster0.xxxx.mongodb.net/ah-career?retryWrites=true&w=majority`
+   > Vercel's services run on dynamic cloud IPs. You must allow access from anywhere (`0.0.0.0/0`).
+4. **Database Access**: Create a database user with read/write privileges.
+5. **Connection String**: Click **Connect** > **Drivers** and copy your connection string (e.g., `mongodb+srv://<username>:<password>@cluster0.xxxx.mongodb.net/ah-career?retryWrites=true&w=majority`).
 
 ---
 
-## 🖥️ Step 2: Backend Deployment (Render)
-1. Log in to [Render](https://render.com/).
-2. Click **New +** and select **Web Service**.
-3. Connect your GitHub repository.
-4. Configure the Web Service settings:
-   - **Name**: `ah-career-backend` (or your preferred name)
-   - **Environment**: `Node`
-   - **Root Directory**: `backend` *(CRITICAL: Tell Render to run inside the backend folder)*
-   - **Build Command**: `npm install`
-   - **Start Command**: `npm start` (which executes `node server.js`)
-5. Click **Advanced** to add **Environment Variables**:
-   
-   | Key | Value | Description |
-   | :--- | :--- | :--- |
-   | `NODE_ENV` | `production` | Enables production mode optimizations |
-   | `MONGO_URI` | `your_mongodb_atlas_connection_string` | From Step 1 (replace user/password) |
-   | `JWT_SECRET` | `a_long_random_secure_string_here` | Secret key for signing auth tokens |
-   | `FRONTEND_URL` | `https://your-frontend-app.vercel.app` | The production URL of your Vercel app (you can update this after Step 3) |
-   | `PORT` | `10000` | Port for the server (Render automatically sets this, but defining it is good practice) |
-
-6. Click **Deploy Web Service**. Render will build and deploy the backend.
-7. Once deployed, note down your backend URL (e.g., `https://ah-career-backend.onrender.com`). You can test it by visiting `https://ah-career-backend.onrender.com/api/health` in your browser.
-
----
-
-## 🎨 Step 3: Frontend Deployment (Vercel)
+## 🎨 Step 2: Deploying to Vercel (Multi-Service Project)
 1. Log in to [Vercel](https://vercel.com/).
 2. Click **Add New** > **Project** and import your GitHub repository.
-3. Configure the Project settings:
-   - **Framework Preset**: `Vite` (automatically detected)
-   - **Root Directory**: `frontend` *(CRITICAL: Tell Vercel to build starting from the frontend folder)*
-4. Expand **Build and Development Settings** and ensure:
-   - Build Command: `npm run build`
-   - Output Directory: `dist`
-5. Expand **Environment Variables** and add the following variable:
-   
-   | Key | Value | Description |
-   | :--- | :--- | :--- |
-   | `VITE_API_URL` | `https://your-backend-app.onrender.com/api` | The URL of your backend on Render with `/api` appended |
+3. Vercel will automatically read the root `vercel.json` and detect the **Services** project framework.
+4. Add the following **Environment Variables** in the Vercel Project Settings:
 
-6. Click **Deploy**. Vercel will build the frontend React application.
-7. Once completed, Vercel will provide your frontend production domain (e.g., `https://ah-career-academy.vercel.app`).
+   | Key | Value | Service Target / Description |
+   | :--- | :--- | :--- |
+   | `MONGO_URI` | `your_mongodb_atlas_connection_string` | Used by **backend** (Step 1 string) |
+   | `JWT_SECRET` | `a_long_random_secure_string` | Used by **backend** for signing user auth tokens |
+   | `NODE_ENV` | `production` | Used by **backend** to optimize performance |
+   | `VITE_API_URL` | `/_/backend/api` | Used by **frontend** *(CRITICAL: This relative path points directly to your Vercel backend route)* |
+   | `FRONTEND_URL` | `https://your-vercel-domain.vercel.app` | Used by **backend** CORS settings (change to your actual Vercel domain name once deployed) |
+
+5. Click **Deploy**. Vercel will build and start both the Vite frontend and Node backend.
 
 ---
 
-## 🔄 Step 4: Align CORS Settings
-Now that both apps are deployed:
-1. Copy the Vercel production frontend URL (e.g., `https://ah-career-academy.vercel.app`).
-2. Go to your **Render Web Service** dashboard for `ah-career-backend`.
-3. Go to **Environment** and update the `FRONTEND_URL` environment variable value to match your actual Vercel URL.
-4. Save the changes. Render will automatically trigger a re-deployment to apply the new environment variable.
+## 🔒 Cookie & Auth Behavior (Same-Origin Advantage)
+Because both services are hosted under the same Vercel domain (`your-project.vercel.app`):
+- Frontend queries `/_/backend/api/...` which Vercel forwards to the backend (stripping the `/_/backend` prefix).
+- Since it is same-origin, secure HTTP-only cookies (e.g., `token`) are automatically passed by the browser to the backend without CORS or cross-origin restrictions.
+- In addition, the frontend code falls back to `Authorization: Bearer <token>` header auth for dev environments, guaranteeing login status across all settings.
 
 ---
 
 ## ✅ Deployment Verification
-After deployment completes:
-- Visit your Vercel URL (`https://your-frontend-app.vercel.app`).
-- Check if pages like `/about`, `/contact`, `/careers` load and navigate correctly.
-- Test login, registration, and forms. Because we use Bearer Tokens sent via the `Authorization` header, cross-origin authentication is fully supported.
+After deployment finishes:
+1. Open your Vercel project deployment URL.
+2. Verify all React router pages (e.g. `/about`, `/contact`, `/careers`) reload without 404 errors.
+3. Register or sign in to confirm connectivity with the database and authentication service.
