@@ -168,7 +168,7 @@ export default function SummerCampPage() {
   };
 
   const handleWhatsAppRedirect = () => {
-    window.open("https://wa.me/919989241515?text=Hi%20AH%20Career%20Academy%2C%20I%20want%20to%20know%20more%20about%20the%20Summer%20Camp%202025%20programs%20for%20kids.", "_blank");
+    window.open("https://wa.me/919989241515?text=Hi%20AH%20Career%20Academy%2C%20I%20want%20to%20know%20more%20about%20the%20Summer%20Camp%20programs%20for%20kids.", "_blank");
   };
 
   return (
@@ -363,7 +363,7 @@ export default function SummerCampPage() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500" />
             </span>
-            Admissions Open · Summer 2025
+            Admissions Open · Summer Camp
           </div>
 
           <h1
@@ -584,7 +584,7 @@ export default function SummerCampPage() {
 
             <div className="text-center pb-6">
               <p className="text-gray-400 font-semibold text-sm mb-5 flex items-center justify-center gap-2">
-                <ExclamationTriangleIcon className="w-4 h-4 text-orange-400" /> Seats filling fast — Summer 2025 batch nearly full!
+                <ExclamationTriangleIcon className="w-4 h-4 text-orange-400" /> Seats filling fast — Summer batch nearly full!
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <button 

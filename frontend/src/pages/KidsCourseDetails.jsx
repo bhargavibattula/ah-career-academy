@@ -158,7 +158,7 @@ export default function KidsCourseDetails() {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="flex-1 text-center lg:text-left">
               <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full ${course.badge} font-black text-xs uppercase tracking-widest mb-6`}>
-                <SparklesIcon className="w-4 h-4" /> Summer Camp 2025
+                <SparklesIcon className="w-4 h-4" /> Summer Camp
               </div>
               <h1 className="sc-display text-4xl md:text-6xl font-black text-gray-900 mb-6 leading-tight">
                 {course.title}
