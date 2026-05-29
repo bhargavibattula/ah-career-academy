@@ -20,6 +20,7 @@ import {
 import { kidsCourses } from "../data/kidsCourses";
 import { toast } from "react-toastify";
 import { createKidsRegistration } from "../services/kidsRegistrationService";
+import SEO from "../components/SEO";
 
 const IconMap = {
   PuzzlePieceIcon: <PuzzlePieceIcon className="w-12 h-12" />,
@@ -142,6 +143,11 @@ export default function KidsCourseDetails() {
 
   return (
     <div className="min-h-screen bg-white font-sans sc-body pb-20">
+      <SEO 
+        title={`${course.title} for Kids`}
+        description={course.longDesc || course.desc}
+        keywords={`${course.title}, coding for kids, summer camp, educational camp`}
+      />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@600;700;800&display=swap');
         .sc-display { font-family: 'Baloo 2', cursive; }

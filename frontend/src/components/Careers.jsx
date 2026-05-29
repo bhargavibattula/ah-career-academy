@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { getJobs } from "../services/jobService";
 import JobCard from "./jobs/JobCard";
+import SEO from "./SEO";
 
 export default function Careers() {
   const [jobs, setJobs] = useState([]);
@@ -59,6 +60,11 @@ export default function Careers() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+      <SEO 
+        title="Jobs & Careers"
+        description="Explore open software roles, trainer jobs, and administrative positions at AH Career Academy. Direct apply via WhatsApp."
+        keywords="careers, software trainer jobs, coder openings, jobs in rajahmundry"
+      />
       <section className="relative overflow-hidden bg-[#0F172A] px-4 py-20 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_18%,rgba(56,189,248,0.28),transparent_32%),radial-gradient(circle_at_86%_28%,rgba(37,99,235,0.25),transparent_30%)]" />
         <div className="relative mx-auto max-w-7xl">

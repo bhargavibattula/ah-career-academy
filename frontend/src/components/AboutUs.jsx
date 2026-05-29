@@ -1,3 +1,4 @@
+import SEO from "./SEO";
 import {
   AcademicCapIcon,
   ChartBarIcon,
@@ -19,6 +20,11 @@ const features = ["Practical Projects", "Corporate Workshops", "Online & Offline
 export default function AboutUs() {
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+      <SEO 
+        title="About Us"
+        description="Learn about AH Career Academy's 25-year history of technical education, placement achievements, and certified training infrastructure."
+        keywords="about ah career academy, software training rajahmundry, it institute"
+      />
       <section className="relative overflow-hidden bg-[#0F172A] px-4 py-20 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_12%,rgba(56,189,248,0.28),transparent_32%),radial-gradient(circle_at_88%_35%,rgba(37,99,235,0.25),transparent_30%)]" />
         <div className="relative mx-auto max-w-7xl">

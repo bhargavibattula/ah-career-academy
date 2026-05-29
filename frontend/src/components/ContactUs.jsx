@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
+import SEO from "./SEO";
 import {
   ArrowTopRightOnSquareIcon,
   ChatBubbleLeftRightIcon,
@@ -140,6 +141,11 @@ export default function ContactUs() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+      <SEO 
+        title="Contact Us"
+        description="Get in touch with AH Career Academy in Rajahmundry. Call us at 99892 41515, email ahcareerpvtltd@gmail.com, or visit our Danavaipet campus."
+        keywords="contact ah career academy, phone number, address, rajahmundry"
+      />
       <section className="relative overflow-hidden bg-[#0F172A] px-4 py-20 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_12%,rgba(56,189,248,0.28),transparent_32%),radial-gradient(circle_at_86%_30%,rgba(37,99,235,0.25),transparent_28%)]" />
         <div className="relative mx-auto max-w-7xl">

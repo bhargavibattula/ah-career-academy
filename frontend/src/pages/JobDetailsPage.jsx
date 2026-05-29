@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getJobDetails } from '../services/jobService';
 import WhatsAppButton from '../components/jobs/WhatsAppButton';
 import ShareButton from '../components/jobs/ShareButton';
+import SEO from '../components/SEO';
 
 export default function JobDetailsPage() {
   const { idOrSlug } = useParams();
@@ -49,6 +50,11 @@ export default function JobDetailsPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] pb-24 font-sans text-slate-700 antialiased">
+      <SEO 
+        title={job.title}
+        description={`${job.title} job opening at AH Career Academy. Category: ${job.category}. Location: ${job.location}.`}
+        keywords={`${job.title}, software jobs, jobs in Rajahmundry, career portal`}
+      />
       
       {/* Premium Hero Header Banner - Clean Layout, No Overlap */}
       <div className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white pt-28 pb-16 px-4 md:px-8 border-b border-slate-800">

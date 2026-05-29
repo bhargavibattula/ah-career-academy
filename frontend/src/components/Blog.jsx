@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SEO from './SEO';
 
 export const blogsData = [
   {
@@ -71,6 +72,11 @@ export default function Blog() {
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans pb-20">
+      <SEO 
+        title="Our Blog"
+        description="Read the latest articles on web development, machine learning, soft skills, and cybersecurity from AH Career Academy experts."
+        keywords="it blog, learn programming, cybersecurity tips, career advice"
+      />
       <style>{`
         .hero-bg {
           background-color: #0d1b3e;

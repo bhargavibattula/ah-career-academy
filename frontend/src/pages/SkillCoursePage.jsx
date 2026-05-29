@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { motion } from "motion/react";
 import ScrollVelocity from "../components/ScrollVelocity";
+import SEO from "../components/SEO";
 import { 
   AcademicCapIcon, 
   BriefcaseIcon, 
@@ -230,6 +231,11 @@ export default function SkillCoursePage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A] overflow-x-hidden font-sans">
+      <SEO 
+        title={course.title}
+        description={course.description}
+        keywords={`${course.title}, learn ${course.title}, skill course, software training`}
+      />
       
       {/* 1. HERO HEADER SECTION */}
       <section className="relative overflow-hidden pt-24 pb-20 px-4 border-b border-slate-200/50">

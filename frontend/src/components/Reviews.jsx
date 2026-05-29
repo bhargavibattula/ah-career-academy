@@ -1,6 +1,7 @@
 import { ChatBubbleBottomCenterTextIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import { StarIcon as StarSolid } from "@heroicons/react/24/solid";
 import { StarIcon as StarOutline } from "@heroicons/react/24/outline";
+import SEO from "./SEO";
 
 const reviewsData = [
   {
@@ -72,6 +73,11 @@ function Stars({ rating, size = "h-5 w-5" }) {
 export default function Reviews() {
   return (
     <div className="min-h-screen bg-[#F8FAFC] text-[#0F172A]">
+      <SEO 
+        title="Student Reviews"
+        description="Read honest reviews and success stories from alumni of AH Career Academy who secured placements in top software companies."
+        keywords="student reviews, alumni feedback, ah career academy, success stories"
+      />
       <section className="relative overflow-hidden bg-[#0F172A] px-4 py-20 text-white">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(56,189,248,0.28),transparent_32%),radial-gradient(circle_at_84%_30%,rgba(37,99,235,0.25),transparent_30%)]" />
         <div className="relative mx-auto max-w-7xl text-center">

@@ -30,6 +30,7 @@ import {
 } from "@heroicons/react/24/outline";
 
 import { kidsCourses } from "../data/kidsCourses";
+import SEO from "./SEO";
 
 // Helper to map icon names to components
 const IconMap = {
@@ -176,6 +177,11 @@ export default function SummerCampPage() {
       className="w-full font-sans overflow-hidden"
       style={{ background: "linear-gradient(135deg, #FFF8F0 0%, #FFF0FB 40%, #F0F8FF 100%)" }}
     >
+      <SEO 
+        title="Kids Summer Coding Camp"
+        description="Empower your child with coding, visual designing, spoken English, and artificial intelligence at our interactive summer camp."
+        keywords="kids coding, summer camp, learn coding for kids, scratch programming, canva for kids"
+      />
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@600;700;800&display=swap');
 
