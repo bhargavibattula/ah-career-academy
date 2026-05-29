@@ -35,10 +35,16 @@ export default function Footer() {
           <div className="flex flex-col gap-6">
             <div>
               <h4 className="font-bold text-white text-sm mb-4 tracking-wide">DOWNLOAD PROFILE</h4>
-              <button className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-sm px-4 py-3 rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20">
+              <a
+                href="/company-profile.png"
+                download="company-profile.png"
+                target="_blank"
+                rel="noreferrer"
+                className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold text-sm px-4 py-3 rounded-lg inline-flex items-center gap-2 transition-colors shadow-lg shadow-blue-600/20"
+              >
                 <ArrowDownTrayIcon className="w-4 h-4" />
                 DOWNLOAD COMPANY PROFILE
-              </button>
+              </a>
             </div>
             
             <div>
