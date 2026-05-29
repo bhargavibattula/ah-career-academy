@@ -23,21 +23,26 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
   process.env.FRONTEND_URL,
-].filter(Boolean);
+]
+  .filter(Boolean)
+  .map((origin) => origin.trim().replace(/\/$/, ""));
 
 app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin) return callback(null, true);
-      const isLocal = origin.includes("localhost") || origin.includes("127.0.0.1");
-      if (isLocal || allowedOrigins.indexOf(origin) !== -1) {
+      const normalizedOrigin = origin.trim().replace(/\/$/, "");
+      const isLocal = normalizedOrigin.includes("localhost") || normalizedOrigin.includes("127.0.0.1");
+      if (isLocal || allowedOrigins.includes(normalizedOrigin)) {
         return callback(null, true);
       }
-      return callback(new Error("CORS policy blocked access."), false);
+      console.warn(`⚠️ CORS blocked for origin: ${origin}`);
+      return callback(null, false); // Return false instead of throwing to prevent Express 500 error
     },
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    maxAge: 86400, // Preflight cache (24 hours)
   })
 );
 
