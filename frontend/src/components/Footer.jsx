@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { 
   PhoneIcon, 
   DevicePhoneMobileIcon, 
@@ -11,6 +12,29 @@ const footerLinks = {
   "TRENDING COURSES": ["Python", "Java", "Web Designing", "Advanced Excel", "Spoken English"],
 };
 
+const pathMap = {
+  // AH CAREER
+  "About Us": "/about",
+  "Our Blog": "/blog",
+  "Pay Now": "https://wa.me/919989241515?text=Hi%2C%20I%20would%20like%20to%20make%20a%20payment%20for%20my%20course%20at%20AH%20Career%20Academy.",
+  "Contact Us": "/contact",
+  "Reviews": "/reviews",
+
+  // TOP CATEGORIES
+  "Full Stack Development": "/programs/job-ready",
+  "AI & Machine Learning": "/courses/skill-development/data-analytics",
+  "Data Science": "/courses/skill-development/data-analytics",
+  "Digital Marketing": "/contact",
+  "Cybersecurity": "/contact",
+
+  // TRENDING COURSES
+  "Python": "/courses/skill-development/python-full-stack",
+  "Java": "/courses/skill-development/java-full-stack",
+  "Web Designing": "/contact",
+  "Advanced Excel": "/contact",
+  "Spoken English": "/contact"
+};
+
 export default function Footer() {
   return (
     <footer className="bg-[#020617] text-white border-t border-[#38BDF8]/25">
@@ -20,13 +44,31 @@ export default function Footer() {
             <div key={section}>
               <h4 className="font-bold text-white text-sm mb-4 tracking-wide">{section}</h4>
               <ul className="space-y-2.5">
-                {links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-slate-300 text-sm hover:text-[#38BDF8] transition-colors">
-                      {link}
-                    </a>
-                  </li>
-                ))}
+                {links.map((link) => {
+                  const path = pathMap[link] || "#";
+                  const isExternal = path.startsWith("http");
+                  return (
+                    <li key={link}>
+                      {isExternal ? (
+                        <a 
+                          href={path} 
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-slate-300 text-sm hover:text-[#38BDF8] transition-colors"
+                        >
+                          {link}
+                        </a>
+                      ) : (
+                        <Link 
+                          to={path} 
+                          className="text-slate-300 text-sm hover:text-[#38BDF8] transition-colors"
+                        >
+                          {link}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}
