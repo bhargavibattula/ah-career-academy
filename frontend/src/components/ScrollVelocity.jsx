@@ -14,14 +14,26 @@ function useElementWidth(ref) {
   const [width, setWidth] = useState(0);
 
   useLayoutEffect(() => {
-    function updateWidth() {
+    if (!ref.current) return;
+
+    const updateWidth = () => {
       if (ref.current) {
         setWidth(ref.current.offsetWidth);
       }
-    }
+    };
+
     updateWidth();
+
+    // Use ResizeObserver to detect when child elements/SVGs finish loading and reflow the width
+    const observer = new ResizeObserver(updateWidth);
+    observer.observe(ref.current);
+
     window.addEventListener('resize', updateWidth);
-    return () => window.removeEventListener('resize', updateWidth);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', updateWidth);
+    };
   }, [ref]);
 
   return width;
@@ -55,7 +67,7 @@ export const ScrollVelocity = ({
     parallaxStyle,
     scrollerStyle
   }) {
-    const baseX = useMotionValue(-1200);
+    const baseX = useMotionValue(0);
     const scrollOptions = scrollContainerRef ? { container: scrollContainerRef } : {};
     const { scrollY } = useScroll(scrollOptions);
     const scrollVelocity = useVelocity(scrollY);

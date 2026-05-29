@@ -145,7 +145,7 @@ export default function CompanyLogos() {
             </div>
           ]}
           velocity={-180}
-          numCopies={8}
+          numCopies={4}
           parallaxClassName="parallax w-full"
           scrollerClassName="scroller flex items-center justify-start"
           scrollerStyle={{ textTransform: 'none' }}
