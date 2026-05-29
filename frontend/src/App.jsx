@@ -1,5 +1,5 @@
-import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import TrendingCourses from "./components/TrendingCourses";
@@ -49,9 +49,20 @@ import { GuestRoute, ProtectedRoute, AdminRoute } from "./routes/ProtectedRoutes
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 export default function App() {
   return (
     <div className="min-h-screen">
+      <ScrollToTop />
       <Navbar />
       <Suspense fallback={<Loader />}>
         <Routes>
