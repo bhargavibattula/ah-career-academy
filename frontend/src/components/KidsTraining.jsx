@@ -160,6 +160,17 @@ export default function SummerCampPage() {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [hoveredReason, setHoveredReason] = useState(null);
 
+  const scrollToCourses = () => {
+    const section = document.getElementById("courses-section");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleWhatsAppRedirect = () => {
+    window.open("https://wa.me/919989241515?text=Hi%20AH%20Career%20Academy%2C%20I%20want%20to%20know%20more%20about%20the%20Summer%20Camp%202025%20programs%20for%20kids.", "_blank");
+  };
+
   return (
     <div
       className="w-full font-sans overflow-hidden"
@@ -408,7 +419,7 @@ export default function SummerCampPage() {
         </section>
 
         {/* ─────────── COURSES ─────────── */}
-        <section className="px-6 md:px-12 pb-24">
+        <section id="courses-section" className="px-6 md:px-12 pb-24">
           <div className="text-center mb-12">
             <p className="text-orange-500 font-bold text-sm uppercase tracking-widest mb-2">🎒 What We Teach</p>
             <h2 className="sc-display text-3xl md:text-4xl font-black text-gray-900 mb-3">Courses in Summer Camp</h2>
@@ -576,10 +587,16 @@ export default function SummerCampPage() {
                 <ExclamationTriangleIcon className="w-4 h-4 text-orange-400" /> Seats filling fast — Summer 2025 batch nearly full!
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <button className="sc-cta text-white font-black px-10 py-4 rounded-full text-base inline-flex items-center gap-2">
+                <button 
+                  onClick={scrollToCourses}
+                  className="sc-cta text-white font-black px-10 py-4 rounded-full text-base inline-flex items-center gap-2"
+                >
                   Enroll My Child Now <RocketLaunchIcon className="w-5 h-5" />
                 </button>
-                <button className="sc-outline-btn px-8 py-4 rounded-full font-bold text-base flex items-center gap-2">
+                <button 
+                  onClick={handleWhatsAppRedirect}
+                  className="sc-outline-btn px-8 py-4 rounded-full font-bold text-base flex items-center gap-2"
+                >
                   WhatsApp Us <ArrowRightIcon className="w-5 h-5" />
                 </button>
               </div>
