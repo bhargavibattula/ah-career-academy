@@ -14,6 +14,9 @@ import CompanyLogos from "./components/CompanyLogos";
 import JobAccelerationProgram from "./components/JobAccelerationProgram";
 import Chatbot from "./components/Chatbot";
 import FloatingContact from "./components/FloatingContact";
+import RecentJobDrive from "./components/RecentJobDrive";
+import InternshipsSection from "./components/InternshipsSection";
+import Certifications from "./components/Certifications";
 
 // SEO & Loader
 import SEO from "./components/SEO";
@@ -77,8 +80,11 @@ export default function App() {
               <CompanyLogos />
               <JobAccelerationProgram />
               <TrendingCourses />
+              <InternshipsSection />
               <FeaturedCourses />
               <LearningJourney />
+              <RecentJobDrive />
+              <Certifications />
               {/* Dynamic Marquee Section */}
               <div className="bg-[#020617] py-10 overflow-hidden select-none border-y border-[#38BDF8]/20 my-4">
                 <ScrollVelocity
