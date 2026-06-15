@@ -22,7 +22,7 @@ export default function RecentJobDrive() {
             Recent Success
           </h2>
           <h3 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6">
-            Mega Job Drive Q3
+            Mega Job Drive Q4
           </h3>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
             We recently conducted a massive recruitment drive connecting our talented students with top industry leaders, resulting in record-breaking placements.
