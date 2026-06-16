@@ -23,6 +23,10 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
   "https://ah-career-academy.vercel.app",
+  "https://www.ahcareer.in",
+  "https://ahcareer.in",
+  "https://www.atishjain.in",
+  "https://atishjain.in",
   process.env.FRONTEND_URL,
 ]
   .filter(Boolean)
