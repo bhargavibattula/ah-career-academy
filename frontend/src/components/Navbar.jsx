@@ -32,14 +32,11 @@ export default function Navbar() {
   const navLinks = useMemo(() => [
     {
       label: "Courses",
-      links: dynamicCourses.map((course) => ({
-        label: course.title,
-        path: course.id === "job-ready" ? "/programs/job-ready" : `/courses/${course.id}`,
-      })),
-    },
-    {
-      label: "Skill Development",
       links: [
+        ...dynamicCourses.map((course) => ({
+          label: course.title,
+          path: course.id === "job-ready" ? "/programs/job-ready" : `/courses/${course.id}`,
+        })),
         { label: "Java Full Stack Developer", path: "/courses/skill-development/java-full-stack" },
         { label: "Python Full Stack Developer", path: "/courses/skill-development/python-full-stack" },
         { label: "Data Analyst Specialist", path: "/courses/skill-development/data-analytics" },
@@ -80,9 +77,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 flex-shrink-0 group">
-            <img src="/logo.jpg" alt="AH Career Logo" className="h-16 w-auto object-contain" />
-            <span className="text-[#0F172A] font-black text-3xl tracking-tight">AH CAREER</span>
+          <Link to="/" className="flex items-center flex-shrink-0 group">
+            <img src="/logo.jpg" alt="AH Career Logo" className="h-10 sm:h-12 w-auto max-w-[200px] sm:max-w-[250px] object-contain" />
           </Link>
 
           {/* Desktop Nav */}
