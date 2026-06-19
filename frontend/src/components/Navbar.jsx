@@ -29,42 +29,54 @@ export default function Navbar() {
   }, []);
 
   // Dynamically generate nav links to ensure all courses appear
-  const navLinks = useMemo(() => [
-    {
-      label: "Courses",
-      links: [
-        ...dynamicCourses.map((course) => ({
-          label: course.title,
-          path: course.id === "job-ready" ? "/programs/job-ready" : `/courses/${course.id}`,
+  const navLinks = useMemo(() => {
+    const regularCourses = dynamicCourses.filter(c => c.category !== "45 Days Crash Course");
+    const crashCourses = dynamicCourses.filter(c => c.category === "45 Days Crash Course");
+
+    return [
+      {
+        label: "Courses",
+        links: [
+          ...regularCourses.map((course) => ({
+            label: course.title,
+            path: course.id === "job-ready" ? "/programs/job-ready" : `/courses/${course.id}`,
+          })),
+          { label: "Java Full Stack Developer", path: "/courses/skill-development/java-full-stack" },
+          { label: "Python Full Stack Developer", path: "/courses/skill-development/python-full-stack" },
+          { label: "Data Analyst Specialist", path: "/courses/skill-development/data-analytics" },
+        ],
+      },
+      {
+        label: "45 Days Crash Course",
+        links: crashCourses.map((course) => ({
+          label: course.title.replace(" Crash Course", ""),
+          path: `/courses/${course.id}`,
         })),
-        { label: "Java Full Stack Developer", path: "/courses/skill-development/java-full-stack" },
-        { label: "Python Full Stack Developer", path: "/courses/skill-development/python-full-stack" },
-        { label: "Data Analyst Specialist", path: "/courses/skill-development/data-analytics" },
-      ],
-    },
-    {
-      label: "Company",
-      links: [
-        { label: "About Us", path: "/about" },
-        { label: "Careers", path: "/careers" },
-        { label: "Reviews", path: "/reviews" },
-      ],
-    },
-    {
-      label: "Support",
-      links: [
-        { label: "Contact Us", path: "/contact" },
-      ],
-    },
-    {
-      label: "Programs",
-      links: [
-        { label: "Job Ready Program", path: "/programs/job-ready" },
-        { label: "Job Acceleration Program", path: "/programs/job-acceleration" },
-        { label: "Kids Training", path: "/kids-training" },
-      ],
-    },
-  ], [dynamicCourses]);
+      },
+      {
+        label: "Company",
+        links: [
+          { label: "About Us", path: "/about" },
+          { label: "Careers", path: "/careers" },
+          { label: "Reviews", path: "/reviews" },
+        ],
+      },
+      {
+        label: "Support",
+        links: [
+          { label: "Contact Us", path: "/contact" },
+        ],
+      },
+      {
+        label: "Programs",
+        links: [
+          { label: "Job Ready Program", path: "/programs/job-ready" },
+          { label: "Job Acceleration Program", path: "/programs/job-acceleration" },
+          { label: "Kids Training", path: "/kids-training" },
+        ],
+      },
+    ];
+  }, [dynamicCourses]);
 
   const handleLogout = async () => {
     await logout();
