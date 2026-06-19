@@ -10,7 +10,7 @@ import {
 
 const programs = [
   {
-    title: "Java Full Stack Developer",
+    title: "Java Full Stack Developer with AI",
     slug: "java-full-stack",
     subtitle: "Enterprise Applications",
     description: "Learn Java, Spring Boot, microservices, databases, React, and cloud deployments in a hands-on environment.",
@@ -22,7 +22,7 @@ const programs = [
     borderHover: "hover:border-blue-500/50"
   },
   {
-    title: "Python Full Stack Developer",
+    title: "Python Full Stack Developer with AI",
     slug: "python-full-stack",
     subtitle: "Modern Web & SaaS",
     description: "Master Python scripting, Flask web framework, reactive UI with React, databases, and secure authentication.",
@@ -34,7 +34,7 @@ const programs = [
     borderHover: "hover:border-cyan-500/50"
   },
   {
-    title: "Data Analyst Specialist",
+    title: "Data Analyst Specialist with AI",
     slug: "data-analytics",
     subtitle: "Insights & Data Science",
     description: "Transform raw data into insights. Master Python, Pandas, EDA, SQL, Power BI, and foundational ML.",
