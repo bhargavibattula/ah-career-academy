@@ -17,6 +17,7 @@ import FloatingContact from "./components/FloatingContact";
 import RecentJobDrive from "./components/RecentJobDrive";
 import InternshipsSection from "./components/InternshipsSection";
 import Certifications from "./components/Certifications";
+import MiniCourses from "./components/MiniCourses";
 
 // SEO & Loader
 import SEO from "./components/SEO";
@@ -82,6 +83,7 @@ export default function App() {
               <TrendingCourses />
               <InternshipsSection />
               <FeaturedCourses />
+              <MiniCourses />
               <LearningJourney />
               <RecentJobDrive />
               <Certifications />
