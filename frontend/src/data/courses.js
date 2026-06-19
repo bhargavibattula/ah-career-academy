@@ -18,7 +18,7 @@ export const courses = [
   },
   {
     id: "python-fullstack",
-    title: "Python (Core & Advanced)",
+    title: "Python (Core & Advanced) with AI",
     category: "Software & Programming",
     description: "Comprehensive Python programming from basics to advanced frameworks.",
     longDescription: "Learn Python, the world's most popular language. This course covers core syntax, data structures, and advances into web development frameworks like Django/Flask and data science libraries.",
@@ -35,7 +35,7 @@ export const courses = [
   },
   {
     id: "digital-marketing",
-    title: "Digital Marketing",
+    title: "Digital Marketing with AI",
     category: "Design & Marketing",
     description: "Complete guide to modern digital marketing strategies and tools.",
     longDescription: "Master the art of online growth. From SEO and SEM to Social Media Marketing and Content Strategy, this course provides hands-on experience with live projects.",
@@ -52,7 +52,7 @@ export const courses = [
   },
   {
     id: "tally-gst",
-    title: "Tally with GST",
+    title: "Tally with GST with AI",
     category: "Accounts & Office Tools",
     description: "Professional accounting and taxation training with Tally Prime.",
     longDescription: "Become a certified accounting professional. Learn the latest Tally Prime software along with detailed GST compliance, payroll management, and financial reporting.",
@@ -69,7 +69,7 @@ export const courses = [
   },
   {
     id: "job-ready",
-    title: "Job Ready Training Program",
+    title: "Job Ready Training Program with AI",
     category: "Flagship Program",
     description: "Become job ready with industry skills.",
     longDescription: "Master Full Stack Development with hands-on training in Java, Python, React.js, HTML/CSS/JavaScript, Data Structures & Algorithms, and Soft Skills. Build real-time projects and gain practical skills through structured, industry-oriented training designed to help you get placed.",
@@ -86,7 +86,7 @@ export const courses = [
   },
   {
     id: "html-crash",
-    title: "HTML Crash Course",
+    title: "HTML Crash Course with AI",
     category: "45 Days Crash Course",
     description: "Master HTML basics and advanced semantics in 45 days.",
     longDescription: "Learn to structure the web. This intensive crash course covers everything from basic tags to forms, tables, and modern semantic HTML5 features.",
@@ -97,7 +97,7 @@ export const courses = [
   },
   {
     id: "css-crash",
-    title: "CSS Crash Course",
+    title: "CSS Crash Course with AI",
     category: "45 Days Crash Course",
     description: "Master styling, layouts, and animations in 45 days.",
     longDescription: "Style the web like a pro. Dive deep into CSS3, Flexbox, Grid, animations, and responsive web design techniques.",
@@ -108,7 +108,7 @@ export const courses = [
   },
   {
     id: "tally-crash",
-    title: "Tally Crash Course",
+    title: "Tally Crash Course with AI",
     category: "45 Days Crash Course",
     description: "Learn essential Tally Prime & accounting in 45 days.",
     longDescription: "Get hands-on with Tally Prime. Learn daily accounting entries, billing, payroll, and basics of GST.",
@@ -119,7 +119,7 @@ export const courses = [
   },
   {
     id: "seo-crash",
-    title: "SEO Crash Course",
+    title: "SEO Crash Course with AI",
     category: "45 Days Crash Course",
     description: "Rank higher on Google with this 45-day intensive.",
     longDescription: "Master Search Engine Optimization. Learn keyword research, on-page, off-page SEO, technical SEO, and link building.",
@@ -130,7 +130,7 @@ export const courses = [
   },
   {
     id: "sql-crash",
-    title: "SQL Crash Course",
+    title: "SQL Crash Course with AI",
     category: "45 Days Crash Course",
     description: "Master database querying and management in 45 days.",
     longDescription: "Learn to work with relational databases. Write complex queries, joins, subqueries, and understand database design.",
@@ -141,7 +141,7 @@ export const courses = [
   },
   {
     id: "excel-crash",
-    title: "Excel Crash Course",
+    title: "Excel Crash Course with AI",
     category: "45 Days Crash Course",
     description: "Go from beginner to advanced Excel user in 45 days.",
     longDescription: "Master Excel functions, VLOOKUP, pivot tables, data visualization, and macro basics.",
@@ -152,7 +152,7 @@ export const courses = [
   },
   {
     id: "tensorflow-crash",
-    title: "TensorFlow Crash Course",
+    title: "TensorFlow Crash Course with AI",
     category: "45 Days Crash Course",
     description: "Introduction to Deep Learning with TensorFlow.",
     longDescription: "Build your first neural networks. Learn the fundamentals of deep learning, computer vision, and model training using TensorFlow.",
@@ -163,7 +163,7 @@ export const courses = [
   },
   {
     id: "numpy-crash",
-    title: "NumPy Crash Course",
+    title: "NumPy Crash Course with AI",
     category: "45 Days Crash Course",
     description: "Master numerical computing in Python.",
     longDescription: "The foundation of Data Science in Python. Learn to manipulate arrays, perform mathematical operations, and process data efficiently.",
@@ -174,7 +174,7 @@ export const courses = [
   },
   {
     id: "pandas-crash",
-    title: "Pandas Crash Course",
+    title: "Pandas Crash Course with AI",
     category: "45 Days Crash Course",
     description: "Data analysis and manipulation with Pandas.",
     longDescription: "Learn how to clean, transform, and analyze data using Pandas DataFrames and Series.",
@@ -185,7 +185,7 @@ export const courses = [
   },
   {
     id: "matplotlib-crash",
-    title: "Matplotlib Crash Course",
+    title: "Matplotlib Crash Course with AI",
     category: "45 Days Crash Course",
     description: "Data visualization with Matplotlib.",
     longDescription: "Turn data into insights. Learn to create line plots, bar charts, scatter plots, and custom visualizations.",
@@ -196,7 +196,7 @@ export const courses = [
   },
   {
     id: "pytorch-crash",
-    title: "PyTorch Crash Course",
+    title: "PyTorch Crash Course with AI",
     category: "45 Days Crash Course",
     description: "Deep learning fundamentals with PyTorch.",
     longDescription: "Learn the PyTorch framework to build and train dynamic neural networks for AI applications.",
@@ -207,7 +207,7 @@ export const courses = [
   },
   {
     id: "springboot-crash",
-    title: "Spring Boot Crash Course",
+    title: "Spring Boot Crash Course with AI",
     category: "45 Days Crash Course",
     description: "Build scalable enterprise backend services with Java and Spring Boot.",
     longDescription: "Master enterprise Java development. This course takes you through Spring Boot essentials, creating RESTful web services, handling data with Spring Data JPA, and building microservices.",
@@ -224,7 +224,7 @@ export const courses = [
   },
   {
     id: "data-science",
-    title: "Data Science",
+    title: "Data Science with AI",
     category: "Software & Programming",
     description: "Learn Data Science, Machine Learning, and AI.",
     longDescription: "A comprehensive course on Data Science covering statistical analysis, machine learning algorithms, and deep learning.",
@@ -235,7 +235,7 @@ export const courses = [
   },
   {
     id: "web-development",
-    title: "Web Development",
+    title: "Web Development with AI",
     category: "Software & Programming",
     description: "Modern web development with MERN stack.",
     longDescription: "Build responsive, high-performance web applications using MongoDB, Express, React, and Node.js.",
@@ -246,7 +246,7 @@ export const courses = [
   },
   {
     id: "salesforce",
-    title: "Salesforce",
+    title: "Salesforce with AI",
     category: "Skill Development",
     description: "Become a certified Salesforce Administrator and Developer.",
     longDescription: "Learn to manage and develop on the world's leading CRM platform, Salesforce.",
@@ -257,7 +257,7 @@ export const courses = [
   },
   {
     id: "faculty-development-program",
-    title: "Faculty Development Program",
+    title: "Faculty Development Program with AI",
     category: "Skill Development",
     description: "Advanced training program for educators and faculty.",
     longDescription: "Equip educators with modern pedagogical tools, technical skills, and industry insights to better guide students.",
@@ -268,7 +268,7 @@ export const courses = [
   },
   {
     id: "microsoft-azure",
-    title: "Microsoft Azure",
+    title: "Microsoft Azure with AI",
     category: "Cloud Technology",
     description: "Master Microsoft Azure Cloud Services.",
     longDescription: "Learn to deploy, configure, and manage cloud services and resources using Microsoft Azure.",
@@ -279,7 +279,7 @@ export const courses = [
   },
   {
     id: "aws",
-    title: "Amazon Web Services (AWS)",
+    title: "Amazon Web Services (AWS) with AI",
     category: "Cloud Technology",
     description: "Complete guide to Amazon Web Services.",
     longDescription: "Become an AWS Certified Solutions Architect. Learn EC2, S3, RDS, VPC, and modern cloud infrastructure.",
@@ -290,7 +290,7 @@ export const courses = [
   },
   {
     id: "ethical-hacking",
-    title: "Ethical Hacking",
+    title: "Ethical Hacking with AI",
     category: "Cyber Security",
     description: "Learn to secure networks by thinking like a hacker.",
     longDescription: "Master the techniques of footprinting, scanning, exploitation, and vulnerability assessment.",
@@ -301,7 +301,7 @@ export const courses = [
   },
   {
     id: "devops",
-    title: "DevOps",
+    title: "DevOps with AI",
     category: "Software & Programming",
     description: "Master continuous integration and deployment.",
     longDescription: "Automate software delivery pipelines using Git, Jenkins, Docker, Kubernetes, and Ansible.",
@@ -312,7 +312,7 @@ export const courses = [
   },
   {
     id: "cyber-security",
-    title: "Cyber Security",
+    title: "Cyber Security with AI",
     category: "Cyber Security",
     description: "Protect systems and networks from digital attacks.",
     longDescription: "A comprehensive course on securing IT infrastructure, risk management, and incidence response.",
@@ -323,7 +323,7 @@ export const courses = [
   },
   {
     id: "cloud-technology",
-    title: "Cloud Technology",
+    title: "Cloud Technology with AI",
     category: "Cloud Technology",
     description: "Learn the fundamentals of modern cloud computing.",
     longDescription: "Understand cloud architecture, deployment models, and services across major providers like AWS, Azure, and GCP.",
