@@ -52,7 +52,7 @@ export default function TrendingCourses() {
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {courses.map((course, index) => (
+          {courses.filter(c => c.category !== "45 Days Crash Course").slice(0, 4).map((course, index) => (
             <article
               key={course.id}
               className="group relative flex min-h-[420px] flex-col overflow-hidden rounded-3xl border border-blue-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#38BDF8]/70 hover:shadow-2xl hover:shadow-blue-900/10"
