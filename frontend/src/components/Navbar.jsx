@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import { getCourses } from "../services/courseService";
+import { courses as localCourses } from "../data/courses";
 
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState(null);
@@ -12,7 +13,8 @@ export default function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const [dynamicCourses, setDynamicCourses] = useState([]);
+  // Initialize with local courses so the navbar is never empty
+  const [dynamicCourses, setDynamicCourses] = useState(localCourses);
 
   useEffect(() => {
     const fetchCourses = async () => {
@@ -41,9 +43,9 @@ export default function Navbar() {
             label: course.title,
             path: course.id === "job-ready" ? "/programs/job-ready" : `/courses/${course.id}`,
           })),
-          { label: "Java Full Stack Developer", path: "/courses/skill-development/java-full-stack" },
-          { label: "Python Full Stack Developer", path: "/courses/skill-development/python-full-stack" },
-          { label: "Data Analyst Specialist", path: "/courses/skill-development/data-analytics" },
+          { label: "Java Full Stack Developer with AI", path: "/courses/skill-development/java-full-stack" },
+          { label: "Python Full Stack Developer with AI", path: "/courses/skill-development/python-full-stack" },
+          { label: "Data Analyst Specialist with AI", path: "/courses/skill-development/data-analytics" },
         ],
       },
       {

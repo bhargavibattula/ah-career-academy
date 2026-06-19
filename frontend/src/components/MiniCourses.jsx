@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getCourses } from "../services/courseService";
+import { courses as localCourses } from "../data/courses";
 import {
   AcademicCapIcon,
   ArrowRightIcon,
@@ -24,7 +25,8 @@ function Stars() {
 }
 
 export default function MiniCourses() {
-  const [courses, setCourses] = useState([]);
+  // Initialize with local courses so it never renders empty
+  const [courses, setCourses] = useState(localCourses);
 
   useEffect(() => {
     const fetchCourses = async () => {

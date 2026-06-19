@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getCourses } from "../services/courseService";
+import { courses as localCourses } from "../data/courses";
 import {
   ArrowRightIcon,
   CheckCircleIcon,
@@ -10,7 +11,7 @@ import {
 } from "@heroicons/react/24/solid";
 
 export default function TrendingCourses() {
-  const [courses, setCourses] = useState([]);
+  const [courses, setCourses] = useState(localCourses);
 
   useEffect(() => {
     const fetchCourses = async () => {

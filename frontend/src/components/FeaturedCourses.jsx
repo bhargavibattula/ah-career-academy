@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getCourses } from "../services/courseService";
+import { courses as localCourses } from "../data/courses";
 import {
   AcademicCapIcon,
   ArrowRightIcon,
