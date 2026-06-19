@@ -74,10 +74,12 @@ export default function CourseDetails() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_16%,rgba(56,189,248,0.28),transparent_32%),radial-gradient(circle_at_86%_28%,rgba(37,99,235,0.24),transparent_30%)]" />
         <div className="relative mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1fr_0.42fr] lg:items-center">
           <div>
-            <Link to="/" className="mb-7 inline-flex items-center gap-2 text-sm font-bold text-slate-300 transition-colors hover:text-[#38BDF8]">
-              <ArrowLeftIcon className="h-4 w-4" />
-              Back to courses
-            </Link>
+            <div className="mb-6">
+              <Link to="/" className="inline-flex items-center gap-2 text-sm font-bold text-slate-300 transition-colors hover:text-[#38BDF8]">
+                <ArrowLeftIcon className="h-4 w-4" />
+                Back to courses
+              </Link>
+            </div>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-bold text-[#38BDF8]">
               <SparklesIcon className="h-4 w-4" />
               {course.category}
